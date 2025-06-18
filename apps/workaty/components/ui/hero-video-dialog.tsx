@@ -3,7 +3,6 @@
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVideoDialog } from "./VideoDialogContext";
-import Image from "next/image";
 
 interface HeroVideoProps {
   videoSrc: string;
@@ -26,7 +25,7 @@ export default function HeroVideoDialog({
         className="group relative cursor-pointer"
         onClick={() => openVideo(videoSrc)}
       >
-        <Image
+        <img
           src={thumbnailSrc}
           alt={thumbnailAlt}
           width={1920}
