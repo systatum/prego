@@ -45,9 +45,6 @@ export default function LocaleActionModal() {
       </DialogTrigger>
 
       <DialogContent className="flex rounded-xs h-fit w-full max-w-[350px] flex-col gap-1 md:max-w-xl">
-        <div className="w-fit bg-gray-300 p-1 text-[10px] font-medium text-gray-700">
-          Language Workaty
-        </div>
         <div className="flex h-fit w-full flex-col justify-between gap-2 py-2">
           <DialogTitle className="font-semibold">
             Change your language
@@ -57,9 +54,8 @@ export default function LocaleActionModal() {
               <div
                 onClick={() => onChangeLocale(data?.id)}
                 key={index}
-                className="flex cursor-pointer flex-row items-center justify-between rounded-xs px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-300 hover:text-gray-800 active:bg-blue-200"
+                className="flex cursor-pointer flex-row items-start justify-start rounded-xs px-2 py-2 text-sm font-medium transition-colors hover:bg-gray-300 hover:text-gray-800 active:bg-blue-200"
               >
-                <div>{data?.id}</div>
                 <div>{data?.name}</div>
               </div>
             ))}
