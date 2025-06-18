@@ -1,6 +1,6 @@
 query pageQuery {
   ...LayoutQueryFragment
-  postConnection {
+  blogConnection {
     edges {
       node {
         id
@@ -29,8 +29,8 @@ query contentQuery($relativePath: String!) {
 
 query blogPostQuery($relativePath: String!) {
   ...LayoutQueryFragment
-  post(relativePath: $relativePath) {
-    ...PostParts
+  blog(relativePath: $relativePath) {
+    ...BlogParts
     author {
       ... on Author {
         name
