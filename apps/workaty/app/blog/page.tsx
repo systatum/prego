@@ -1,7 +1,9 @@
 import Layout from "@/components/layout/layout";
 import client from "@/tina/__generated__/client";
 import PostsClientPage from "./client-page";
+import { BLOG_METADATA } from "@/constants/GetMetaData";
 
+export const metadata = BLOG_METADATA;
 export const revalidate = 300;
 
 export default async function BlogsPage() {
