@@ -14,6 +14,7 @@ import Footer from "@/components/layout/footer";
 import path from "path";
 import fs from "fs/promises";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
+import { DEFAULT_METADATA } from "@/constants/GetMetaData";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,10 +32,7 @@ const lato = Lato({
   weight: "400",
 });
 
-export const metadata: Metadata = {
-  title: "Tina",
-  description: "Tina Cloud Starter",
-};
+export const metadata = DEFAULT_METADATA;
 
 export default async function RootLayout({
   children,
