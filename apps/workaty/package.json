@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "tinacms build && next build",
+    "dev-next": "next dev",
+    "build-homepage": "next build",
+    "build-admin": "tinacms build && next build",
     "build-local": "tinacms build --local --skip-indexing --skip-cloud-checks && next build",
     "start": "tinacms build && next start",
     "export": "npm run build && next export",
@@ -20,6 +22,7 @@
     "@types/react": "^18.3.23",
     "@types/styled-components": "^5.1.34",
     "autoprefixer": "^10.4.21",
+    "eslint-config-next": "^15.3.3",
     "framer-motion": "^12.18.1",
     "postcss": "^8.5.4",
     "postcss-import": "^16.1.0",
