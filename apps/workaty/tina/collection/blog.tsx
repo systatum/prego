@@ -5,12 +5,12 @@ import type { Collection } from "tinacms";
 
 const Post: Collection = {
   label: "Blog Posts",
-  name: "post",
-  path: "content/posts",
+  name: "blog",
+  path: "content/blog",
   format: "mdx",
   ui: {
     router: ({ document }) => {
-      return `/posts/${document._sys.breadcrumbs.join("/")}`;
+      return `/blog/${document._sys.breadcrumbs.join("/")}`;
     },
   },
   fields: [
