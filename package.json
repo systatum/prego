@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "prego-repo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
