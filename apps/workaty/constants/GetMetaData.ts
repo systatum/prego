@@ -12,9 +12,4 @@ export function createMetadata(title?: string, description?: string): Metadata {
 }
 
 export const DEFAULT_METADATA = createMetadata();
-export const SIGN_IN_METADATA = createMetadata("Sign In");
-export const SIGN_UP_METADATA = createMetadata("Sign Up");
-export const DASHBOARD_METADATA = createMetadata("Dashboard");
-export const EMPLOYEES_DASHBOARD_METADATA = createMetadata(
-  "Employees Dashboard",
-);
+export const BLOG_METADATA = createMetadata("Blog");
