@@ -79,26 +79,27 @@ The monorepo is organized as follows:
 
 ## Development Setup
 
-1. The first is you must move to app you want
+1. First, navigate to the app you want to work on
 
 ```bash
   cd apps/[your-app]
 ```
 
-2. The second is you must install with pnpm to install ur node modules (for running on locally)
+2. Then, install the dependencies using pnpm to set up the project locally
 
 ```bash
  pnpm install
 ```
 
-3. The third is you can run with Tina or not
-   if with Tina
+3. After that, you can choose to run the app with or without Tina:
+
+- To run with Tina
 
 ```bash
  pnpm dev
 ```
 
-else you want not w/ tina
+- To run without Tina:
 
 ```bash
  pnpm dev-local
