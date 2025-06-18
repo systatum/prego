@@ -9,7 +9,10 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@tinacms/cli": "^1.9.8",
+    "@types/node": "^24.0.3",
     "prettier": "^3.5.3",
+    "tinacms": "^2.7.8",
     "turbo": "^2.5.4",
     "typescript": "5.8.2"
   },
