@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
     "dev-local": "next dev",
-    "build-homepage": "next build",
-    "build-admin": "tinacms build && next build",
+    "build": "tinacms build && next build",
     "build-local": "tinacms build --local --skip-indexing --skip-cloud-checks && next build",
     "start": "tinacms build && next start",
     "export": "npm run build && next export",

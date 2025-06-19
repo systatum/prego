@@ -110,16 +110,12 @@ you must need environtment variable like this on your app
    - The ACTIVE_PROJECT value matches your target app
 3. Set all required environment variables.
 4. Build the application:
-   - Homepage only
    ```bash
-   pnpm build-homepage
+   pnpm build
    ```
-   - Homepage + admin panel
-   ```bash
-   pnpm build-admin
-   ```
-
-⚠️ Note: Check your root build on your deployment app, also on tina advance view root
+   ⚠️ Note:
+   - Check your root build on your deployment app, also on tina advance view root
+   - Update for your mode tina (check on env variables)
 
 ### Pages
 
@@ -131,8 +127,7 @@ you must need environtment variable like this on your app
 
 - `pnpm dev`: Run development server with TinaCMS
 - `pnpm dev-local`: Run development server just your
-- `pnpm build-admin`: Build for production with TinaCMS
-- `pnpm build-homepage`: Build for production just homepage
+- `pnpm build`: Build for production (also check for your env variables)
 - `pnpm lint`: Run linter with Biome and EsLint/NextLint
 
 ### Guidelines
