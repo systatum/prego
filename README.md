@@ -99,6 +99,7 @@ you must need environtment variable like this on your app
 3. ACTIVE_PROJECT -> The `active project` name (e.g., `workaty`)
 4. NEXT_PUBLIC_TINA_BRANCH=main -> Branch used for indexing (e.g., main)
 5. VERCEL_ENV=preview -> Deployment environment (e.g., preview)
+6. NEXT_PUBLIC_TINA_MODE=admin -> For show about Tina Admin Panel
 
 ## Building for Production
 
