@@ -1,16 +1,13 @@
 # Prego - Frontend Monorepo Web Homepage w/ Tina 🦙
 
-Prego is a business management platform built using Turbo Monorepo and we can manage for all apps with another framework, ie Next JS, Astro, Hugo, etc. This project uses shadcn UI for consistent and modern components.
-
-For content management, TinaCMS is integrated, allowing you to manage blog content directly via `/admin` (`WYSIWYG` editor using MDX files).
+`Prego` is a unified frontend monorepo developed and maintained by `Systatum`, designed to manage multiple business-related web applications. Built with Turbo Repo, this monorepo supports applications using modern frameworks such as `Next.js, Astro, Hugo, etc.` It leverages shadcn/ui for consistent UI components and integrates `TinaCMS` for streamlined content management via a `WYSIWYG Markdown editor`.
 
 ## Included Applications
 
-Prego includes 4 different web apps:
+Prego currently include different web apps:
 
 - Systatum Homepage
 - Workaty Homepage
-- Plutask Homepage
 - Dashtomer Homepage
 
 ## Project Structure
@@ -21,11 +18,10 @@ The monorepo is organized as follows:
   - `apps/systatum`: Main application for Systatum Homepage
   - `apps/workaty`: Main application for Workaty Homepage
   - `apps/dashtomer`: Main application for Dashtomer Homepage
-  - `apps/plutask`: Main application for Plutask Homepage
 
 ## Tech Stack
 
-- **Framework Management**: Turbo Monorepo
+- **Framework Management**: Turbo Repo
 - **Framework Web**: NextJS 15.3.1
 - **Package Manager**: pnpm
 - **Headless CMS**: Tina CMS
@@ -37,105 +33,100 @@ The monorepo is organized as follows:
 
 ## Key Features
 
-- Live Blog Editing with TinaCMS (WYSIWYG interface)
-- No need to open GitHub: TinaCMS handles commits from the editor
-- Support for MDX content
-- One CMS per app due to Tina's GraphQL constraints
+- Live blog editing using TinaCMS's visual editor
+- Seamless content commits via Tina without opening GitHub
+- Full support for MDX content
+- CMS is scoped per app (due to Tina’s GraphQL architecture)
+- Strict development conventions and consistent styling across apps
 
 ### Prerequisites
 
 - Node.js 18+
 - pnpm 8+
 
-### Installation
+## Getting Started
 
-1. Clone repository
+1. Clone the repository:
 
    ```bash
    git clone <repository-url>
    cd prego
    ```
 
-2. Install dependencies
+2. Install dependencies:
 
    ```bash
    pnpm install or npm install
    ```
 
-3. Run development server
+3. Navigate to the app you want to run
 
-   ```bash
-   pnpm dev or npm run dev
-   ```
+```bash
+ cd apps/[app-name]
+```
 
-4. Then browser at http://localhost:3000
+4. Run development server
+
+- With TinaCMS (admin interface):
+
+```bash
+pnpm dev
+```
+
+- Without TinaCMS (basic site only):
+
+```bash
+pnpm dev-local
+```
+
+5. Then browser at http://localhost:3000
+
+⚠️ Note: TinaCMS `only supports one app at a time due to` its GraphQL design. You must `cd` into the correct app directory first.
 
 ### Local URLs
 
-- http://localhost:3000 or etc (that's not always same, depends on your framework) : browse the website
-- http://localhost:3000/admin : connect to Tina Cloud and go in edit mode
-- http://localhost:3000/exit-admin : log out of Tina Cloud
+- http://localhost:3000 : Main site preview (varies by app, depends on your framework)
+- http://localhost:3000/admin : TinaCMS editor interface
+- http://localhost:3000/exit-admin : Exit TinaCMS admin mode
 - http://localhost:4001/altair/ : GraphQL playground to test queries and browse the API documentation
-
-## Development Setup
-
-1. First, navigate to the app you want to work on
-
-```bash
-  cd apps/[your-app]
-```
-
-2. Then, install the dependencies using pnpm to set up the project locally
-
-```bash
- pnpm install
-```
-
-3. After that, you can choose to run the app with or without Tina:
-
-- To run with Tina
-
-```bash
- pnpm dev
-```
-
-- To run without Tina:
-
-```bash
- pnpm dev-local
-```
-
-⚠️ Note: TinaCMS `only supports one app at a time due to` its GraphQL design. You must `cd` into the correct app directory first.
 
 ## Environtment Variables
 
 you must need environtment variable like this on your app
 
-1. NEXT_PUBLIC_TINA_CLIENT_ID=\*\*\* `You can get on your app.tina.io account (cliend id).`
-2. TINA_TOKEN=\*\*\* `You can get this from your app.tina.io account. Make sure to use a read-only token, since production doesn't require editable access or search features before authorization.)`
-3. ACTIVE_PROJECT -> this is `active project` what you want, example is `workaty`
-4. NEXT_PUBLIC_TINA_BRANCH=main -> this is branch what you want
-5. VERCEL_ENV=preview -> this is just preview
+1. NEXT_PUBLIC_TINA_CLIENT_ID=\*\*\* -> Obtain from your `Tina Cloud` account from app.tina.io
+2. TINA_TOKEN=\*\*\* -> `Read-only token` from Tina Cloud (no write/search permissions in production)require editable access or search
+3. ACTIVE_PROJECT -> The `active project` name (e.g., `workaty`)
+4. NEXT_PUBLIC_TINA_BRANCH=main -> Branch used for indexing (e.g., main)
+5. VERCEL_ENV=preview -> Deployment environment (e.g., preview)
 
 ## Building for Production
 
-1. Make sure your GitHub account is authorized on `app.tina.io`.
-2. In tina/config.ts, configure the indexing based on your GitHub branch (e.g., `main`) — and ensure the "index" option is checked.
-3. In the same file, set the project name to match the `ACTIVE_PROJECT` environment variable, since this is needed to identify the correct collection in a monorepo setup.
-4. Add the required environment variables as listed in the `Environment Variables` section above.
-5. To build the project, use `pnpm build-homepage` for the static homepage only. If you need to include the admin interface, use `pnpm build-admin`.
+1. Authorize your GitHub account in `Tina Cloud` on `app.tina.io`.
+2. In tina/config.ts, ensure:
+   - The correct GitHub branch is used
+   - Indexing is enabled in `Tina Cloud`
+   - The ACTIVE_PROJECT value matches your target app
+3. Set all required environment variables.
+4. Build the application:
+   - Homepage only
+   ```bash
+   pnpm build-homepage
+   ```
+   - Homepage + admin panel
+   ```bash
+   pnpm build-admin
+   ```
 
-Notes:
-
-- Check your root build on your deployment app, also on tina advance view root
+⚠️ Note: Check your root build on your deployment app, also on tina advance view root
 
 ### Pages
 
 - `/` - Home page
-- `/blog` - Blogs page
-- `/blog/[your-markdown.mdx]` - Blog page
+- `/blog` - Blog listing page
+- `/blog/[your-markdown].mdx` - Individual blog post page
 
-## Commands
+## Development Commands
 
 - `pnpm dev`: Run development server with TinaCMS
 - `pnpm dev-local`: Run development server just your
@@ -143,18 +134,18 @@ Notes:
 - `pnpm build-homepage`: Build for production just homepage
 - `pnpm lint`: Run linter with Biome and EsLint/NextLint
 
-### General Guidelines
+### Guidelines
 
-- **English Only**: All code comments, documentation, and UI text must be in English
-- **Component Reuse**: Always check existing components before creating new ones
+- `Use English` only for all documentation, UI copy, and comments.
+- `Prioritize component reuse.` Avoid duplicating components unnecessarily.
 
-### Branch Naming
+### Git Branch Naming
 
-- `feature/feature-name`: For new features
-- `fix/bug-name`: For bug fixes
-- `chore/task-name`: For maintenance tasks
-- `docs/doc-name`: For documentation updates
-- `improvement/improvment-name`: For improvement update
+- `feature/feature-name`: New feature
+- `fix/bug-name`: Bug fix
+- `improvement/improvment-name`: Enchancements or refactors
+- `chore/task-name`: Maintenance or tooling chnages
+- `docs/doc-name`: Documentation updates
 
 ### Commit Messages
 
