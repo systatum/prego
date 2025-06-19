@@ -1,4 +1,4 @@
-import { useHomePageNavbarItems } from "@/components/data/Navigation";
+import { useHomePageNavbarItems } from "@/components/data/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

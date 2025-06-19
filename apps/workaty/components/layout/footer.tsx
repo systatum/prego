@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { WorkatyTypeLogo } from "@/public/workatyLogo";
 import Link from "next/link";
-import { useHomePageNavbarItems } from "../data/Navigation";
+import { useHomePageNavbarItems } from "../data/navigation";
 import LocaleActionModal from "../modal/LocaleActionModal";
 import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
 

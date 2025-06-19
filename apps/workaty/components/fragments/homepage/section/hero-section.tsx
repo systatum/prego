@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { WorkatyHero } from "@/public/assets/landingPage";
-import { DataHeroImage, useHeroSectionData } from "../data/LandingData";
+import { DataHeroImage, useHeroSectionData } from "../data/landing-data";
+import Image from "next/image";
 
 export default function HeroSection() {
   const heroSectionData = useHeroSectionData();

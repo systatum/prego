@@ -1,4 +1,4 @@
-import { useHomePageNavbarItems } from "@/components/data/Navigation";
+import { useHomePageNavbarItems } from "@/components/data/navigation";
 import Link from "next/link";
 import React from "react";
 

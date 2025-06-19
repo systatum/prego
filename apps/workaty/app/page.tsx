@@ -1,5 +1,5 @@
-import HeroSection from "@/components/fragments/homepage/section/HeroSection";
-import PlaceholderSection from "@/components/fragments/homepage/section/PlaceholderSection";
+import HeroSection from "@/components/fragments/homepage/section/hero-section";
+import PlaceholderSection from "@/components/fragments/homepage/section/placeholder-section";
 import ScrollToTopButton from "../../../packages/components/tools/scroll-to-top-button";
 
 export default function Home() {
