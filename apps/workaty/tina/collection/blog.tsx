@@ -1,6 +1,10 @@
 import React from "react";
 import { videoBlockSchema } from "@/components/blocks/video";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "./../../../../packages/components/ui/avatar";
 import type { Collection } from "tinacms";
 
 const Post: Collection = {

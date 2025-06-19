@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { SwipeableHandlers } from "react-swipeable";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
+import { Button } from "./../../../../../packages/components/ui/button";
 
 interface HomePageMobileNavbarProps {
   isOpen: boolean | null;

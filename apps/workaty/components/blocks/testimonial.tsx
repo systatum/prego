@@ -5,8 +5,12 @@ import {
   PageBlocksTestimonialTestimonials,
 } from "../../tina/__generated__/types";
 import { Section } from "../layout/section";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Card, CardContent } from "../ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "./../../../../packages/components/ui/avatar";
+import { Card, CardContent } from "./../../../../packages/components/ui/card";
 import { tinaField } from "tinacms/dist/react";
 import { sectionBlockSchemaField } from "../layout/section";
 

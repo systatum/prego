@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import MobileNavbar from "./section/mobile-navbar";
 import DesktopNavbar from "./section/dekstop-navbar";
-import { Button } from "../ui/button";
+import { Button } from "./../../../../packages/components/ui/button";
 import { useTranslations } from "next-intl";
 
 export default function Navbar() {

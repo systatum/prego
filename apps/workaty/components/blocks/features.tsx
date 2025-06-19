@@ -8,7 +8,11 @@ import { tinaField } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { Icon } from "../icon";
 import { iconSchema } from "../../tina/fields/icon";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "./../../../../packages/components/ui/card";
 import { Section } from "../layout/section";
 import { sectionBlockSchemaField } from "../layout/section";
 import { FC, ReactNode } from "react";

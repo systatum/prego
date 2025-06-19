@@ -6,7 +6,7 @@ import { WorkatyTypeLogo } from "@/public/workatyLogo";
 import Link from "next/link";
 import { useHomePageNavbarItems } from "../data/Navigation";
 import LocaleActionModal from "../modal/LocaleActionModal";
-import { scrollToId } from "../tools/scroll-to-id";
+import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
 
 export default function Footer() {
   const { HOMEPAGE_FOOTER_LINK_ITEMS, HOMEPAGE_SOCIAL_MEDIA_ACCOUNTS } =

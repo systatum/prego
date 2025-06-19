@@ -1,6 +1,6 @@
 import HeroSection from "@/components/fragments/homepage/section/HeroSection";
 import PlaceholderSection from "@/components/fragments/homepage/section/PlaceholderSection";
-import ScrollToTopButton from "@/components/tools/ScrollToTopButton";
+import ScrollToTopButton from "../../../packages/components/tools/scroll-to-top-button";
 
 export default function Home() {
   return (

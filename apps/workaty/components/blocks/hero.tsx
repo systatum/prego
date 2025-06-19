@@ -7,13 +7,13 @@ import {
   PageBlocksHero,
   PageBlocksHeroImage,
 } from "../../tina/__generated__/types";
-import { Button } from "../ui/button";
+import { Button } from "../../../../packages/components/ui/button";
 import { iconSchema } from "@/tina/fields/icon";
 import { Icon } from "../icon";
 import { Section, sectionBlockSchemaField } from "../layout/section";
-import { AnimatedGroup } from "../motion-primitives/animated-group";
-import { TextEffect } from "../motion-primitives/text-effect";
-import HeroVideoDialog from "../ui/hero-video-dialog";
+import { AnimatedGroup } from "./../../../../packages/components/motion-primitives/animated-group";
+import { TextEffect } from "./../../../../packages/components/motion-primitives/text-effect";
+import HeroVideoDialog from "./../../../../packages/components/ui/hero-video-dialog";
 import { CSSProperties } from "react";
 
 const transitionVariants = {

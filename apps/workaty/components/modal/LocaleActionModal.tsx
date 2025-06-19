@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "./../../../../packages/components/ui/dialog";
 import { Globe } from "lucide-react";
 import { LOCALES } from "@/constants/Locale";
 import { LocaleStateProps } from "@/hooks/types/useLocaleStore";

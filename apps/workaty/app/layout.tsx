@@ -1,11 +1,10 @@
 import React, { ReactNode } from "react";
-import { Metadata } from "next";
 import { Inter as FontSans, Lato, Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
-import VideoDialog from "@/components/ui/VideoDialog";
+import { VideoDialogProvider } from "./../../../packages/components/ui/video-dialog-context";
+import VideoDialog from "./../../../packages/components/ui/video-dialog";
 import "@/styles.css";
-import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
+import { TailwindIndicator } from "./../../../packages/components/ui/breakpoint-indicator";
 import { headers } from "next/headers";
 import { LOCALES } from "@/constants/Locale";
 import { NextIntlClientProvider } from "next-intl";

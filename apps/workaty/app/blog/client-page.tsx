@@ -10,9 +10,13 @@ import {
 } from "@/tina/__generated__/types";
 import ErrorBoundary from "@/components/error-boundary";
 import { ArrowRight, UserRound } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Card } from "./../../../../packages/components/ui/card";
 import { Section } from "@/components/layout/section";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "./../../../../packages/components/ui/avatar";
 
 interface ClientPostProps {
   data: BlogConnectionQuery;
