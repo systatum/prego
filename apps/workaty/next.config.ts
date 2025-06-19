@@ -42,6 +42,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  env: {
+    NEXT_PUBLIC_TINA_MODE: process.env.NEXT_PUBLIC_TINA_MODE,
+  },
 };
 
 export default withNextIntl(nextConfig);

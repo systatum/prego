@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LOCALES } from "./constants/Locale";
+import { MATCHER_ROUTES } from "./constants/Routes";
 
 export default function middleware(request: NextRequest) {
   const localeCookie = request.cookies.get("WORKATY_LOCALE")?.value;
+
+  const url = request.nextUrl;
+  const isProd = process.env.NEXT_PUBLIC_TINA_MODE !== "admin";
+
+  if (url.pathname.startsWith("/admin") && isProd) {
+    return NextResponse.rewrite(new URL("/not-found", request.url));
+  }
 
   const acceptLanguage = request.headers.get("Accept-Language");
   const fallbackLocale = acceptLanguage
@@ -22,7 +30,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!admin|_next|api|favicon.ico|robots.txt|.*\\..*|.well-known).*)",
-  ],
+  matcher: MATCHER_ROUTES,
 };
