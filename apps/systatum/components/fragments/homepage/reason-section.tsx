@@ -79,7 +79,7 @@ export default function Reason() {
         <motion.div
           className="max-w-3xl"
           variants={fadeInUp}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
           key={index}
         >
           {description.description}
