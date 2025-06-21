@@ -1,14 +1,19 @@
-# Prego - Frontend Monorepo Web Homepage w/ Tina 🦙
+# Prego (Homepage)
 
-`Prego` is a unified frontend monorepo developed and maintained by `Systatum`, designed to manage multiple business-related web applications. Built with Turbo Repo, this monorepo supports applications using modern frameworks such as `Next.js, Astro, Hugo, etc.` It leverages shadcn/ui for consistent UI components and integrates `TinaCMS` for streamlined content management via a `WYSIWYG Markdown editor`.
+`Prego` is a unified frontend monorepo to manage multiple home pages of our apps and services. It leverages Next.js, Shadcn/ui and integrates Tina CMS for streamlined content management via a WYSIWYG Markdown editor.
 
-## Included Applications
+Key features:
 
-Prego currently include different web apps:
+- Live blog editing using TinaCMS's visual editor
+- Seamless content commits via Tina without opening GitHub
+- Full support for MDX content
+- CMS is scoped per app (due to Tina’s GraphQL architecture)
+- Strict development conventions and consistent styling across apps
 
-- Systatum Homepage
-- Workaty Homepage
-- Dashtomer Homepage
+### Prerequisites
+
+- Node.js 18+
+- pnpm 8+
 
 ## Project Structure
 
@@ -31,19 +36,6 @@ The monorepo is organized as follows:
 - **Authentication**: Zustand (manual for now)
 - **TypeScript**: For type code code safer, more readable, and easier to maintain.
 
-## Key Features
-
-- Live blog editing using TinaCMS's visual editor
-- Seamless content commits via Tina without opening GitHub
-- Full support for MDX content
-- CMS is scoped per app (due to Tina’s GraphQL architecture)
-- Strict development conventions and consistent styling across apps
-
-### Prerequisites
-
-- Node.js 18+
-- pnpm 8+
-
 ## Getting Started
 
 1. Clone the repository:
@@ -61,27 +53,27 @@ The monorepo is organized as follows:
 
 3. Navigate to the app you want to run
 
-```bash
- cd apps/[app-name]
-```
+   ```bash
+   cd apps/[app-name]
+   ```
 
 4. Run development server
 
-- With TinaCMS (admin interface):
+   - With TinaCMS (admin interface):
 
-```bash
-pnpm dev
-```
+   ```bash
+   pnpm dev
+   ```
 
-- Without TinaCMS (basic site only):
+   - Without TinaCMS (basic site only):
 
-```bash
-pnpm dev-local
-```
+   ```bash
+   pnpm dev-local
+   ```
 
-5. Then browser at http://localhost:3000
+5. Then browse at http://localhost:3000
 
-⚠️ Note: TinaCMS `only supports one app at a time due to` its GraphQL design. You must `cd` into the correct app directory first.
+   Note: TinaCMS `only supports one app at a time due to` its GraphQL design. You must `cd` into the correct app directory first.
 
 ### Local URLs
 
@@ -132,8 +124,8 @@ you must need environtment variable like this on your app
 
 ### Guidelines
 
-- `Use English` only for all documentation, UI copy, and comments.
-- `Prioritize component reuse.` Avoid duplicating components unnecessarily.
+- Use English for all documentation, UI copy, and comments.
+- Avoid duplicating components unnecessarily.
 
 ### Git Branch Naming
 
