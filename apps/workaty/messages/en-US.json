@@ -1,0 +1,50 @@
+{
+  "landingPage": {
+    "heroSection": {
+      "title1": "Business in a box.",
+      "title2": "Everything you need, in one app."
+    }
+  },
+  "navigation": {
+    "navbar": {
+      "usage": "Usage",
+      "learn": "Learn",
+      "hiringCandidates": "Hiring Candidates",
+      "recording": "Recording",
+      "knowledgeWiki": "Knowledge Wiki",
+      "helpCenters": "Help Centers",
+      "customerStories": "Customer Stories",
+      "aboutUs": "About Us"
+    },
+    "dashboardNavbar": {
+      "hiring": "Hiring",
+      "jobPost": "Job Post",
+      "candidates": "Candidates",
+      "emailTemplates": "Email Template",
+      "work": "Work",
+      "employees": "Employees",
+      "timeRecord": "Time Record",
+      "announcement": "Announcement",
+      "payroll": "Payroll",
+      "requests": "Requests",
+      "trainingResources": "Training Resources",
+      "integrations": "Integrations",
+      "slack": "Slack",
+      "microsoftTeams": "Microsoft Teams"
+    },
+    "dashboardProfileNavbar": {
+      "setting": "Settings",
+      "signOut": "Sign Out"
+    },
+    "authModal": {
+      "goToDashboard": "Go to Dashboard",
+      "signOut": "Sign Out",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "titleDialog": "Sign out of Account",
+      "detailDialog": "Are you sure you want to sign out?",
+      "title1ButtonDialog": "No",
+      "title2ButtonDialog": "Yes"
+    }
+  }
+}

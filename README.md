@@ -1,84 +1,156 @@
-# Turborepo starter
+# Prego (Homepage)
 
-This Turborepo starter is maintained by the Turborepo core team.
+`Prego` is a unified frontend monorepo to manage multiple home pages of our apps and services. It leverages Next.js, Shadcn/ui and integrates Tina CMS for streamlined content management via a WYSIWYG Markdown editor.
 
-## Using this example
+Key features:
 
-Run the following command:
+- Live blog editing using TinaCMS's visual editor
+- Seamless content commits via Tina without opening GitHub
+- Full support for MDX content
+- CMS is scoped per app (due to Tina’s GraphQL architecture)
+- Strict development conventions and consistent styling across apps
 
-```sh
-npx create-turbo@latest
-```
+### Prerequisites
 
-## What's inside?
+- Node.js 18+
+- pnpm 8+
 
-This Turborepo includes the following packages/apps:
+## Project Structure
 
-### Apps and Packages
+The monorepo is organized as follows:
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `apps/`: Contains Next.js applications.
+  - `apps/systatum`: Main application for Systatum Homepage
+  - `apps/workaty`: Main application for Workaty Homepage
+  - `apps/dashtomer`: Main application for Dashtomer Homepage
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Tech Stack
 
-### Utilities
+- **Framework Management**: Turbo Repo
+- **Framework Web**: NextJS 15.3.1
+- **Package Manager**: pnpm
+- **Headless CMS**: Tina CMS
+- **UI Components**: shadcn/ui (Headless components)
+- **Icon Components**: remix icon
+- **Styling**: Tailwind CSS
+- **Authentication**: Zustand (manual for now)
+- **TypeScript**: For type code code safer, more readable, and easier to maintain.
 
-This Turborepo has some additional tools already setup for you:
+## Getting Started
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1. Clone the repository:
 
-### Build
+   ```bash
+   git clone <repository-url>
+   cd prego
+   ```
 
-To build all apps and packages, run the following command:
+2. Install dependencies:
 
-```
-cd my-turborepo
-pnpm build
-```
+   ```bash
+   pnpm install or npm install
+   ```
 
-### Develop
+3. Navigate to the app you want to run
 
-To develop all apps and packages, run the following command:
+   ```bash
+   cd apps/[app-name]
+   ```
 
-```
-cd my-turborepo
-pnpm dev
-```
+4. Run development server
 
-### Remote Caching
+   - With TinaCMS (admin interface):
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+   ```bash
+   pnpm dev
+   ```
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+   - Without TinaCMS (basic site only):
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+   ```bash
+   pnpm dev-local
+   ```
 
-```
-cd my-turborepo
-npx turbo login
-```
+5. Then browse at http://localhost:3000
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+   Note: TinaCMS `only supports one app at a time due to` its GraphQL design. You must `cd` into the correct app directory first.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Local URLs
 
-```
-npx turbo link
-```
+- http://localhost:3000 : Main site preview (varies by app, depends on your framework)
+- http://localhost:3000/admin : TinaCMS editor interface
+- http://localhost:3000/exit-admin : Exit TinaCMS admin mode
+- http://localhost:4001/altair/ : GraphQL playground to test queries and browse the API documentation
 
-## Useful Links
+## Environtment Variables
 
-Learn more about the power of Turborepo:
+you must need environtment variable like this on your app
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+1. NEXT_PUBLIC_TINA_CLIENT_ID=\*\*\* -> Obtain from your `Tina Cloud` account from app.tina.io
+2. TINA_TOKEN=\*\*\* -> `Read-only token` from Tina Cloud (no write/search permissions in production)require editable access or search
+3. ACTIVE_PROJECT -> The `active project` name (e.g., `workaty`)
+4. NEXT_PUBLIC_TINA_BRANCH=main -> Branch used for indexing (e.g., main)
+5. VERCEL_ENV=preview -> Deployment environment (e.g., preview)
+6. NEXT_PUBLIC_TINA_MODE=admin -> For show about Tina Admin Panel
+
+## Building for Production
+
+1. Authorize your GitHub account in `Tina Cloud` on `app.tina.io`.
+2. In tina/config.ts, ensure:
+   - The correct GitHub branch is used
+   - Indexing is enabled in `Tina Cloud`
+   - The ACTIVE_PROJECT value matches your target app
+3. Set all required environment variables.
+4. Build the application:
+   ```bash
+   pnpm build
+   ```
+   ⚠️ Note:
+   - Check your root build on your deployment app, also on tina advance view root
+   - Update for your mode tina (check on env variables)
+
+### Pages
+
+- `/` - Home page
+- `/blog` - Blog listing page
+- `/blog/[your-markdown].mdx` - Individual blog post page
+
+## Development Commands
+
+- `pnpm dev`: Run development server with TinaCMS
+- `pnpm dev-local`: Run development server just your
+- `pnpm build`: Build for production (also check for your env variables)
+- `pnpm lint`: Run linter with Biome and EsLint/NextLint
+
+### Guidelines
+
+- Use English for all documentation, UI copy, and comments.
+- Avoid duplicating components unnecessarily.
+
+### Git Branch Naming
+
+- `feature/feature-name`: New feature
+- `fix/bug-name`: Bug fix
+- `improvement/improvment-name`: Enchancements or refactors
+- `chore/task-name`: Maintenance or tooling chnages
+- `docs/doc-name`: Documentation updates
+
+### Commit Messages
+
+- Use imperative mood ("Add" not "Added") and capitalize the first letter
+- Keep commits focused on a single change
+- Use descriptive messages that explain what the change does
+
+Examples of good commit messages:
+
+- `Add index page`
+- `Fix authentication error`
+- `Update dashboard layout`
+- `Enable dark mode`
+
+### Pull Requests
+
+- PR names should follow the format: `[Type] Description`
+  - Example: `[Feature] [APP:NUMBER_ISSUE]:Setup monorepo`
+- Avoid grouping big changes into one commit
+- Each PR should have a clear purpose
