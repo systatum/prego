@@ -61,7 +61,7 @@ export default function Product() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-3xl sm:text-4xl text-white md:text-5xl text-center max-w-[400px] sm:max-w-[600px] font-bold leading-tight"
       >
-        We are here for the sake of your progress.
+        What we did
       </motion.h2>
       <div className="flex flex-col items-center justify-center sm:grid sm:grid-cols-2 px-10 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
         {DATA_PRODUCTS.map((product, index) => (

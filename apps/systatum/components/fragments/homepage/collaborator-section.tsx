@@ -86,7 +86,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Adam",
     name_long: "Adam N. Hakarsa",
     teams: TEAMS["ceo"],
-    bio: "My story with software engineering started early — I built my first app for my dad’s university when I was just 10. That small project sparked a lifelong fascination with how people and technology connect. Now, as a graduate student at Harvard, I’m still chasing ideas on how to make the world a better place. I believe the best work comes from being human, staying curious, and never fully arriving — until you are truly fascinated. Nothing more, nothing less.",
+    bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
     profile_picture_url: ProfileAdam,
     color: "blue",
   },
@@ -116,7 +116,7 @@ export default function Collaborator() {
         variants={fadeInLeft}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        Collaborator
+        Members
       </motion.h2>
       <div className="flex flex-col gap-10">
         <div
