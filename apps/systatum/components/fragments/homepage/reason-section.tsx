@@ -19,8 +19,22 @@ const REASON_DESCRIPTION_BOTTOM = [
   {
     description: (
       <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+        You, thank you.
+      </p>
+    ),
+  },
+  {
+    description: (
+      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+        You are the reason why we do what we do.
+      </p>
+    ),
+  },
+  {
+    description: (
+      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
         Your people, business, and platform deserve a system that&apos;s{" "}
-        <strong className="text-gray-900">powerful yet non-intrusive</strong>.
+        powerful yet non-intrusive.
         Great, but not confusing.
       </p>
     ),
@@ -37,8 +51,7 @@ const REASON_DESCRIPTION_BOTTOM = [
   {
     description: (
       <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-        We believe you are meant to{" "}
-        <strong className="text-gray-900">rise</strong>, and we are here to
+        We believe you are meant to rise, and we are here to
         empower you to do good. We are here for the sake of your progress.
       </p>
     ),
@@ -54,27 +67,6 @@ export default function Reason() {
       viewport={{ once: true, amount: 0.3 }}
       variants={staggerContainer}
     >
-      <motion.div
-        className="max-w-4xl flex flex-col gap-4"
-        variants={fadeInUp}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <motion.h1
-          className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight"
-          variants={fadeInUp}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        >
-          You, thank you.
-        </motion.h1>
-        <motion.p
-          className="text-2xl font-mono text-gray-600 font-light leading-relaxed"
-          variants={fadeInUp}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-        >
-          You are the reason why we do what we do.
-        </motion.p>
-      </motion.div>
-
       {REASON_DESCRIPTION_BOTTOM.map((description, index) => (
         <motion.div
           className="max-w-3xl"
