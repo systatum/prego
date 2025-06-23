@@ -7,8 +7,6 @@ import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
-type DotBgColorProps = keyof typeof DOT_BG_VARIANTS;
-
 interface ProfileCollaboratorProps {
   id: number;
   name_short: string;
@@ -16,7 +14,6 @@ interface ProfileCollaboratorProps {
   teams: { short: string; long: string };
   bio: string;
   profile_picture_url: StaticImageData;
-  color: DotBgColorProps;
 }
 
 const fadeInLeft = {
@@ -51,25 +48,6 @@ const expandVariants = {
   },
 };
 
-const DOT_BG_VARIANTS = {
-  red: {
-    backgroundImage: "radial-gradient(circle, #f87171 1px, transparent 1px)",
-    backgroundSize: "10px 10px",
-  },
-  blue: {
-    backgroundImage: "radial-gradient(circle, #60a5fa 1px, transparent 1px)",
-    backgroundSize: "10px 10px",
-  },
-  green: {
-    backgroundImage: "radial-gradient(circle, #34d399 1px, transparent 1px)",
-    backgroundSize: "10px 10px",
-  },
-  yellow: {
-    backgroundImage: "radial-gradient(circle, #facc15 1px, transparent 1px)",
-    backgroundSize: "10px 10px",
-  },
-};
-
 const TEAMS = {
   ceo: { short: "CEO", long: "Chief Executive Officer" },
   mots_fe: { short: "MOTS", long: "Member of Technical Staff, Front-end" },
@@ -88,7 +66,6 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     teams: TEAMS["ceo"],
     bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
     profile_picture_url: ProfileAdam,
-    color: "blue",
   },
   {
     id: 2,
@@ -97,7 +74,6 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     teams: TEAMS["mots_fe"],
     bio: "Passionate Frontend Engineer with a keen eye for user experience and modern web technologies. I love creating intuitive interfaces that bridge the gap between complex functionality and user-friendly design. I hope to bring more value to others through the web—building things that are not only useful, but also meaningful.",
     profile_picture_url: ProfileAlim,
-    color: "red",
   },
 ];
 
@@ -107,7 +83,7 @@ export default function Collaborator() {
     useState<ProfileCollaboratorProps | null>(null);
 
   return (
-    <div className="border-b py-32 px-4 sm:px-20 flex flex-col gap-20">
+    <div className="py-32 px-4 md:px-10 flex justify-center flex-col gap-20">
       <motion.h2
         className="text-center flex flex-col text-4xl md:text-5xl font-bold"
         initial="initial"
@@ -121,7 +97,7 @@ export default function Collaborator() {
       <div className="flex flex-col gap-10">
         <div
           className={cn(
-            "flex flex-wrap items-center justify-center sm:justify-start gap-10 ",
+            "flex flex-wrap items-center justify-center lg:justify-start gap-10 ",
             PROFILE_COLLABORATOR.length > 4 &&
               "grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
           )}
@@ -180,17 +156,13 @@ export default function Collaborator() {
                         className="object-cover w-full h-full"
                       />
                     ) : (
-                      <div
-                        aria-label="dot-profile"
-                        className="absolute inset-0 "
-                        style={{
-                          backgroundImage:
-                            DOT_BG_VARIANTS[profile.color].backgroundImage,
-                          backgroundSize:
-                            DOT_BG_VARIANTS[profile.color].backgroundSize,
-                          backgroundRepeat: "repeat",
-                        }}
-                      ></div>
+                      <Image
+                        src={profile.profile_picture_url as StaticImageData}
+                        alt={`Profile Collaborator Systatum ${profile.name_long}`}
+                        width={160}
+                        height={160}
+                        className="object-cover w-full h-full blur-sm"
+                      />
                     )}
                   </div>
                 </div>
@@ -219,9 +191,9 @@ export default function Collaborator() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="mt-12 mx-4 w-full"
+              className="mt-12 px-4 sm:px-0 flex w-full"
             >
-              <div className="bg-white border border-gray-200 rounded-xs shadow-xs max-w-[380px] sm:max-w-full p-6 relative">
+              <div className="bg-white border w-full border-gray-200 rounded-xs shadow-xs max-w-[580px] sm:max-w-full p-6 relative">
                 <button
                   onClick={() => {
                     setIsHovered(null);
@@ -247,15 +219,15 @@ export default function Collaborator() {
 
                   <div className="flex flex-col gap-2">
                     <div className="flex flex-col">
-                      <h3 className="text-2xl font-bold text-gray-900">
+                      <h3 className="text-4xl md:text-2xl font-bold text-gray-900">
                         {expandedProfile.name_long}
                       </h3>
-                      <p className="text-lg text-gray-600">
+                      <p className="text-base md:text-lg text-gray-600">
                         {expandedProfile.teams.long}
                       </p>
                     </div>
 
-                    <div className="text-gray-700 leading-relaxed">
+                    <div className="text-gray-700 text-sm md:text-base leading-relaxed">
                       {expandedProfile.bio}
                     </div>
                   </div>

@@ -22,7 +22,6 @@ const DATA_PRODUCTS: DataProductProps[] = [
     image: WorkatyImage,
     link: "https://workaty.com",
   },
-
   {
     title: "Coneto",
     description:
@@ -54,7 +53,7 @@ export default function Product() {
       whileInView="animate"
       viewport={{ once: true, amount: 0.4 }}
       transition={{ staggerChildren: 0.3 }}
-      className="cursor-pointer flex flex-col min-h-[700px] items-center justify-center gap-16 border-b lg:px-16 py-20 bg-black"
+      className="cursor-pointer flex flex-col min-h-[700px] items-center justify-center gap-16 border-b lg:px-2 py-32 bg-black"
     >
       <motion.h2
         variants={fadeInUp}
@@ -63,7 +62,7 @@ export default function Product() {
       >
         What we did
       </motion.h2>
-      <div className="flex flex-col items-center justify-center sm:grid sm:grid-cols-2 px-10 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
+      <div className="flex flex-col items-center justify-center sm:grid md:grid-cols-2 px-10 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
         {DATA_PRODUCTS.map((product, index) => (
           <motion.a
             href={product.link}
@@ -79,18 +78,10 @@ export default function Product() {
             onMouseEnter={() => setIsHovered(index)}
             onMouseLeave={() => setIsHovered(null)}
             className={cn(
-              "flex bg-white transform duration-300 animate-in hover:bg-blue-100 flex-col gap-10 p-6 rounded-xs overflow-hidden relative border w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
+              "flex bg-white transform duration-300 animate-in flex-col gap-10 p-6 rounded-xs overflow-hidden relative border-2 w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
               isHovered === index && "border-blue-400"
             )}
             key={index}
-            style={
-              isHovered === index
-                ? {
-                    background:
-                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                  }
-                : {}
-            }
           >
             {isHovered === index &&
               [...Array(40)].map((_, i) => (
@@ -119,19 +110,17 @@ export default function Product() {
             <h2
               className={cn(
                 "px-2 block text-2xl font-mono font-semibold hover-title-animation",
-                isHovered === index && "is-hovered"
+                isHovered === index && "is-hovered text-white"
               )}
             >
               {product.title}
             </h2>
 
-            <p className={cn("px-2", isHovered === index && "text-white")}>
-              {product.description}
-            </p>
+            <p className="px-2">{product.description}</p>
             <div
               aria-label="logo"
               className={cn(
-                "absolute -bottom-3 -right-3 lg:-bottom-6 lg:-right-12 w-[120px] md:w-[120px] lg:w-[180px]",
+                "absolute -bottom-3 -right-3 lg:-bottom-6 lg:-right-4 w-[120px] md:w-[120px] lg:w-[120px]",
                 isHovered !== index && "grayscale"
               )}
             >
