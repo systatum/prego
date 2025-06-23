@@ -1,7 +1,5 @@
 "use client";
 
-import { SystatumLogo } from "@/public/systatum";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -57,7 +55,11 @@ export default function Hero() {
               scrolled && "flex md:hidden left-6 top-[19px]"
             )}
           >
-            <Image alt="Systatum Logo" src={SystatumLogo} width={300} />
+            <img
+              alt="Systatum Logo"
+              src={"/systatum/2048icon.png"}
+              width={300}
+            />
           </div>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -79,7 +81,11 @@ export default function Hero() {
             aria-label="logo-systatum-medium-to-up"
             className="w-[120px] md:w-[160px] lg:w-[210px] md:left-8 lg:left-12 top-[240px] lg:top-[280px] md:fixed md:flex hidden"
           >
-            <Image alt="Systatum Logo" src={SystatumLogo} width={300} />
+            <img
+              alt="Systatum Logo"
+              src={"/systatum/2048icon.png"}
+              width={300}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -111,7 +117,11 @@ export default function Hero() {
               aria-label="logo-systatum-mobile-to-small"
               className="w-[120px] md:w-[160px] lg:w-[210px] left-16 top-[280px] md:hidden"
             >
-              <Image alt="Systatum Logo" src={SystatumLogo} width={300} />
+              <img
+                alt="Systatum Logo"
+                src={"/systatum/2048icon.png"}
+                width={300}
+              />
             </motion.div>
           )}
         </AnimatePresence>

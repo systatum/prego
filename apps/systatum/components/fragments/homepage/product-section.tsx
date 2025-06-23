@@ -1,39 +1,33 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { SystatumLogo } from "@/public/systatum";
-import Image, { StaticImageData } from "next/image";
-import { GaraImage, WorkatyImage } from "@/public/product";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 interface DataProductProps {
   title: string;
   description: string;
-  image?: StaticImageData;
+  image?: string;
   link?: string;
 }
 
 const DATA_PRODUCTS: DataProductProps[] = [
   {
     title: "Workaty",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos aut accusantium quos dolor eaque exercitationem praesentium",
-    image: WorkatyImage,
+    description: "Lorem ipsum...",
+    image: "/product/workaty.png",
     link: "https://workaty.com",
   },
   {
     title: "Coneto",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos aut accusantium quos dolor eaque exercitationem praesentium",
-    image: SystatumLogo,
+    description: "Lorem ipsum...",
+    image: "/systatum/2048 2048.png",
     link: "https://coneto.systatum.com",
   },
   {
     title: "Gara",
-    description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos aut accusantium quos dolor eaque exercitationem praesentium",
-    image: GaraImage,
+    description: "Lorem ipsum...",
+    image: "/product/gara.png",
     link: "https://kodegara.org",
   },
 ];
@@ -124,11 +118,7 @@ export default function Product() {
                 isHovered !== index && "grayscale"
               )}
             >
-              <Image
-                alt="Systatum Logo"
-                src={product.image as StaticImageData}
-                width={150}
-              />
+              <img alt="Systatum Logo" src={product.image} width={150} />
             </div>
           </motion.a>
         ))}

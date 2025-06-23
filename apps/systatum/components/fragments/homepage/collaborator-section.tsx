@@ -1,10 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ProfileAdam, ProfileAlim } from "@/public/profile";
 import { RiCloseFill } from "@remixicon/react";
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
-import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
 interface ProfileCollaboratorProps {
@@ -13,7 +11,7 @@ interface ProfileCollaboratorProps {
   name_long: string;
   teams: { short: string; long: string };
   bio: string;
-  profile_picture_url: StaticImageData;
+  profile_picture_url: string;
 }
 
 const fadeInLeft = {
@@ -65,7 +63,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Adam N. Hakarsa",
     teams: TEAMS["ceo"],
     bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
-    profile_picture_url: ProfileAdam,
+    profile_picture_url: "/profile/profile-adam.png",
   },
   {
     id: 2,
@@ -73,7 +71,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Alim Naufal",
     teams: TEAMS["mots_fe"],
     bio: "Passionate Frontend Engineer with a keen eye for user experience and modern web technologies. I love creating intuitive interfaces that bridge the gap between complex functionality and user-friendly design. I hope to bring more value to others through the web—building things that are not only useful, but also meaningful.",
-    profile_picture_url: ProfileAlim,
+    profile_picture_url: "profile/profile-alim.jpeg",
   },
 ];
 
@@ -148,16 +146,16 @@ export default function Collaborator() {
                   <div className="relative w-full h-full">
                     {isHovered === profile.id ||
                     (expandedProfile && expandedProfile.id === profile.id) ? (
-                      <Image
-                        src={profile.profile_picture_url as StaticImageData}
+                      <img
+                        src={profile.profile_picture_url}
                         alt={`Profile Collaborator Systatum ${profile.name_long}`}
                         width={160}
                         height={160}
                         className="object-cover w-full h-full"
                       />
                     ) : (
-                      <Image
-                        src={profile.profile_picture_url as StaticImageData}
+                      <img
+                        src={profile.profile_picture_url}
                         alt={`Profile Collaborator Systatum ${profile.name_long}`}
                         width={160}
                         height={160}
@@ -208,10 +206,8 @@ export default function Collaborator() {
                 <div className="flex flex-col sm:flex-row gap-6">
                   <div className="flex-shrink-0">
                     <div className="w-32 h-32 rounded-xs overflow-hidden border border-gray-300">
-                      <Image
-                        src={
-                          expandedProfile.profile_picture_url as StaticImageData
-                        }
+                      <img
+                        src={expandedProfile.profile_picture_url}
                         alt={`Profile of ${expandedProfile.name_long}`}
                       />
                     </div>
