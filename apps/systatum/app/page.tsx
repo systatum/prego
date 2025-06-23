@@ -17,9 +17,11 @@ export default function Home() {
   return (
     <div className="mx-auto w-full items-center justify-center gap-10">
       <Hero />
-      <Reason />
-      <Product />
-      <Collaborator />
+      <div className="md:ml-[220px] lg:ml-[300px]">
+        <Reason />
+        <Product />
+        <Collaborator />
+      </div>
       <Footer />
     </div>
   );

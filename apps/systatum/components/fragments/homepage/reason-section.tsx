@@ -18,42 +18,35 @@ const staggerContainer = {
 const REASON_DESCRIPTION_BOTTOM = [
   {
     description: (
-      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-        You, thank you.
-      </p>
+      <span className="font-semibold text-3xl">You, thank you.</span>
     ),
   },
   {
-    description: (
-      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-        You are the reason why we do what we do.
-      </p>
-    ),
+    description: <>You are the reason why we do what we do.</>,
   },
   {
     description: (
-      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+      <>
         Your people, business, and platform deserve a system that&apos;s{" "}
-        powerful yet non-intrusive.
-        Great, but not confusing.
-      </p>
+        powerful yet non-intrusive. Great, but not confusing.
+      </>
     ),
   },
   {
     description: (
-      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
+      <>
         Think of us as your multiplier. From Workaty, our smart HR operating
         system, to our open-sourced design language Coneto, each product we
         build enabled leaders, builders, and thinkers at all stage to do more.
-      </p>
+      </>
     ),
   },
   {
     description: (
-      <p className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-        We believe you are meant to rise, and we are here to
-        empower you to do good. We are here for the sake of your progress.
-      </p>
+      <>
+        We believe you are meant to rise, and we are here to empower you to do
+        good. We are here for the sake of your progress.
+      </>
     ),
   },
 ];
@@ -61,7 +54,7 @@ const REASON_DESCRIPTION_BOTTOM = [
 export default function Reason() {
   return (
     <motion.div
-      className="px-10 sm:px-16 md:px-20 lg:px-32 py-40 min-h-[460px] flex flex-col gap-10 border-b border-gray-100 bg-gray-50"
+      className="px-10 sm:px-16 md:px-20 lg:px-32 py-40 min-h-[460px] flex flex-col gap-6 border-b border-gray-100 bg-gray-50"
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.3 }}
@@ -74,7 +67,9 @@ export default function Reason() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
           key={index}
         >
-          {description.description}
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed">
+            {description.description}
+          </p>
         </motion.div>
       ))}
     </motion.div>
