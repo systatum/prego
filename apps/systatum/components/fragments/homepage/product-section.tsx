@@ -21,7 +21,7 @@ const DATA_PRODUCTS: DataProductProps[] = [
   {
     title: "Coneto",
     description: "Lorem ipsum...",
-    image: "/systatum/2048 2048.png",
+    image: "/systatum/2048icon.png",
     link: "https://coneto.systatum.com",
   },
   {
