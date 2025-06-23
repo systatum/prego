@@ -1,4 +1,4 @@
-# Prego (Homepage)
+# Prego
 
 `Prego` is a unified frontend monorepo to manage multiple home pages of our apps and services. It leverages Next.js, Shadcn/ui and integrates Tina CMS for streamlined content management via a WYSIWYG Markdown editor.
 
