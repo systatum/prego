@@ -131,7 +131,7 @@ export default function Hero() {
             "font-light items-center w-full justify-start text-5xl sm:text-6xl md:text-7xl lg:text-8xl max-w-[350px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]",
             showOtherElements
               ? "md:translate-x-[200px] lg:translate-x-[320px]"
-              : "absolute top-[376px] sm:top-[128px] sm:left-[167px] md:left-[208px] lg:left-[370px]"
+              : "absolute top-[376px] sm:top-[128px] sm:left-[167px] md:left-[200px] lg:left-[320px]"
           )}
         >
           {displayedText}
