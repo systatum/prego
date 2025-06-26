@@ -72,7 +72,7 @@ export default function Product() {
             onMouseEnter={() => setIsHovered(index)}
             onMouseLeave={() => setIsHovered(null)}
             className={cn(
-              "flex bg-white transform duration-300 animate-in flex-col gap-10 p-6 rounded-xs overflow-hidden relative border-2 w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
+              "flex bg-white transform duration-300 animate-in flex-col gap-10 sm:min-w-[400px] md:min-w-0 p-6 rounded-xs overflow-hidden relative border-2 w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
               isHovered === index && "border-blue-400"
             )}
             key={index}
