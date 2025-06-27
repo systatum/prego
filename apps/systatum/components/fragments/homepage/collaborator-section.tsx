@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { RiCloseFill } from "@remixicon/react";
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { useState } from "react";
+import { scrollToId } from "./../../../../../packages/components/tools/scroll-to-id";
 
 interface ProfileCollaboratorProps {
   id: number;
@@ -50,7 +51,7 @@ const TEAMS = {
   ceo: { short: "CEO", long: "Chief Executive Officer" },
   mots_fe: { short: "MOTS", long: "Member of Technical Staff, Front-end" },
   imots_pl: {
-    short: "MOTS",
+    short: "IMOTS",
     long: "Intern Member of Technical Staff, Programing Language Research Laboratory",
   },
   pop: { short: "People", long: "People Operations" },
@@ -72,6 +73,54 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     teams: TEAMS["mots_fe"],
     bio: "Passionate Frontend Engineer with a keen eye for user experience and modern web technologies. I love creating intuitive interfaces that bridge the gap between complex functionality and user-friendly design. I hope to bring more value to others through the web—building things that are not only useful, but also meaningful.",
     profile_picture_url: "profile/profile-alim.jpeg",
+  },
+  {
+    id: 3,
+    name_short: "Salwa",
+    name_long: "Salwa Gusmy",
+    teams: TEAMS["pop"],
+    bio: "Business Management and Digitalization are inseparable in today’s companies across all sectors. As a Bachelor in Business Management, I’m particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
+    profile_picture_url: "profile/profile-salwa.jpg",
+  },
+  {
+    id: 4,
+    name_short: "Rahfi",
+    name_long: "Rahfi Alyendra",
+    teams: TEAMS["imots_pl"],
+    bio: "Software engineer focused on infrastructure and security. Interested in decentralized systems (aka blockchain), especially where performance, reliability, security, and governance matter most. Lifelong learner that always like to learn from mistakes.",
+    profile_picture_url: "profile/profile-rahfi.PNG",
+  },
+  {
+    id: 5,
+    name_short: "Kade",
+    name_long: "Kade Satrya",
+    teams: TEAMS["imots_pl"],
+    bio: "Software engineer by day and by night. Loves tackling complex and unique problems that are 'behind the scenes'. Regularly consults refactoring guru like some sort of a holy scripture. If I could choose any superpower, I'd pick the one my father has - the ability to fall asleep in under two minutes.",
+    profile_picture_url: "profile/profile-kade.png",
+  },
+  {
+    id: 6,
+    name_short: "Kent",
+    name_long: "Kent Albert",
+    teams: TEAMS["imots_pl"],
+    bio: "I’m someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
+    profile_picture_url: "profile/profile-kent.JPG",
+  },
+  {
+    id: 7,
+    name_short: "Gilberdi",
+    name_long: "Gilberdi Axel",
+    teams: TEAMS["imots_pl"],
+    bio: "Computer science student who loves building things with code, especially on the backend. Curious about programming languages, philosophy, and books that bend your brain. Bilingual in Indonesian and English.",
+    profile_picture_url: "profile/profile-gilberdi.PNG",
+  },
+  {
+    id: 8,
+    name_short: "Ceavin",
+    name_long: "Ceavin Rufus",
+    teams: TEAMS["imots_pl"],
+    bio: "I’ve been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
+    profile_picture_url: "profile/profile-ceavin.JPG",
   },
 ];
 
@@ -97,7 +146,7 @@ export default function Collaborator() {
           className={cn(
             "flex flex-wrap items-center justify-center lg:justify-start gap-10 ",
             PROFILE_COLLABORATOR.length > 4 &&
-              "grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
+              "sm:grid sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
           )}
         >
           {PROFILE_COLLABORATOR.map((profile) => (
@@ -114,6 +163,7 @@ export default function Collaborator() {
                 ) {
                   setExpandedProfile(profile);
                   setIsHovered(profile.id);
+                  scrollToId("content-profile");
                 } else if (profile.id === isHovered) {
                   setExpandedProfile(null);
                 }
@@ -185,6 +235,7 @@ export default function Collaborator() {
         <AnimatePresence>
           {expandedProfile !== null && (
             <motion.div
+              id="content-profile"
               variants={expandVariants}
               initial="initial"
               animate="animate"
