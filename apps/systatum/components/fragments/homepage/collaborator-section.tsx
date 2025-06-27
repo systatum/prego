@@ -85,7 +85,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
   {
     id: 4,
     name_short: "Rahfi",
-    name_long: "Rahfi Alyendra",
+    name_long: "Rahfi Alyendra Gibran",
     teams: TEAMS["imots_pl"],
     bio: "Software engineer focused on infrastructure and security. Interested in decentralized systems (aka blockchain), especially where performance, reliability, security, and governance matter most. Lifelong learner that always like to learn from mistakes.",
     profile_picture_url: "profile/profile-rahfi.PNG",
@@ -101,7 +101,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
   {
     id: 6,
     name_short: "Kent",
-    name_long: "Kent Albert",
+    name_long: "Kent Alber Fredson",
     teams: TEAMS["imots_pl"],
     bio: "I’m someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
     profile_picture_url: "profile/profile-kent.JPG",
@@ -109,7 +109,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
   {
     id: 7,
     name_short: "Gilberdi",
-    name_long: "Gilberdi Axel",
+    name_long: "Gilberdi Axel Nathaniel Sinaga",
     teams: TEAMS["imots_pl"],
     bio: "Computer science student who loves building things with code, especially on the backend. Curious about programming languages, philosophy, and books that bend your brain. Bilingual in Indonesian and English.",
     profile_picture_url: "profile/profile-gilberdi.PNG",
@@ -117,7 +117,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
   {
     id: 8,
     name_short: "Ceavin",
-    name_long: "Ceavin Rufus",
+    name_long: "Ceavin Rufus De Prayer Purba",
     teams: TEAMS["imots_pl"],
     bio: "I’ve been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
     profile_picture_url: "profile/profile-ceavin.JPG",
