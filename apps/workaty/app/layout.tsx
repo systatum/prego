@@ -40,13 +40,10 @@ export default async function RootLayout({
 }>) {
   const locale = (await headers()).get("X-WORKATY-LOCALE") || LOCALES.EN_US.id;
 
-  const messagesPath = path.resolve(
-    process.cwd(),
-    "messages",
-    `${locale}.json`
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/messages/${locale}.json`
   );
-  const file = await fs.readFile(messagesPath, "utf-8");
-  const messages = JSON.parse(file);
+  const messages = await res.json();
 
   return (
     <html

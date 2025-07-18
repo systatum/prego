@@ -2,6 +2,8 @@ import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 import { cookies } from "next/headers";
 import { LocaleStateProps } from "@/hooks/types/useLocaleStore";
+import { readFile } from "fs/promises";
+import path from "path";
 
 export default getRequestConfig(async () => {
   const cookieStore = cookies();
@@ -11,8 +13,13 @@ export default getRequestConfig(async () => {
     locale = routing.defaultLocale;
   }
 
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/messages/${locale}.json`
+  );
+  const messages = await res.json();
+
   return {
     locale,
-    messages: (await import(`@/messages/${locale}`)).default,
+    messages,
   };
 });
