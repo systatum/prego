@@ -42,7 +42,7 @@ export default async function RootLayout({
 
   const messagesPath = path.resolve(
     process.cwd(),
-    "messages",
+    "public/messages",
     `${locale}.json`
   );
   const file = await fs.readFile(messagesPath, "utf-8");

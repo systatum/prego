@@ -2,6 +2,8 @@ import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 import { cookies } from "next/headers";
 import { LocaleStateProps } from "@/hooks/types/useLocaleStore";
+import { readFile } from "fs/promises";
+import path from "path";
 
 export default getRequestConfig(async () => {
   const cookieStore = cookies();
@@ -11,8 +13,15 @@ export default getRequestConfig(async () => {
     locale = routing.defaultLocale;
   }
 
+  const filePath = path.join(
+    process.cwd(),
+    "public/messages",
+    `${locale}.json`
+  );
+  const messages = JSON.parse(await readFile(filePath, "utf-8"));
+
   return {
     locale,
-    messages: (await import(`@/messages/${locale}`)).default,
+    messages,
   };
 });
