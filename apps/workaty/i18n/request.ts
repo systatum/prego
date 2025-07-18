@@ -13,12 +13,10 @@ export default getRequestConfig(async () => {
     locale = routing.defaultLocale;
   }
 
-  const filePath = path.join(
-    process.cwd(),
-    "public/messages",
-    `${locale}.json`
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/messages/${locale}.json`
   );
-  const messages = JSON.parse(await readFile(filePath, "utf-8"));
+  const messages = await res.json();
 
   return {
     locale,
