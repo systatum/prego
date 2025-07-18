@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LOCALES } from "./constants/Locale";
-import { MATCHER_ROUTES } from "./constants/Routes";
 
 export default function middleware(request: NextRequest) {
   const localeCookie = request.cookies.get("WORKATY_LOCALE")?.value;
@@ -30,5 +29,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: MATCHER_ROUTES,
+  matcher: ["/admin", "/admin/:path*"],
 };
