@@ -10,8 +10,6 @@ import { LOCALES } from "@/constants/Locale";
 import { NextIntlClientProvider } from "next-intl";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
-import path from "path";
-import fs from "fs/promises";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
 import { DEFAULT_METADATA } from "@/constants/GetMetaData";
 
@@ -38,11 +36,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const locale = (await headers()).get("X-WORKATY-LOCALE") || LOCALES.EN_US.id;
+  const headersList = await headers();
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/messages/${locale}.json`
-  );
+  const locale = headersList.get("X-WORKATY-LOCALE") || LOCALES.EN_US.id;
+
+  const host = headersList.get("host");
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const res = await fetch(`${protocol}://${host}/messages/${locale}.json`);
   const messages = await res.json();
 
   return (
