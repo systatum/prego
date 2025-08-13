@@ -1,0 +1,268 @@
+import React, { FormEvent, useState } from "react";
+import { z } from "zod";
+import {
+  FormFieldProps,
+  StatefulForm,
+  StatefulOnChangeType,
+} from "@systatum/coneto/stateful-form";
+import { Button } from "@systatum/coneto/button";
+import { css } from "styled-components";
+import { RiLinkedinBoxFill } from "@remixicon/react";
+import { toast } from "react-hot-toast";
+
+export default function CollaborateAndEmail() {
+  return (
+    <div
+      id="email-section"
+      className="sm:min-h-screen overflow-hidden px-10 pb-4 pt-20 gap-10 flex flex-col relative w-full h-full bg-[#0d0d0d] text-white justify-between"
+    >
+      <WaveAnimation />
+      <div className="flex md:flex-row flex-col justify-between md:pt-[200px] gap-6">
+        <div className="flex md:flex-row flex-col gap-10 w-full">
+          <div className="relative md:min-w-[90px] pt-[6px] md:min-h-[90px] md:max-w-[90px] md:max-h-[90px]">
+            <img src={"/systatum/512icon.png"} width={200} />
+          </div>
+          <div
+            aria-label="title-and-description"
+            className="relative flex flex-col gap-6 md:gap-10 md:max-w-[500px]"
+          >
+            <h3 className="font-semibold text-3xl sm:text-4xl md:text-5xl">
+              Our work ethics and solutions can thrive in your organizations,
+              too.
+            </h3>
+            <span className="sm:text-sm md:text-base lg:text-lg">
+              We are open to collaboration requests, such as to develop a
+              software peculiar to your needs, or in other avenues we can pour
+              our Systatum energy into.
+            </span>
+          </div>
+        </div>
+        <FormCollaborateAndEmail />
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+function FormCollaborateAndEmail() {
+  const [value, setValue] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const collaborateSchema = z.object({
+    name: z.string().min(3, "First name must be at least 3 characters long"),
+    email: z.string().email("Please enter a valid email address"),
+    message: z.string().optional(),
+  });
+
+  const onChangeForm = (e?: StatefulOnChangeType) => {
+    if (e && "target" in e) {
+      const target = e.target;
+      const { name, value } = target;
+
+      setValue((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const EMPLOYEE_FIELDS: FormFieldProps[] = [
+    {
+      name: "name",
+      title: "Name",
+      type: "text",
+      required: true,
+      onChange: onChangeForm,
+    },
+    {
+      name: "email",
+      title: "Email",
+      type: "text",
+      required: false,
+      onChange: onChangeForm,
+    },
+    {
+      name: "message",
+      title: "Message",
+      type: "textarea",
+      rows: 4,
+      required: true,
+      onChange: onChangeForm,
+    },
+  ];
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("/.netlify/functions/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value),
+      });
+
+      if (res.ok) {
+        toast.success("Email sent successfully!");
+        setValue({ name: "", email: "", message: "" });
+      } else {
+        const err = await res.json();
+        toast.error(`Failed to send email: ${err.error || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Network error, please try again");
+    }
+  };
+
+  return (
+    <form
+      aria-label="form-collaborate"
+      onSubmit={handleSubmit}
+      className="flex flex-col text-white gap-3 w-full min-w-[300px] "
+    >
+      <StatefulForm
+        fields={EMPLOYEE_FIELDS}
+        formValues={value}
+        validationSchema={collaborateSchema}
+        onValidityChange={setIsFormValid}
+        mode="onChange"
+      />
+      <Button
+        disabled={!isFormValid}
+        type="submit"
+        containerStyle={css`
+          width: 100%;
+        `}
+        buttonStyle={css`
+          width: 100%;
+        `}
+      >
+        Submit
+      </Button>
+    </form>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="flex md:flex-row flex-col relative py-10 md:py-4 gap-4 md:gap-2 w-full items-center">
+      <div className="flex text-sm md:text-start text-center font-mono flex-col gap-1 w-full max-w-[140px]">
+        <span>Hakuraku Hills</span>
+        <span>15-34 Yokohama</span>
+        <span>Japan</span>
+      </div>
+      <span
+        aria-label="divider-horizontal"
+        className="border h-[2px] w-full"
+      ></span>
+      <div className="flex flex-col-reverse md:flex-row items-center gap-2 text-sm">
+        <a href={"mailto:adam@systatum.com"} className="font-medium font-mono">
+          adam@systatum.com
+        </a>
+
+        <a href={"https://www.linkedin.com/company/systatum"}>
+          <RiLinkedinBoxFill size={40} />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function WaveAnimation() {
+  return (
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{ backgroundColor: "#0d0d0d" }}
+    >
+      <div
+        className="absolute top-0 left-0"
+        style={{ transform: "rotate(80deg)" }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: "3%",
+            left: "10%",
+            background: "#4e6fc6",
+            width: "1500px",
+            height: "1300px",
+            marginLeft: "-150px",
+            marginTop: "-250px",
+            transformOrigin: "50% 48%",
+            borderRadius: "43%",
+            opacity: 0.4,
+            animation: "drift 7000ms infinite linear",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: "3%",
+            left: "10%",
+            background: "#131313",
+            width: "1500px",
+            height: "1300px",
+            marginLeft: "-150px",
+            marginTop: "-250px",
+            transformOrigin: "50% 48%",
+            borderRadius: "43%",
+            opacity: 0.1,
+            animation: "drift 3000ms infinite linear",
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: "3%",
+            left: "10%",
+            background: "#2a3d91",
+            width: "1500px",
+            height: "1300px",
+            marginLeft: "-150px",
+            marginTop: "-250px",
+            transformOrigin: "50% 48%",
+            borderRadius: "43%",
+            opacity: 0.4,
+            animation: "drift 7500ms infinite linear",
+          }}
+        />
+      </div>
+
+      <style jsx>{`
+        @keyframes drift {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes anim {
+          0% {
+            transform: scale(0, 0) rotateZ(-90deg);
+            opacity: 0;
+          }
+          30% {
+            transform: scale(1, 1) rotateZ(0deg);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1, 1) rotateZ(0deg);
+            opacity: 1;
+          }
+          80% {
+            transform: scale(0, 0) rotateZ(90deg);
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

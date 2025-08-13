@@ -1,7 +1,7 @@
 "use client";
 
+import CollaborateAndEmail from "@/components/fragments/homepage/collaborate-and-email-section";
 import Collaborator from "@/components/fragments/homepage/collaborator-section";
-import Footer from "@/components/fragments/homepage/footer-section";
 import Hero from "@/components/fragments/homepage/hero-section";
 import Product from "@/components/fragments/homepage/product-section";
 import Reason from "@/components/fragments/homepage/reason-section";
@@ -22,7 +22,7 @@ export default function Home() {
         <Product />
         <Collaborator />
       </div>
-      <Footer />
+      <CollaborateAndEmail />
     </div>
   );
 }
