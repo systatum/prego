@@ -21,7 +21,7 @@ export const handler: Handler = async (event) => {
     const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
     const html = `
-      <h2>New Collaboration Requested</h2>
+      <h2>New Collaboration Request</h2>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Message:</strong><br/>${message}</p>
@@ -29,8 +29,8 @@ export const handler: Handler = async (event) => {
 
     await client.sendEmail({
       From: "adam@systatum.com",
-      To: "alim@systatum.com",
-      Subject: "New Collaboration Request",
+      To: "adam@systatum.com",
+      Subject: `New Collaboration Request - ${name} | ${email}"`,
       HtmlBody: html,
     });
 
