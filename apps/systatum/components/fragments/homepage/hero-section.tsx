@@ -8,10 +8,16 @@ export default function Hero() {
   const [displayedText, setDisplayedText] = useState("");
   const [showOtherElements, setShowOtherElements] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lastSection, setLastSection] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 130);
+
+      const target = document.getElementById("email-section");
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      setLastSection(rect.top <= window.innerHeight * 0.05);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -65,7 +71,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-xl left-14 md:text-[36px] lg:text-[40px] montHeavy flex flex-row items-center gap-2"
+            className={cn(
+              "text-xl left-14 md:text-[36px] lg:text-[40px] montHeavy flex flex-row items-center gap-2",
+              lastSection && "md:text-white"
+            )}
           >
             Systatum
           </motion.div>
