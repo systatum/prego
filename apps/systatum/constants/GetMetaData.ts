@@ -12,3 +12,4 @@ export function createMetadata(title?: string, description?: string): Metadata {
 }
 
 export const DEFAULT_METADATA = createMetadata();
+export const POST_METADATA = createMetadata("Post");
