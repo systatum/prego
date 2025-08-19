@@ -1,12 +1,20 @@
 query pageQuery {
   ...LayoutQueryFragment
-  blogConnection {
+  postConnection {
     edges {
       node {
         id
         date
         title
         excerpt
+        category {
+          ... on Category {
+            name
+            _sys {
+              filename
+            }
+          }
+        }
         author {
           ... on Author {
             ...AuthorParts
@@ -27,10 +35,15 @@ query contentQuery($relativePath: String!) {
   }
 }
 
-query blogPostQuery($relativePath: String!) {
+query postQuery($relativePath: String!) {
   ...LayoutQueryFragment
-  blog(relativePath: $relativePath) {
-    ...BlogParts
+  post(relativePath: $relativePath) {
+    ...PostParts
+    category {
+      ... on Category {
+        name
+      }
+    }
     author {
       ... on Author {
         name
