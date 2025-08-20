@@ -1,6 +1,6 @@
 export type LocaleStateProps = "en-US" | "id";
 
 export interface useLocaleStoreProps {
-  locale: Locale;
+  locale: LocaleStateProps;
   setLocale: (locale: LocaleStateProps) => void;
 }
