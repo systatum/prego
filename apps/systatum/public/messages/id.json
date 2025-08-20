@@ -1,0 +1,30 @@
+{
+  "landingPage": {
+    "heroSection": {
+      "title1": "Bisnis lengkap dalam satu paket.",
+      "title2": "Semua yang kamu butuhkan, dalam satu aplikasi."
+    }
+  },
+  "navigation": {
+    "navbar": {
+      "usage": "Penggunaan",
+      "learn": "Pelajari",
+      "hiringCandidates": "Perekrutan Kandidat",
+      "recording": "Perekaman",
+      "knowledgeWiki": "Wiki Pengetahuan",
+      "helpCenters": "Pusat Bantuan",
+      "customerStories": "Cerita Pelanggan",
+      "aboutUs": "Tentang Kami"
+    },
+    "authModal": {
+      "goToDashboard": "Ke Dashboard",
+      "signOut": "Keluar",
+      "signIn": "Masuk",
+      "signUp": "Daftar",
+      "titleDialog": "Keluar dari Akun",
+      "detailDialog": "Apakah Anda yakin ingin keluar?",
+      "title1ButtonDialog": "Tidak",
+      "title2ButtonDialog": "Ya"
+    }
+  }
+}
