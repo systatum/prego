@@ -1,6 +1,6 @@
 [build]
   base = "apps/systatum"
-  command = "npx tinacms build && npm run build-next"
+  command = "npx exec tinacms build && npm run build-next"
   publish = ".next"
 
 [[plugins]]
