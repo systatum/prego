@@ -24,7 +24,19 @@ export const Section: React.FC<SectionProps> = ({
   );
 };
 
-export const tailwindBackgroundOptions = [
+interface SectionBlockSchemaFieldProps {
+  type?: string;
+  label?: string;
+  name?: string;
+  options?: TailwindBackgroundOptionsProps[];
+}
+
+interface TailwindBackgroundOptionsProps {
+  label?: string;
+  value?: string;
+}
+
+export const tailwindBackgroundOptions: TailwindBackgroundOptionsProps[] = [
   { label: "Default", value: "bg-default" },
   { label: "White", value: "bg-white/80" },
   { label: "Gray", value: "bg-gray-50/80" },
@@ -48,7 +60,7 @@ export const tailwindBackgroundOptions = [
   { label: "Rose", value: "bg-rose-50/80" },
 ];
 
-export const sectionBlockSchemaField = {
+export const sectionBlockSchemaField: SectionBlockSchemaFieldProps = {
   type: "string",
   label: "Background",
   name: "background",
