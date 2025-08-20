@@ -6,7 +6,7 @@ export default function MermaidElement({ value }: { value?: string }) {
     threshold: 0.01,
     freezeOnceVisible: true,
     onChange(isIntersecting, entry) {
-      if (isIntersecting && value) {
+      if (isIntersecting) {
         mermaid.initialize({
           startOnLoad: false,
           theme: "default",
@@ -23,17 +23,7 @@ export default function MermaidElement({ value }: { value?: string }) {
             gridColor: "#e5e7eb",
           },
         });
-
-        mermaid.mermaidAPI.render(
-          "mermaid-diagram-" + Date.now(),
-          value,
-          (svgCode) => {
-            if (entry.target) {
-              (entry.target as HTMLElement).innerHTML = svgCode;
-            }
-          },
-          entry.target as HTMLElement
-        );
+        mermaid.run({ nodes: [entry.target as HTMLElement] });
       }
     },
   });
