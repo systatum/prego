@@ -9,7 +9,7 @@ import {
 } from "../../tina/__generated__/types";
 import { Button } from "../../../../packages/components/ui/button";
 import { iconSchema } from "@/tina/fields/icon";
-import { Icon } from "../icon";
+import { Icon, IconData } from "../icon";
 import { Section, sectionBlockSchemaField } from "../layout/section";
 import { AnimatedGroup } from "./../../../../packages/components/motion-primitives/animated-group";
 import { TextEffect } from "./../../../../packages/components/motion-primitives/text-effect";
@@ -106,7 +106,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   className="rounded-xl px-5 text-base"
                 >
                   <Link href={action!.link!}>
-                    {action?.icon && <Icon data={action?.icon} />}
+                    {action?.icon && <Icon data={action?.icon as IconData} />}
                     <span className="text-nowrap">{action!.label}</span>
                   </Link>
                 </Button>

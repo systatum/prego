@@ -6,7 +6,7 @@ import {
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { Icon } from "../icon";
+import { Icon, IconOptions } from "../icon";
 import { iconSchema } from "../../tina/fields/icon";
 import {
   Card,
@@ -67,7 +67,12 @@ export const Feature: FC<PageBlocksFeaturesItems> = (data) => {
           {data.icon && (
             <Icon
               tinaField={tinaField(data, "icon")}
-              data={{ size: "large", ...data.icon }}
+              data={{
+                size: "large",
+                name: data.icon.name as keyof typeof IconOptions,
+                color: data.icon.color ?? undefined,
+                style: (data.icon.style as "regular" | "circle") ?? undefined,
+              }}
             />
           )}
         </CardDecorator>

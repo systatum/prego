@@ -1,11 +1,17 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import React from "react";
 
-const MermaidElement = dynamic(() => import('../mermaid-renderer'), {
+// Dynamically import Mermaid renderer, no SSR
+const MermaidElement = dynamic(() => import("../mermaid-renderer"), {
   ssr: false,
   loading: () => <div>Loading diagram...</div>,
 });
 
-export function mermaid(props) {
-  if (!props?.value) return <></>;
+interface MermaidProps {
+  value?: string | null;
+}
+
+export function mermaid(props?: MermaidProps) {
+  if (!props?.value) return null;
   return <MermaidElement value={props.value} />;
 }

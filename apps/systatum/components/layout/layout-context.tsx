@@ -7,8 +7,8 @@ interface LayoutState {
   setGlobalSettings: React.Dispatch<
     React.SetStateAction<GlobalQuery["global"]>
   >;
-  pageData: {};
-  setPageData: React.Dispatch<React.SetStateAction<{}>>;
+  pageData: object;
+  setPageData: React.Dispatch<React.SetStateAction<object>>;
   theme: GlobalQuery["global"]["theme"];
 }
 
@@ -31,7 +31,7 @@ export const useLayout = () => {
 interface LayoutProviderProps {
   children: React.ReactNode;
   globalSettings: GlobalQuery["global"];
-  pageData: {};
+  pageData: object;
 }
 
 export const LayoutProvider: React.FC<LayoutProviderProps> = ({
@@ -42,7 +42,7 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({
   const [globalSettings, setGlobalSettings] = useState<GlobalQuery["global"]>(
     initialGlobalSettings
   );
-  const [pageData, setPageData] = useState<{}>(initialPageData);
+  const [pageData, setPageData] = useState<object>(initialPageData);
 
   const theme = globalSettings.theme;
 

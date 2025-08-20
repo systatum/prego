@@ -12,7 +12,7 @@ import React, { SVGProps } from "react";
 import { useLayout } from "./layout/layout-context";
 import { IconType } from "react-icons";
 
-interface IconData {
+export interface IconData {
   name: keyof typeof IconOptions;
   color?: string;
   size?: keyof typeof iconSizeClass | number;

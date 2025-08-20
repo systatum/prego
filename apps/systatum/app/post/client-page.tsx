@@ -17,32 +17,46 @@ interface ClientPostProps {
   query: string;
 }
 
-export default function PostsClientPage(props: ClientPostProps) {
-  const posts = props.data?.postConnection.edges!.map((postData) => {
-    const post = postData!.node!;
-    const date = new Date(post?.date!);
-    let formattedDate = "";
-    if (!isNaN(date.getTime())) {
-      formattedDate = format(date, "yyyy/MM/dd");
-    }
+interface PostItem {
+  id: string;
+  published: string;
+  title: string;
+  tags: string[];
+  url: string;
+  excerpt?: string;
+  heroImg?: string;
+  category: { name?: string };
+  author: { name: string; avatar?: string };
+}
 
-    return {
-      id: post?.id,
-      published: formattedDate,
-      title: post?.title,
-      tags: post?.tags?.map((tag) => tag?.tag?.name) || [],
-      url: `/post/${post?._sys.breadcrumbs.join("/")}`,
-      excerpt: post?.excerpt,
-      heroImg: post?.heroImg,
-      category: {
-        name: post?.category?.name,
-      },
-      author: {
-        name: post?.author?.name || "Anonymous",
-        avatar: post?.author?.avatar,
-      },
-    };
-  });
+export default function PostsClientPage(props: ClientPostProps) {
+  const posts: PostItem[] = props.data?.postConnection.edges
+    ?.map((postData) => {
+      const post = postData?.node;
+      if (!post) return null;
+      const date = new Date(post.date ?? "");
+      const formattedDate = !isNaN(date.getTime())
+        ? format(date, "yyyy/MM/dd")
+        : "";
+
+      return {
+        id: post?.id,
+        published: formattedDate,
+        title: post?.title,
+        tags: post?.tags?.map((tag) => tag?.tag?.name) || [],
+        url: `/post/${post?._sys.breadcrumbs.join("/")}`,
+        excerpt: post?.excerpt,
+        heroImg: post?.heroImg,
+        category: {
+          name: post?.category?.name,
+        },
+        author: {
+          name: post?.author?.name || "Anonymous",
+          avatar: post?.author?.avatar,
+        },
+      };
+    })
+    .filter(Boolean) as NonNullable<typeof posts>[0][];
 
   return (
     <ErrorBoundary>

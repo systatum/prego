@@ -8,9 +8,14 @@ import {
 } from "@headlessui/react";
 import { useLayout } from "./layout/layout-context";
 
-export const RawRenderer = ({ rawData, parentColor }) => {
+interface RawRendererProps {
+  rawData: unknown;
+  parentColor?: string;
+}
+
+export const RawRenderer = ({ rawData, parentColor }: RawRendererProps) => {
   const { theme } = useLayout();
-  const buttonColorClasses = {
+  const buttonColorClasses: Record<string, string> = {
     blue: "text-blue-500",
     teal: "text-teal-500",
     green: "text-green-500",

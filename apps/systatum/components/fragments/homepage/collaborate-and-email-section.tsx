@@ -20,7 +20,11 @@ export default function CollaborateAndEmail() {
       <div className="flex md:flex-row flex-col justify-between md:pt-[200px] gap-6">
         <div className="flex md:flex-row flex-col gap-10 w-full">
           <div className="relative md:min-w-[90px] pt-[6px] md:min-h-[90px] md:max-w-[90px] md:max-h-[90px]">
-            <img src={"/systatum/512icon.png"} width={200} />
+            <img
+              alt="Systatum Logo"
+              src={"/systatum/512icon.png"}
+              width={200}
+            />
           </div>
           <div
             aria-label="title-and-description"
