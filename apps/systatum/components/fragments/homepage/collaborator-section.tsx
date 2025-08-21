@@ -130,7 +130,7 @@ export default function Collaborator() {
     useState<ProfileCollaboratorProps | null>(null);
 
   return (
-    <div className="py-32 px-4 md:px-10 flex justify-center flex-col gap-20">
+    <div className="py-32 px-4 bg-gray-50 md:px-10 flex justify-center flex-col gap-20">
       <motion.h2
         className="text-center flex flex-col text-4xl md:text-5xl font-bold"
         initial="initial"
