@@ -25,7 +25,8 @@
     "react-dom": "^19.1.0",
     "react-player": "^2.16.0",
     "tailwind-merge": "^3.3.1",
-    "tinacms": "^2.7.8"
+    "tinacms": "^2.7.8",
+    "@tinacms/cli": "^1.9.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -33,7 +34,6 @@
     "@remixicon/react": "^4.6.0",
     "@systatum/coneto": "2.0.0",
     "@tailwindcss/postcss": "^4",
-    "@tinacms/cli": "^1.9.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
