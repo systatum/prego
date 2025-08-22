@@ -122,9 +122,11 @@ export default function PostsClientPage(props: ClientPostProps) {
           )}
         >
           {isPostPage ? (
-            <h2 className="w-full relative text-5xl text-center">What's Up</h2>
+            <h2 className="w-full relative text-5xl text-center">
+              What&apos;s Up
+            </h2>
           ) : (
-            <TitleSection className="text-black">What's Up</TitleSection>
+            <TitleSection className="text-black">What&apos;s Up</TitleSection>
           )}
 
           {isPostPage && (
