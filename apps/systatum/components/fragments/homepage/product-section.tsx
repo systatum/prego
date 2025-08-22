@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import TitleSection from "../../layout/title";
 
 interface DataProductProps {
   title: string;
@@ -32,11 +33,6 @@ const DATA_PRODUCTS: DataProductProps[] = [
   },
 ];
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export default function Product() {
   const [isHovered, setIsHovered] = useState<number | null>(null);
 
@@ -47,16 +43,10 @@ export default function Product() {
       whileInView="animate"
       viewport={{ once: true, amount: 0.4 }}
       transition={{ staggerChildren: 0.3 }}
-      className="cursor-pointer flex flex-col min-h-[700px] items-center justify-center gap-16 border-b lg:px-2 py-32 bg-black"
+      className="cursor-pointer flex flex-col min-h-[700px] items-center justify-center gap-16 border-b lg:px-2 pt-24 pb-32 bg-black"
     >
-      <motion.h2
-        variants={fadeInUp}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-3xl sm:text-4xl text-white md:text-5xl text-center max-w-[400px] sm:max-w-[600px] font-bold leading-tight"
-      >
-        What we did
-      </motion.h2>
-      <div className="flex flex-col items-center justify-center sm:grid md:grid-cols-2 px-10 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
+      <TitleSection>What we did</TitleSection>
+      <div className="flex flex-col px-10 items-center justify-center sm:grid md:grid-cols-2 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
         {DATA_PRODUCTS.map((product, index) => (
           <motion.a
             href={product.link}
