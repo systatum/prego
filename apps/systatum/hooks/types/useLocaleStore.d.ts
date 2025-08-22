@@ -1,6 +1,6 @@
-export type LocaleStateProps = "en-US" | "id";
+import { LocaleCodeProps } from "@/constants/Locale";
 
 export interface useLocaleStoreProps {
-  locale: LocaleStateProps;
-  setLocale: (locale: LocaleStateProps) => void;
+  locale: LocaleCodeProps;
+  setLocale: (locale: LocaleCodeProps) => void;
 }
