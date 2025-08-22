@@ -35,45 +35,49 @@ export default function PostClientPage(props: ClientPostProps) {
     { label: "Systatum", path: "/" },
     { label: "Post", path: "/post" },
     { label: post.category.name, path: `/post?category=${post.category.name}` },
-    { label: post.title, path: `/post/${post._sys.breadcrumbs[0]}` },
+    { label: post.title, path: `/post/${post._sys.filename}` },
   ];
 
   return (
     <ErrorBoundary>
-      <Section className="py-6">
-        <div className="flex flex-col gap-10 py-20 md:max-w-4xl max-w-xl mx-auto">
-          <Crumb
-            style={css`
-              font-size: 14px;
-            `}
-          >
-            {LINK_ITEMS.map((data, index) => (
-              <Crumb.Item path={data.path} key={index}>
-                {data.label}
-              </Crumb.Item>
-            ))}
-          </Crumb>
-          <h2
+      <Section className="py-2">
+        <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto">
+          <div className="flex flex-row w-fit mx-auto">
+            <Crumb
+              style={css`
+                font-size: 14px;
+              `}
+              maxShown={4}
+            >
+              {LINK_ITEMS.map((data, index) => (
+                <Crumb.Item path={data.path} key={index}>
+                  {data.label}
+                </Crumb.Item>
+              ))}
+            </Crumb>
+          </div>
+          <h1
             data-tina-field={tinaField(post, "title")}
-            className={`w-full relative text-3xl font-extrabold tracking-normal text-center`}
+            className="w-full relative mt-7 text-5xl tracking-normal text-center"
           >
             {post.title}
-          </h2>
+          </h1>
           <div
             data-tina-field={tinaField(post, "author")}
-            className="flex items-center w-full justify-between max-w-[400px] mx-auto mb-16"
+            className="flex items-center mb-3 w-full justify-between max-w-[400px] mx-auto"
           >
             {post.author && (
               <>
                 {post.author.avatar && (
-                  <div className="shrink-0 mr-4">
-                    <img
+                  <div className="shrink-0">
+                    <Image
                       data-tina-field={tinaField(post.author, "avatar")}
                       src={post.author.avatar}
                       alt={post.author.name}
                       width={1000}
                       height={1000}
-                      className="w-10 h-10 sm:w-12 sm:h-12 md:h-14 md:w-14 object-cover rounded-full"
+                      className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-full"
+                      unoptimized
                     />
                   </div>
                 )}
@@ -97,11 +101,6 @@ export default function PostClientPage(props: ClientPostProps) {
                   min-width: 80px;
                   height: fit-content;
                   cursor: pointer;
-
-                  &:hover {
-                    border-color: #045e95;
-                    transition: all ease-in-out 0.2s;
-                  }
                 `}
                 caption={post.category?.name || undefined}
                 withCircle
