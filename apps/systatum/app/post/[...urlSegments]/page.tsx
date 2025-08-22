@@ -4,25 +4,28 @@ import Layout from "@/components/layout/layout";
 import PostClientPage from "./client-page";
 import { POST_METADATA_CONTENT } from "@/constants/GetMetaData";
 import { headers } from "next/headers";
-import { LOCALES } from "@/constants/Locale";
+import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 
 export const revalidate = 300;
+
+interface PostPageParams {
+  urlSegments: string[];
+}
 
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ urlSegments: string[] }>;
+  params: Promise<PostPageParams>;
 }) {
   const headersList = await headers();
   const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
 
   const resolvedParams = await params;
-  const filepath = resolvedParams.urlSegments.join("/");
-  const localeSelected = Object.values(LOCALES).find((data) =>
-    data.id.startsWith(locale)
-  );
 
-  const relativePath = `${localeSelected.id}/${filepath}.mdx`;
+  const filepath = resolvedParams.urlSegments.join("/");
+  const localeSelected = LOCALE_MAP[locale];
+
+  const relativePath = `${localeSelected}/${filepath}.mdx`;
 
   const data = await client.queries.post({
     relativePath,
@@ -38,18 +41,18 @@ export default async function PostPage({
 export async function generateMetadata({
   params,
 }: {
-  params: { urlSegments: string[] };
+  params: Promise<PostPageParams>;
 }) {
   const headersList = await headers();
   const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
 
   const resolvedParams = await params;
+
   const filepath = resolvedParams.urlSegments.join("/");
-  const localeSelected = Object.values(LOCALES).find((data) =>
-    data.id.startsWith(locale)
-  );
+  const localeSelected = LOCALE_MAP[locale];
+
   const { data } = await client.queries.post({
-    relativePath: `${localeSelected.id}/${filepath}.mdx`,
+    relativePath: `${localeSelected}/${filepath}.mdx`,
   });
 
   const post = data.post;

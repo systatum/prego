@@ -5,7 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
 import { NextIntlClientProvider } from "next-intl";
 import { headers } from "next/headers";
-import { LOCALES } from "@/constants/Locale";
+import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 import { VideoDialogProvider } from "../../../packages/components/ui/video-dialog-context";
 
 const geistSans = Geist({
@@ -27,7 +27,8 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
 
-  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+  const rawLocale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+  const locale = LOCALE_MAP[rawLocale] ?? "en-US";
 
   const host = headersList.get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
