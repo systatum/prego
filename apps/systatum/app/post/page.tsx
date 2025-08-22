@@ -3,14 +3,15 @@ import client from "@/tina/__generated__/client";
 import PostsClientPage from "./client-page";
 import { POST_METADATA } from "@/constants/GetMetaData";
 import { headers } from "next/headers";
-import { LOCALES } from "@/constants/Locale";
+import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 
 export const metadata = POST_METADATA;
 export const revalidate = 300;
 
 export default async function PostsPage() {
   const headersList = await headers();
-  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+  const rawLocale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+  const locale = LOCALE_MAP[rawLocale] ?? "en-US";
 
   let posts = await client.queries.postConnection({
     sort: "date",
