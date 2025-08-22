@@ -2,6 +2,9 @@ import React from "react";
 import client from "@/tina/__generated__/client";
 import Layout from "@/components/layout/layout";
 import PostClientPage from "./client-page";
+import { POST_METADATA_CONTENT } from "@/constants/GetMetaData";
+import { headers } from "next/headers";
+import { LOCALES } from "@/constants/Locale";
 
 export const revalidate = 300;
 
@@ -10,10 +13,19 @@ export default async function PostPage({
 }: {
   params: Promise<{ urlSegments: string[] }>;
 }) {
+  const headersList = await headers();
+  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+
   const resolvedParams = await params;
   const filepath = resolvedParams.urlSegments.join("/");
+  const localeSelected = Object.values(LOCALES).find((data) =>
+    data.id.startsWith(locale)
+  );
+
+  const relativePath = `${localeSelected.id}/${filepath}.mdx`;
+
   const data = await client.queries.post({
-    relativePath: `${filepath}.mdx`,
+    relativePath,
   });
 
   return (
@@ -21,6 +33,34 @@ export default async function PostPage({
       <PostClientPage {...data} />
     </Layout>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { urlSegments: string[] };
+}) {
+  const headersList = await headers();
+  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+
+  const resolvedParams = await params;
+  const filepath = resolvedParams.urlSegments.join("/");
+  const localeSelected = Object.values(LOCALES).find((data) =>
+    data.id.startsWith(locale)
+  );
+  const { data } = await client.queries.post({
+    relativePath: `${localeSelected.id}/${filepath}.mdx`,
+  });
+
+  const post = data.post;
+
+  return POST_METADATA_CONTENT({
+    title: post.title,
+    excerpt: post.excerpt,
+    heroImg: post.heroImg,
+    author: post.author,
+    category: post.category,
+  });
 }
 
 export async function generateStaticParams() {
