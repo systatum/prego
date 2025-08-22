@@ -27,7 +27,7 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
 
-  const locale = headersList.get("X-WORKATY-LOCALE") || LOCALES.EN_US.id;
+  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
 
   const host = headersList.get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
