@@ -12,8 +12,8 @@ export default function HomepageContent() {
       <div className="md:ml-[220px] lg:ml-[300px]">
         <Reason />
         <Product />
-        <Collaborator />
         <Post />
+        <Collaborator />
       </div>
       <CollaborateAndEmail />
     </div>
