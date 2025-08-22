@@ -203,10 +203,15 @@ export default function PostsClientPage(props: ClientPostProps) {
               ))}
             </div>
           ) : (
-            <div className="w-full py-[200px] p-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 flex flex-col items-center justify-center text-center space-y-4">
-              <p className="text-gray-400 text-sm italic">
+            <div className={cn(!isPostPage && "px-10")}>
+              <span
+                className={cn(
+                  "text-gray-400 text-sm italic w-full border-2 border-dashed px-10 border-gray-300 rounded-xl bg-gray-50 flex flex-col items-center justify-center text-center",
+                  isPostPage ? "py-[200px]" : "py-[100px]"
+                )}
+              >
                 No content available
-              </p>
+              </span>
             </div>
           )}
         </div>
