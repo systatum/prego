@@ -13,6 +13,8 @@ import { css } from "styled-components";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Crumb } from "@systatum/coneto/crumb";
 import { cn } from "@/lib/utils";
+import TitleSection from "@/components/layout/title";
+import { ExcerptType } from "@/constants/GetMetaData";
 
 interface ClientPostProps {
   data: PostConnectionQuery;
@@ -26,7 +28,7 @@ interface PostItem {
   title: string;
   tags: string[];
   url: string;
-  excerpt?: string;
+  excerpt?: ExcerptType;
   heroImg?: string;
   category: { name?: string };
   author: { name: string; avatar?: string };
@@ -53,8 +55,11 @@ export default function PostsClientPage(props: ClientPostProps) {
         published: formattedDate,
         title: post?.title,
         tags: post?.tags?.map((tag) => tag?.tag?.name) || [],
-        url: `/post/${post?._sys.breadcrumbs.join("/")}`,
-        excerpt: post?.excerpt,
+        url: `/post/${post._sys.filename}`,
+        excerpt:
+          post.excerpt && typeof post.excerpt !== "string"
+            ? post.excerpt.children[0]?.children[0]?.text
+            : typeof post.excerpt === "string" && post.excerpt,
         heroImg: post?.heroImg,
         category: {
           name: post?.category?.name,
@@ -79,8 +84,8 @@ export default function PostsClientPage(props: ClientPostProps) {
     { label: "Post", path: "/post" },
     categoryPost
       ? { label: categoryPost, path: `/post?category=${categoryPost}` }
-      : {},
-  ];
+      : null,
+  ].filter(Boolean);
 
   const POSTS_FILTERED = useMemo(() => {
     if (!posts) return [];
@@ -90,11 +95,13 @@ export default function PostsClientPage(props: ClientPostProps) {
       : posts;
   }, [posts, categoryPost]);
 
+  const isPostPage = pathname.startsWith("/post");
+
   return (
     <ErrorBoundary>
-      <Section className={cn(pathname === "post" ? "py-6" : "py-20")}>
-        {pathname === "/post" && (
-          <div className="px-2">
+      <Section className={cn(isPostPage ? "py-2" : "py-20 px-0 max-w-7xl")}>
+        {isPostPage && (
+          <div className="mx-auto w-fit flex">
             <Crumb
               style={css`
                 font-size: 14px;
@@ -110,23 +117,26 @@ export default function PostsClientPage(props: ClientPostProps) {
         )}
         <div
           className={cn(
-            "flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto",
-            pathname === "/post" ? "py-20" : ""
+            "flex flex-col gap-10 mx-auto",
+            isPostPage ? "py-10 md:max-w-4xl max-w-xl" : "max-w-7xl"
           )}
         >
-          <div className="text-center">
-            <h2 className="w-full relative text-3xl font-extrabold tracking-normal text-center">
-              Systatum Post
-            </h2>
-          </div>
+          {isPostPage ? (
+            <h2 className="w-full relative text-5xl text-center">What's Up</h2>
+          ) : (
+            <TitleSection className="text-black">What's Up</TitleSection>
+          )}
 
-          {pathname === "/post" && (
+          {isPostPage && (
             <div className="flex flex-row gap-2 items-center justify-center">
               {CATEGORY_ITEMS.map((data, index) => (
                 <Badge
                   key={index}
                   badgeStyle={css`
-                    min-width: 80px;
+                    ${data.label !== "All" &&
+                    css`
+                      min-width: 80px;
+                    `}
                     height: fit-content;
                     cursor: pointer;
 
@@ -141,34 +151,31 @@ export default function PostsClientPage(props: ClientPostProps) {
                     e.stopPropagation();
                     router.push(data.path);
                   }}
-                  withCircle
+                  withCircle={data.label !== "All"}
                 />
               ))}
             </div>
           )}
 
           {POSTS_FILTERED?.length > 0 ? (
-            <div className="flex flex-col w-full">
+            <div className={cn("flex flex-col w-full", !isPostPage && "px-8")}>
               {POSTS_FILTERED.map((post, index) => (
                 <Link
                   key={index}
-                  className="flex cursor-pointer px-2 py-[2px] rounded-xs hover:bg-gray-100 gap-2 justify-between flex-row w-full"
+                  className="flex cursor-pointer px-2 py-[2px] rounded-xs gap-2 justify-between flex-row w-full"
                   href={post.url}
                 >
-                  <div className="flex flex-row gap-3 w-fit items-center">
-                    <span className="text-sm font-semibold">
-                      {post.published}
-                    </span>
+                  <div className="flex flex-row gap-3 w-fit">
                     <Badge
                       badgeStyle={css`
                         min-width: 80px;
                         height: fit-content;
                         cursor: pointer;
-
-                        &:hover {
-                          border-color: #045e95;
-                          transition: all ease-in-out 0.2s;
-                        }
+                        font-size: 16px;
+                        ${!isPostPage &&
+                        css`
+                          font-weight: 500;
+                        `}
                       `}
                       caption={post.category.name ?? post.category.name}
                       onClick={(e) => {
@@ -178,10 +185,18 @@ export default function PostsClientPage(props: ClientPostProps) {
                       }}
                       withCircle
                     />
+                    <div
+                      className={cn(
+                        "text-lg w-full flex flex-row",
+                        !isPostPage && "font-medium"
+                      )}
+                    >
+                      {post.title}
+                    </div>
                   </div>
-                  <div className="font-medium w-full flex flex-row justify-end font-mono">
-                    {post.title}
-                  </div>
+                  <span className={cn("text-lg", !isPostPage && "font-medium")}>
+                    {post.published}
+                  </span>
                 </Link>
               ))}
             </div>
