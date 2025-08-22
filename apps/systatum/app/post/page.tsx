@@ -2,11 +2,16 @@ import Layout from "@/components/layout/layout";
 import client from "@/tina/__generated__/client";
 import PostsClientPage from "./client-page";
 import { POST_METADATA } from "@/constants/GetMetaData";
+import { headers } from "next/headers";
+import { LOCALES } from "@/constants/Locale";
 
 export const metadata = POST_METADATA;
 export const revalidate = 300;
 
 export default async function PostsPage() {
+  const headersList = await headers();
+  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+
   let posts = await client.queries.postConnection({
     sort: "date",
     last: 1,
@@ -32,9 +37,25 @@ export default async function PostsPage() {
     );
   }
 
+  const filteredEdges = allPosts.data.postConnection.edges.filter((edge) => {
+    const filename = edge?.node?._sys?.relativePath;
+    return filename.startsWith(locale);
+  });
+
+  const filteredData = {
+    ...allPosts,
+    data: {
+      ...allPosts.data,
+      postConnection: {
+        ...allPosts.data.postConnection,
+        edges: filteredEdges,
+      },
+    },
+  };
+
   return (
-    <Layout rawPageData={allPosts.data}>
-      <PostsClientPage {...allPosts} />
+    <Layout rawPageData={filteredData.data}>
+      <PostsClientPage {...filteredData} />
     </Layout>
   );
 }
