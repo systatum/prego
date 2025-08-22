@@ -1,15 +1,17 @@
 import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
 import { cookies, headers } from "next/headers";
-import { LocaleStateProps } from "@/hooks/types/useLocaleStore";
+import { LOCALE_MAP, LocaleCodeProps } from "@/constants/Locale";
 
 export default getRequestConfig(async () => {
   const cookieStore = cookies();
-  let locale = (await cookieStore).get("WORKATY_LOCALE")?.value;
+  let rawLocale = (await cookieStore).get("SYSTATUM_LOCALE")?.value;
 
-  if (!locale || !routing.locales.includes(locale as LocaleStateProps)) {
-    locale = routing.defaultLocale;
+  if (!rawLocale || !routing.locales.includes(rawLocale as LocaleCodeProps)) {
+    rawLocale = routing.defaultLocale;
   }
+
+  let locale = LOCALE_MAP[rawLocale] ?? "en-US";
 
   const headersList = await headers();
 
