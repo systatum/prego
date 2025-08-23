@@ -7,8 +7,8 @@ export interface LocalesDataProps {
 
 export const LOCALES = {
   EN_US: { id: "en-US", name: "English (US)" },
-  ID: { id: "id-ID", name: "Bahasa Indonesia" },
-  JA: { id: "ja-JP", name: "Japanese" },
+  ID_ID: { id: "id-ID", name: "Bahasa Indonesia" },
+  JA_JP: { id: "ja-JP", name: "Japanese" },
 } as const satisfies Record<string, LocalesDataProps>;
 
 export const LOCALE_MAP: Record<string, string> = {
