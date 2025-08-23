@@ -22,5 +22,7 @@ export const LOCALE_MAP: Record<string, string> = {
   "en-SG": "en-US",
   "en-PH": "en-US",
   id: "id-ID",
+  "id-ID": "id-ID",
   ja: "ja-JP",
+  "ja-JP": "ja-JP",
 };

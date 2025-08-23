@@ -6,6 +6,7 @@ import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { useState } from "react";
 import { scrollToId } from "./../../../../../packages/components/tools/scroll-to-id";
 import TitleSection from "../../layout/title";
+import { useTranslations } from "next-intl";
 
 interface ProfileCollaboratorProps {
   id: number;
@@ -126,13 +127,15 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
 ];
 
 export default function Collaborator() {
+  const t = useTranslations("landingPage.collaboratorSection");
+
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [expandedProfile, setExpandedProfile] =
     useState<ProfileCollaboratorProps | null>(null);
 
   return (
     <div className="pt-24 pb-32 bg-gray-50 flex justify-center flex-col gap-20">
-      <TitleSection className="text-black">Members</TitleSection>
+      <TitleSection className="text-black">{t("title")}</TitleSection>
       <div className="flex flex-col gap-10">
         <div
           className={cn(

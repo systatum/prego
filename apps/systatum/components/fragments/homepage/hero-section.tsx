@@ -4,12 +4,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import FlagDropdown from "../translation/flag-dropdown";
 
 export default function Hero() {
   const pathname = usePathname();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const t = useTranslations("landingPage.heroSection");
 
   const [displayedText, setDisplayedText] = useState("");
   const [showOtherElements, setShowOtherElements] = useState(false);
@@ -30,7 +34,7 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const fullText = "System behind you.";
+  const fullText = t("title");
 
   useEffect(() => {
     let currentIndex = 0;
@@ -177,12 +181,17 @@ export default function Hero() {
               className="w-[3px] top-[2px] min-h-[70px] sm:min-h-[90px] lg:min-h-[120px] absolute border border-gray-600 bg-gray-600"
             ></span>
             <span className="ml-4 md:ml-10 sm:max-w-full max-w-[300px] text-xl md:text-2xl lg:text-4xl">
-              We empower institutions, organizations, and builders with systems
-              that matter.
+              {t("subtitle")}
             </span>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {showOtherElements && (
+        <div className="absolute top-4 right-4 z-50">
+          <FlagDropdown />
+        </div>
+      )}
     </div>
   );
 }

@@ -11,8 +11,10 @@ import { Button } from "@systatum/coneto/button";
 import { css } from "styled-components";
 import { RiLinkedinBoxFill } from "@remixicon/react";
 import { toast } from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export default function CollaborateAndEmail() {
+  const t = useTranslations("landingPage.collaborateAndEmailSection");
   return (
     <div
       id="email-section"
@@ -33,13 +35,10 @@ export default function CollaborateAndEmail() {
             className="relative flex flex-col gap-6 md:gap-10 md:max-w-[500px]"
           >
             <h3 className="font-semibold text-3xl sm:text-4xl md:text-5xl">
-              Our work ethics and solutions can thrive in your organizations,
-              too.
+              {t("title")}
             </h3>
             <span className="sm:text-sm md:text-base lg:text-lg">
-              We are open to collaboration requests, such as to develop a
-              software peculiar to your needs, or in other avenues we can pour
-              our Systatum energy into.
+              {t("subtitle")}
             </span>
           </div>
         </div>
@@ -51,6 +50,8 @@ export default function CollaborateAndEmail() {
 }
 
 function FormCollaborateAndEmail() {
+  const t = useTranslations("landingPage.collaborateAndEmailSection");
+
   const [value, setValue] = useState({
     name: "",
     email: "",
@@ -60,8 +61,8 @@ function FormCollaborateAndEmail() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const collaborateSchema = z.object({
-    name: z.string().min(3, "First name must be at least 3 characters long"),
-    email: z.string().email("Please enter a valid email address"),
+    name: z.string().min(3, t("validationErrorFormName")),
+    email: z.string().email(t("validationErrorFormEmail")),
     message: z.string().optional(),
   });
 
@@ -77,21 +78,21 @@ function FormCollaborateAndEmail() {
   const EMPLOYEE_FIELDS: FormFieldProps[] = [
     {
       name: "name",
-      title: "Name",
+      title: t("labelFormName"),
       type: "text",
       required: true,
       onChange: onChangeForm,
     },
     {
       name: "email",
-      title: "Email",
+      title: t("labelFormEmail"),
       type: "text",
       required: false,
       onChange: onChangeForm,
     },
     {
       name: "message",
-      title: "Message",
+      title: t("labelFormMessage"),
       type: "textarea",
       rows: 4,
       required: true,

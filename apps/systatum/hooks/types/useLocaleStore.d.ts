@@ -1,6 +1,10 @@
-import { LocaleCodeProps } from "@/constants/Locale";
-
 export interface useLocaleStoreProps {
-  locale: LocaleCodeProps;
-  setLocale: (locale: LocaleCodeProps) => void;
+  locale: { code: string; label: string; flag: string };
+  setLocale: (locale: OptionCountryProps) => void;
 }
+
+export type OptionCountryProps = {
+  code: string;
+  label: string;
+  flag: string;
+};
