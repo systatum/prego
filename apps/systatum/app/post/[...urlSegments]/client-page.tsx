@@ -12,6 +12,7 @@ import { css } from "styled-components";
 import Link from "next/link";
 import { Crumb } from "@systatum/coneto/crumb";
 import { Section } from "@/components/layout/section";
+import { useTranslations } from "next-intl";
 
 interface ClientPostProps {
   data: PostQuery;
@@ -22,6 +23,8 @@ interface ClientPostProps {
 }
 
 export default function PostClientPage(props: ClientPostProps) {
+  const t = useTranslations("postPage");
+
   const { data } = useTina({ ...props });
   const post = data.post;
 
@@ -37,6 +40,13 @@ export default function PostClientPage(props: ClientPostProps) {
     { label: post.category.name, path: `/post?category=${post.category.name}` },
     { label: post.title, path: `/post/${post._sys.filename}` },
   ];
+
+  const categoryTranslated =
+    post.category.name === "Info"
+      ? t("info")
+      : post.category.name === "Release"
+        ? t("release")
+        : t("event");
 
   return (
     <ErrorBoundary>
@@ -102,7 +112,7 @@ export default function PostClientPage(props: ClientPostProps) {
                   height: fit-content;
                   cursor: pointer;
                 `}
-                caption={post.category?.name || undefined}
+                caption={categoryTranslated || undefined}
                 withCircle
               />
             </Link>

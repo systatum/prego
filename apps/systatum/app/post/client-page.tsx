@@ -15,6 +15,7 @@ import { Crumb } from "@systatum/coneto/crumb";
 import { cn } from "@/lib/utils";
 import TitleSection from "@/components/layout/title";
 import { ExcerptType } from "@/constants/GetMetaData";
+import { useTranslations } from "next-intl";
 
 interface ClientPostProps {
   data: PostConnectionQuery;
@@ -35,6 +36,7 @@ interface PostItem {
 }
 
 export default function PostsClientPage(props: ClientPostProps) {
+  const t = useTranslations("postPage");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -73,10 +75,10 @@ export default function PostsClientPage(props: ClientPostProps) {
     .filter(Boolean) as NonNullable<typeof posts>[0][];
 
   const CATEGORY_ITEMS = [
-    { label: "All", path: "/post" },
-    { label: "Info", path: "/post?category=Info" },
-    { label: "Release", path: "/post?category=Release" },
-    { label: "Event", path: "/post?category=Event" },
+    { label: t("all"), path: "/post" },
+    { label: t("info"), path: "/post?category=Info" },
+    { label: t("release"), path: "/post?category=Release" },
+    { label: t("event"), path: "/post?category=Event" },
   ];
 
   const LINK_ITEMS = [
@@ -123,10 +125,10 @@ export default function PostsClientPage(props: ClientPostProps) {
         >
           {isPostPage ? (
             <h2 className="w-full relative text-5xl text-center">
-              What&apos;s Up
+              {t("title")}
             </h2>
           ) : (
-            <TitleSection className="text-black">What&apos;s Up</TitleSection>
+            <TitleSection className="text-black">{t("title")}</TitleSection>
           )}
 
           {isPostPage && (
@@ -161,46 +163,57 @@ export default function PostsClientPage(props: ClientPostProps) {
 
           {POSTS_FILTERED?.length > 0 ? (
             <div className={cn("flex flex-col w-full", !isPostPage && "px-8")}>
-              {POSTS_FILTERED.map((post, index) => (
-                <Link
-                  key={index}
-                  className="flex cursor-pointer px-2 py-[2px] rounded-xs gap-2 justify-between flex-row w-full"
-                  href={post.url}
-                >
-                  <div className="flex flex-row gap-3 w-fit">
-                    <Badge
-                      badgeStyle={css`
-                        min-width: 80px;
-                        height: fit-content;
-                        cursor: pointer;
-                        font-size: 16px;
-                        ${!isPostPage &&
-                        css`
-                          font-weight: 500;
+              {POSTS_FILTERED.map((post, index) => {
+                const categoryTranslated =
+                  post.category.name === "Info"
+                    ? t("info")
+                    : post.category.name === "Release"
+                      ? t("release")
+                      : t("event");
+
+                return (
+                  <Link
+                    key={index}
+                    className="flex cursor-pointer px-2 py-[2px] rounded-xs gap-2 justify-between flex-row w-full"
+                    href={post.url}
+                  >
+                    <div className="flex flex-row gap-3 w-fit">
+                      <Badge
+                        badgeStyle={css`
+                          min-width: 80px;
+                          height: fit-content;
+                          cursor: pointer;
+                          font-size: 16px;
+                          ${!isPostPage &&
+                          css`
+                            font-weight: 500;
+                          `}
                         `}
-                      `}
-                      caption={post.category.name ?? post.category.name}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        router.push(`/post?category=${post.category.name}`);
-                      }}
-                      withCircle
-                    />
-                    <div
-                      className={cn(
-                        "text-lg w-full flex flex-row",
-                        !isPostPage && "font-medium"
-                      )}
-                    >
-                      {post.title}
+                        caption={categoryTranslated || categoryTranslated}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          router.push(`/post?category=${post.category.name}`);
+                        }}
+                        withCircle
+                      />
+                      <div
+                        className={cn(
+                          "text-lg w-full flex flex-row",
+                          !isPostPage && "font-medium"
+                        )}
+                      >
+                        {post.title}
+                      </div>
                     </div>
-                  </div>
-                  <span className={cn("text-lg", !isPostPage && "font-medium")}>
-                    {post.published}
-                  </span>
-                </Link>
-              ))}
+                    <span
+                      className={cn("text-lg", !isPostPage && "font-medium")}
+                    >
+                      {post.published}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           ) : (
             <div className={cn(!isPostPage && "px-10")}>
