@@ -50,7 +50,7 @@
       "title": "Our work ethics and solutions can thrive in your organizations, too.",
       "subtitle": "We are open to collaboration requests, such as to develop a software peculiar to your needs, or in other avenues we can pour our Systatum energy into.",
       "labelFormName": "Name",
-      "validationErrorFormName": "First name must be at least 3 characters long",
+      "validationErrorFormName": "Name must be at least 3 characters long",
       "labelFormEmail": "Email",
       "validationErrorFormEmail": "Please enter a valid email address",
       "labelFormMessage": "Message"

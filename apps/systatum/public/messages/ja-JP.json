@@ -50,7 +50,7 @@
       "title": "私たちの労働倫理とソリューションは、あなたの組織でも活かすことができます。",
       "subtitle": "私たちはコラボレーションの依頼にオープンです。例えば、あなたのニーズに合わせたソフトウェアの開発や、Systatumのエネルギーを注ぎ込める他の領域でも。",
       "labelFormName": "名前",
-      "validationErrorFormName": "名前は3文字以上である必要があります",
+      "validationErrorFormName": "名前は3文字以上で入力してください",
       "labelFormEmail": "メールアドレス",
       "validationErrorFormEmail": "有効なメールアドレスを入力してください",
       "labelFormMessage": "メッセージ"

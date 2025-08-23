@@ -50,7 +50,7 @@
       "title": "Etika kerja dan solusi kami juga bisa berkembang di organisasimu.",
       "subtitle": "Kami terbuka untuk permintaan kolaborasi, seperti mengembangkan perangkat lunak sesuai kebutuhanmu, atau melalui cara lain di mana kami bisa menuangkan energi Systatum.",
       "labelFormName": "Nama",
-      "validationErrorFormName": "Nama depan harus memiliki minimal 3 karakter",
+      "validationErrorFormName": "Nama harus memiliki minimal 3 karakter",
       "labelFormEmail": "Email",
       "validationErrorFormEmail": "Silakan masukkan alamat email yang valid",
       "labelFormMessage": "Pesan"
