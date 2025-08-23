@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import TitleSection from "../../layout/title";
+import { useTranslations } from "next-intl";
 
 interface DataProductProps {
   title: string;
@@ -12,28 +13,30 @@ interface DataProductProps {
   link?: string;
 }
 
-const DATA_PRODUCTS: DataProductProps[] = [
-  {
-    title: "Workaty",
-    description: "Lorem ipsum...",
-    image: "/product/workaty.png",
-    link: "https://workaty.com",
-  },
-  {
-    title: "Coneto",
-    description: "Lorem ipsum...",
-    image: "/systatum/2048icon.png",
-    link: "https://coneto.systatum.com",
-  },
-  {
-    title: "Gara",
-    description: "Lorem ipsum...",
-    image: "/product/gara.png",
-    link: "https://kodegara.org",
-  },
-];
-
 export default function Product() {
+  const t = useTranslations("landingPage.productSection");
+
+  const DATA_PRODUCTS: DataProductProps[] = [
+    {
+      title: "Workaty",
+      description: t("workatyDescription"),
+      image: "/product/workaty.png",
+      link: "https://workaty.com",
+    },
+    {
+      title: "Coneto",
+      description: t("conetoDescription"),
+      image: "/systatum/2048icon.png",
+      link: "https://coneto.systatum.com",
+    },
+    {
+      title: "Gara",
+      description: t("garaDescription"),
+      image: "/product/gara.png",
+      link: "https://kodegara.org",
+    },
+  ];
+
   const [isHovered, setIsHovered] = useState<number | null>(null);
 
   return (
@@ -45,7 +48,7 @@ export default function Product() {
       transition={{ staggerChildren: 0.3 }}
       className="cursor-pointer flex flex-col min-h-[700px] items-center justify-center gap-16 border-b lg:px-2 pt-24 pb-32 bg-black"
     >
-      <TitleSection>What we did</TitleSection>
+      <TitleSection>{t("title")}</TitleSection>
       <div className="flex flex-col px-10 items-center justify-center sm:grid md:grid-cols-2 lg:grid-cols-3 w-full h-full relative gap-6 sm:gap-8 md:gap-6">
         {DATA_PRODUCTS.map((product, index) => (
           <motion.a
