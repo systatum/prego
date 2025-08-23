@@ -1,4 +1,5 @@
 ---
 name: Adam Hakarsa
-avatar: /profile/profile-adam.png
+avatar: /uploads/authors/profile-adam.png
 ---
+
