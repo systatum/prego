@@ -1,4 +1,5 @@
 ---
 name: Alim Naufal
-avatar: /profile/profile-alim.jpeg
+avatar: /uploads/authors/profile-alim.jpeg
 ---
+
