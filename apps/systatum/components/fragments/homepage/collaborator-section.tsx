@@ -5,6 +5,7 @@ import { RiCloseFill } from "@remixicon/react";
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { useState } from "react";
 import { scrollToId } from "./../../../../../packages/components/tools/scroll-to-id";
+import TitleSection from "../../layout/title";
 
 interface ProfileCollaboratorProps {
   id: number;
@@ -130,21 +131,12 @@ export default function Collaborator() {
     useState<ProfileCollaboratorProps | null>(null);
 
   return (
-    <div className="py-32 px-4 md:px-10 flex justify-center flex-col gap-20">
-      <motion.h2
-        className="text-center flex flex-col text-4xl md:text-5xl font-bold"
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeInLeft}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        Members
-      </motion.h2>
+    <div className="pt-24 pb-32 bg-gray-50 flex justify-center flex-col gap-20">
+      <TitleSection className="text-black">Members</TitleSection>
       <div className="flex flex-col gap-10">
         <div
           className={cn(
-            "flex flex-wrap items-center justify-center lg:justify-start gap-10 ",
+            "flex flex-wrap items-center justify-center lg:justify-start gap-10 px-4 md:px-10",
             PROFILE_COLLABORATOR.length > 4 &&
               "sm:grid sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
           )}
@@ -217,14 +209,14 @@ export default function Collaborator() {
               </div>
 
               <div className="flex flex-col absolute -top-1 z-10 left-0">
-                <h2
+                <span
                   className={cn(
                     "font-semibold text-shadow",
                     isHovered === profile.id && "text-blue-800"
                   )}
                 >
                   {profile.name_short}
-                </h2>
+                </span>
                 <span className="text-sm font-medium bg-white w-fit border border-gray-200 shadow-xs px-2">
                   #{profile.teams.short}
                 </span>

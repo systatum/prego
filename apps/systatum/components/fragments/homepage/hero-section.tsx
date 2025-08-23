@@ -3,8 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function Hero() {
+  const pathname = usePathname();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const [displayedText, setDisplayedText] = useState("");
   const [showOtherElements, setShowOtherElements] = useState(false);
   const [scrolled, setScrolled] = useState(false);

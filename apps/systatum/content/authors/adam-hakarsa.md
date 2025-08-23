@@ -1,4 +1,4 @@
 ---
 name: Adam Hakarsa
-avatar: /uploads/authors/llamantha.png
+avatar: /profile/profile-adam.png
 ---

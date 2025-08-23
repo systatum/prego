@@ -8,6 +8,10 @@ import { PostQuery } from "@/tina/__generated__/types";
 import { components } from "@/components/mdx-components";
 import ErrorBoundary from "@/components/error-boundary";
 import { Badge } from "@systatum/coneto/badge";
+import { css } from "styled-components";
+import Link from "next/link";
+import { Crumb } from "@systatum/coneto/crumb";
+import { Section } from "@/components/layout/section";
 
 interface ClientPostProps {
   data: PostQuery;
@@ -27,87 +31,112 @@ export default function PostClientPage(props: ClientPostProps) {
     formattedDate = format(date, "yyyy/MM/dd");
   }
 
+  const LINK_ITEMS = [
+    { label: "Systatum", path: "/" },
+    { label: "Post", path: "/post" },
+    { label: post.category.name, path: `/post?category=${post.category.name}` },
+    { label: post.title, path: `/post/${post._sys.filename}` },
+  ];
+
   return (
     <ErrorBoundary>
-      <div className="flex flex-col gap-10 py-20">
-        <h2
-          data-tina-field={tinaField(post, "title")}
-          className={`w-full relative text-3xl md:max-w-3xl max-w-xl font-extrabold tracking-normal text-center`}
-        >
-          {post.title}
-        </h2>
-        <div
-          data-tina-field={tinaField(post, "author")}
-          className="flex items-center w-full justify-between mx-auto max-w-[400px] mb-16"
-        >
-          {post.author && (
-            <>
-              {post.author.avatar && (
-                <div className="shrink-0 mr-4">
-                  <Image
-                    data-tina-field={tinaField(post.author, "avatar")}
-                    priority={true}
-                    className="h-14 w-14 object-cover rounded-full shadow-xs"
-                    src={post.author.avatar}
-                    alt={post.author.name}
-                    width={500}
-                    height={500}
-                  />
-                </div>
-              )}
-              <p
-                data-tina-field={tinaField(post.author, "name")}
-                className="text-base font-medium text-gray-600 group-hover:text-gray-800 "
-              >
-                {post.author.name}
-              </p>
-            </>
-          )}
-          <p
-            data-tina-field={tinaField(post, "date")}
-            className="text-base text-gray-400 group-hover:text-gray-500 "
-          >
-            {formattedDate}
-          </p>
-          <Badge
-            badgeStyle={{
-              minWidth: "80px",
-              height: "fit-content",
-            }}
-            caption={post.category?.name || undefined}
-            withCircle
-          />
-        </div>
-        {post.heroImg && (
-          <div className="w-full">
-            <div
-              data-tina-field={tinaField(post, "heroImg")}
-              className="relative max-w-4xl lg:max-w-5xl mx-auto"
+      <Section className="py-2">
+        <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto">
+          <div className="flex flex-row w-fit mx-auto">
+            <Crumb
+              style={css`
+                font-size: 14px;
+              `}
+              maxShown={4}
             >
-              <Image
-                priority={true}
-                src={post.heroImg}
-                alt={post.title}
-                width={1000}
-                height={1000}
-                className="relative z-10 mb-14 mx-auto block rounded-lg w-full h-auto opacity-100"
-                style={{ maxWidth: "30vh" }}
-              />
-            </div>
+              {LINK_ITEMS.map((data, index) => (
+                <Crumb.Item path={data.path} key={index}>
+                  {data.label}
+                </Crumb.Item>
+              ))}
+            </Crumb>
           </div>
-        )}
-        <div
-          data-tina-field={tinaField(post, "_body")}
-          className="prose w-full flex flex-col gap-3 md:max-w-3xl max-w-xl mx-auto"
-        >
-          <TinaMarkdown
-            content={post._body}
-            components={{
-              ...components,
-            }}
-          />
+          <h1
+            data-tina-field={tinaField(post, "title")}
+            className="w-full relative mt-7 text-5xl tracking-normal text-center"
+          >
+            {post.title}
+          </h1>
+          <div
+            data-tina-field={tinaField(post, "author")}
+            className="flex items-center mb-3 w-full justify-between max-w-[400px] mx-auto"
+          >
+            {post.author && (
+              <>
+                {post.author.avatar && (
+                  <div className="shrink-0">
+                    <Image
+                      data-tina-field={tinaField(post.author, "avatar")}
+                      src={post.author.avatar}
+                      alt={post.author.name}
+                      width={1000}
+                      height={1000}
+                      className="w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-full"
+                      unoptimized
+                    />
+                  </div>
+                )}
+                <span
+                  data-tina-field={tinaField(post.author, "name")}
+                  className="text-base font-medium text-gray-600 group-hover:text-gray-800 "
+                >
+                  {post.author.name}
+                </span>
+              </>
+            )}
+            <span
+              data-tina-field={tinaField(post, "date")}
+              className="text-[15px] font-medium text-gray-400 group-hover:text-gray-500 "
+            >
+              {formattedDate}
+            </span>
+            <Link href={`/post?category=${post.category.name}`}>
+              <Badge
+                badgeStyle={css`
+                  min-width: 80px;
+                  height: fit-content;
+                  cursor: pointer;
+                `}
+                caption={post.category?.name || undefined}
+                withCircle
+              />
+            </Link>
+          </div>
+          {post.heroImg && (
+            <div className="w-full">
+              <div
+                data-tina-field={tinaField(post, "heroImg")}
+                className="relative max-w-4xl lg:max-w-5xl mx-auto"
+              >
+                <img
+                  src={post.heroImg}
+                  alt={post.title}
+                  width={1000}
+                  height={1000}
+                  className="relative z-10 mb-14 mx-auto block rounded-lg w-full h-auto opacity-100"
+                  style={{ maxWidth: "30vh" }}
+                />
+              </div>
+            </div>
+          )}
+          <div
+            data-tina-field={tinaField(post, "_body")}
+            className="prose w-full flex flex-col gap-3 mx-auto"
+          >
+            <TinaMarkdown
+              content={post._body}
+              components={{
+                ...components,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      </Section>
     </ErrorBoundary>
   );
 }
