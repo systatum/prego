@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import FlagDropdown from "../translation/flag-dropdown";
 
 export default function Hero() {
   const pathname = usePathname();
@@ -185,6 +186,12 @@ export default function Hero() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {showOtherElements && (
+        <div className="absolute top-4 right-4 z-50">
+          <FlagDropdown />
+        </div>
+      )}
     </div>
   );
 }
