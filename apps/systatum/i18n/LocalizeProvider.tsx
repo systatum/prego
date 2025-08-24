@@ -8,21 +8,34 @@ export default function LocaleProvider({ locale }: { locale: string }) {
   return null;
 }
 
-export const initializeLocale = (localeFromServer?: string) => {
+const initializeLocale = (localeFromServer?: string) => {
   if (!localeFromServer) return;
   const code = localeFromServer;
+
+  let label = "English";
+  let flag = "🇺🇸";
+
+  switch (localeFromServer) {
+    case "en-US":
+      label = "English";
+      flag = "🇺🇸";
+      break;
+    case "id-ID":
+      label = "Bahasa Indonesia";
+      flag = "🇮🇩";
+      break;
+    case "ja-JP":
+      label = "日本語";
+      flag = "🇯🇵";
+      break;
+  }
 
   useLocaleStore.setState((prev) => ({
     ...prev,
     locale: {
       code,
-      label:
-        code === "en-US"
-          ? "English"
-          : code === "id-ID"
-            ? "Bahasa Indonesia"
-            : "日本語",
-      flag: code === "en-US" ? "🇺🇸" : code === "id-ID" ? "🇮🇩" : "🇯🇵",
+      label,
+      flag,
     },
   }));
 
