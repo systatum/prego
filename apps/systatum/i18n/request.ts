@@ -10,10 +10,6 @@ export async function requestConfig() {
   const acceptLang = headersList.get("Accept-Language").split(",")[0];
   let rawLocale = cookieStore.get("SYSTATUM_LOCALE")?.value || acceptLang;
 
-  if (!rawLocale || !routing.locales.includes(rawLocale as LocaleCodeProps)) {
-    rawLocale = routing.defaultLocale;
-  }
-
   let locale = LOCALE_MAP[rawLocale] ?? LOCALES.EN_US.id;
 
   const host = headersList.get("host");
