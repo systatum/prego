@@ -1,7 +1,6 @@
 import { getRequestConfig } from "next-intl/server";
-import { routing } from "./routing";
 import { cookies, headers } from "next/headers";
-import { LOCALE_MAP, LocaleCodeProps, LOCALES } from "@/constants/Locale";
+import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 
 export async function requestConfig() {
   const headersList = await headers();
