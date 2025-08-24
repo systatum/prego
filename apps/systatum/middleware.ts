@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LOCALES } from "./constants/Locale";
+import { LOCALE_MAP, LOCALES } from "./constants/Locale";
 
 export default function middleware(request: NextRequest) {
   const localeCookie = request.cookies.get("SYSTATUM_LOCALE")?.value;
@@ -12,16 +12,14 @@ export default function middleware(request: NextRequest) {
   }
 
   const acceptLanguage = request.headers.get("Accept-Language");
-  const fallbackLocale = acceptLanguage
-    ? acceptLanguage.split(",")[0]
-    : LOCALES.EN_US.id;
+  const fallbackLocale = acceptLanguage.split(",")[0];
+  const fallbackLocaleMap = LOCALE_MAP[fallbackLocale] ?? LOCALES.EN_US.id;
 
-  const locale = localeCookie || fallbackLocale;
+  const locale = localeCookie || fallbackLocaleMap;
 
   const response = NextResponse.next();
-  response.headers.set("X-SYSTATUM-LOCALE", locale);
 
-  if (!localeCookie) {
+  if (!localeCookie || localeCookie !== locale) {
     response.cookies.set("SYSTATUM_LOCALE", locale, { path: "/" });
   }
 
