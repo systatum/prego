@@ -4,9 +4,10 @@ import { DEFAULT_METADATA } from "@/constants/GetMetaData";
 import { Toaster } from "react-hot-toast";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
 import { NextIntlClientProvider } from "next-intl";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 import { VideoDialogProvider } from "../../../packages/components/ui/video-dialog-context";
+import LocaleProvider from "@/i18n/LocalizeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const headersList = await headers();
+  const cookieStore = await cookies();
 
-  const rawLocale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
-  const locale = LOCALE_MAP[rawLocale] ?? "en-US";
+  const acceptLang = headersList.get("Accept-Language").split(",")[0];
+  const rawLocale = cookieStore.get("SYSTATUM_LOCALE")?.value || acceptLang;
+  const locale = LOCALE_MAP[rawLocale] ?? LOCALES.EN_US.id;
 
   const host = headersList.get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
@@ -41,6 +44,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TinaUrlFixer />
+        <LocaleProvider locale={locale} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <VideoDialogProvider>{children}</VideoDialogProvider>
           <Toaster position="top-right" reverseOrder={false} />
