@@ -3,7 +3,7 @@ import client from "@/tina/__generated__/client";
 import Layout from "@/components/layout/layout";
 import PostClientPage from "./client-page";
 import { POST_METADATA_CONTENT } from "@/constants/GetMetaData";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 
 export const revalidate = 300;
@@ -17,8 +17,12 @@ export default async function PostPage({
 }: {
   params: Promise<PostPageParams>;
 }) {
+  const cookiesStore = await cookies();
   const headersList = await headers();
-  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+
+  const acceptLang = headersList.get("Accept-Language").split(",")[0];
+  const rawLocale = cookiesStore.get("SYSTATUM_LOCALE")?.value || acceptLang;
+  const locale = LOCALE_MAP[rawLocale] ?? LOCALES.EN_US.id;
 
   const resolvedParams = await params;
 
