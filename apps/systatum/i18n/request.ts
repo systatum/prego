@@ -3,7 +3,7 @@ import { routing } from "./routing";
 import { cookies, headers } from "next/headers";
 import { LOCALE_MAP, LocaleCodeProps, LOCALES } from "@/constants/Locale";
 
-export default getRequestConfig(async () => {
+export async function requestConfig() {
   const headersList = await headers();
   const cookieStore = await cookies();
 
@@ -25,4 +25,6 @@ export default getRequestConfig(async () => {
     locale,
     messages,
   };
-});
+}
+
+export default getRequestConfig(requestConfig);

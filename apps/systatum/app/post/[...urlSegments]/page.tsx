@@ -5,6 +5,7 @@ import PostClientPage from "./client-page";
 import { POST_METADATA_CONTENT } from "@/constants/GetMetaData";
 import { cookies, headers } from "next/headers";
 import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
+import { requestConfig } from "@/i18n/request";
 
 export const revalidate = 300;
 
@@ -17,19 +18,13 @@ export default async function PostPage({
 }: {
   params: Promise<PostPageParams>;
 }) {
-  const cookiesStore = await cookies();
-  const headersList = await headers();
-
-  const acceptLang = headersList.get("Accept-Language").split(",")[0];
-  const rawLocale = cookiesStore.get("SYSTATUM_LOCALE")?.value || acceptLang;
-  const locale = LOCALE_MAP[rawLocale] ?? LOCALES.EN_US.id;
+  const { locale } = await requestConfig();
 
   const resolvedParams = await params;
 
   const filepath = resolvedParams.urlSegments.join("/");
-  const localeSelected = LOCALE_MAP[locale];
 
-  const relativePath = `${localeSelected}/${filepath}.mdx`;
+  const relativePath = `${locale}/${filepath}.mdx`;
 
   const data = await client.queries.post({
     relativePath,

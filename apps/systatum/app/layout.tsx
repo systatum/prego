@@ -4,10 +4,9 @@ import { DEFAULT_METADATA } from "@/constants/GetMetaData";
 import { Toaster } from "react-hot-toast";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
 import { NextIntlClientProvider } from "next-intl";
-import { cookies, headers } from "next/headers";
-import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
 import { VideoDialogProvider } from "../../../packages/components/ui/video-dialog-context";
 import LocaleProvider from "@/i18n/LocalizeProvider";
+import { requestConfig } from "@/i18n/request";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const cookieStore = await cookies();
-
-  const acceptLang = headersList.get("Accept-Language").split(",")[0];
-  const rawLocale = cookieStore.get("SYSTATUM_LOCALE")?.value || acceptLang;
-  const locale = LOCALE_MAP[rawLocale] ?? LOCALES.EN_US.id;
-
-  const host = headersList.get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const res = await fetch(`${protocol}://${host}/messages/${locale}.json`);
-  const messages = await res.json();
+  const { locale, messages } = await requestConfig();
 
   return (
     <html lang={locale}>
