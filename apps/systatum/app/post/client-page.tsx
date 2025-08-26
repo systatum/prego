@@ -101,7 +101,11 @@ export default function PostsClientPage(props: ClientPostProps) {
 
   return (
     <ErrorBoundary>
-      <Section className={cn(isPostPage ? "py-2" : "py-20 px-0 max-w-7xl")}>
+      <Section
+        className={cn(
+          isPostPage ? "py-2" : "py-20 px-0 mx-0 w-full max-w-full"
+        )}
+      >
         {isPostPage && (
           <div className="mx-auto w-fit flex">
             <Crumb
@@ -110,7 +114,12 @@ export default function PostsClientPage(props: ClientPostProps) {
               `}
             >
               {LINK_ITEMS.map((data, index) => (
-                <Crumb.Item path={data.path} key={index}>
+                <Crumb.Item
+                  onClick={() => {
+                    router.push(data.path);
+                  }}
+                  key={index}
+                >
                   {data.label}
                 </Crumb.Item>
               ))}
@@ -119,8 +128,10 @@ export default function PostsClientPage(props: ClientPostProps) {
         )}
         <div
           className={cn(
-            "flex flex-col gap-10 mx-auto",
-            isPostPage ? "py-10 md:max-w-4xl max-w-xl" : "max-w-7xl"
+            "flex flex-col gap-10",
+            isPostPage
+              ? "py-10 md:max-w-4xl mx-auto max-w-xl"
+              : "max-w-full w-full"
           )}
         >
           {isPostPage ? (
