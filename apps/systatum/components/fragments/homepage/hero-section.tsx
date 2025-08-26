@@ -51,7 +51,7 @@ export default function Hero() {
     }, 100);
 
     return () => clearInterval(typingInterval);
-  }, []);
+  }, [fullText]);
 
   return (
     <div className="flex flex-col min-h-screen sm:min-h-[780px] lg:min-h-screen justify-start sm:pt-[120px] lg:pt-[150px] overflow-hidden gap-20 sm:gap-20 lg:gap-24 relative">

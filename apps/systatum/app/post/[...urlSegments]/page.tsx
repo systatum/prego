@@ -3,8 +3,9 @@ import client from "@/tina/__generated__/client";
 import Layout from "@/components/layout/layout";
 import PostClientPage from "./client-page";
 import { POST_METADATA_CONTENT } from "@/constants/GetMetaData";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
+import { requestConfig } from "@/i18n/request";
 
 export const revalidate = 300;
 
@@ -17,15 +18,13 @@ export default async function PostPage({
 }: {
   params: Promise<PostPageParams>;
 }) {
-  const headersList = await headers();
-  const locale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
+  const { locale } = await requestConfig();
 
   const resolvedParams = await params;
 
   const filepath = resolvedParams.urlSegments.join("/");
-  const localeSelected = LOCALE_MAP[locale];
 
-  const relativePath = `${localeSelected}/${filepath}.mdx`;
+  const relativePath = `${locale}/${filepath}.mdx`;
 
   const data = await client.queries.post({
     relativePath,

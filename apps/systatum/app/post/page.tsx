@@ -2,16 +2,13 @@ import Layout from "@/components/layout/layout";
 import client from "@/tina/__generated__/client";
 import PostsClientPage from "./client-page";
 import { POST_METADATA } from "@/constants/GetMetaData";
-import { headers } from "next/headers";
-import { LOCALE_MAP, LOCALES } from "@/constants/Locale";
+import { requestConfig } from "@/i18n/request";
 
 export const metadata = POST_METADATA;
 export const revalidate = 300;
 
 export default async function PostsPage() {
-  const headersList = await headers();
-  const rawLocale = headersList.get("X-SYSTATUM-LOCALE") || LOCALES.EN_US.id;
-  const locale = LOCALE_MAP[rawLocale] ?? "en-US";
+  const { locale } = await requestConfig();
 
   let posts = await client.queries.postConnection({
     sort: "date",
