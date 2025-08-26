@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Crumb } from "@systatum/coneto/crumb";
 import { Section } from "@/components/layout/section";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 interface ClientPostProps {
   data: PostQuery;
@@ -24,6 +25,7 @@ interface ClientPostProps {
 
 export default function PostClientPage(props: ClientPostProps) {
   const t = useTranslations("postPage");
+  const router = useRouter();
 
   const { data } = useTina({ ...props });
   const post = data.post;
@@ -60,7 +62,12 @@ export default function PostClientPage(props: ClientPostProps) {
               maxShown={4}
             >
               {LINK_ITEMS.map((data, index) => (
-                <Crumb.Item path={data.path} key={index}>
+                <Crumb.Item
+                  onClick={() => {
+                    router.push(data.path);
+                  }}
+                  key={index}
+                >
                   {data.label}
                 </Crumb.Item>
               ))}
