@@ -9,7 +9,7 @@ export async function GET() {
 
   let posts = await client.queries.postConnection({
     sort: "date",
-    last: 10,
+    last: 50,
   });
   const allPosts = posts;
 
