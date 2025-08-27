@@ -37,7 +37,15 @@ export default function PostClientPage(props: ClientPostProps) {
   const LINK_ITEMS = [
     { label: "Systatum", path: "/" },
     { label: "Post", path: "/post" },
-    { label: post.category.name, path: `/post?category=${post.category.name}` },
+    {
+      label:
+        post.category.name === "Info"
+          ? t("info")
+          : post.category.name === "Release"
+            ? t("release")
+            : t("event"),
+      path: `/post?category=${post.category.name}`,
+    },
     { label: post.title, path: `/post/${post._sys.filename}` },
   ];
 
