@@ -26,11 +26,6 @@ export async function GET() {
     );
   }
 
-  const filteredEdges = allPosts.data.postConnection.edges.filter((edge) => {
-    const filename = edge.node._sys.relativePath;
-    return filename.startsWith(locale);
-  });
-
   const feed = new RSS({
     title: BASE_TITLE,
     description: BASE_DESCRIPTION,
@@ -39,9 +34,11 @@ export async function GET() {
     language: locale,
   });
 
-  filteredEdges.forEach((edge) => {
+  allPosts.data.postConnection.edges.forEach((edge) => {
     const post = edge.node;
     if (!post) return;
+
+    const relativePath = post._sys.relativePath.split(".");
 
     feed.item({
       title: post.title ? `${post.title} - ${BASE_TITLE}` : BASE_TITLE,
@@ -52,6 +49,7 @@ export async function GET() {
             ? post.excerpt
             : BASE_DESCRIPTION,
       date: post.date,
+      url: `/post/${relativePath[0]}`,
       author: post.author.name,
       categories: post.tags,
       enclosure: post.heroImg
