@@ -85,9 +85,17 @@ export default function PostsClientPage(props: ClientPostProps) {
 
   const LINK_ITEMS = [
     { label: "Systatum", path: "/" },
-    { label: "Post", path: "/post" },
+    { label: t("post"), path: "/post" },
     categoryPost
-      ? { label: categoryPost, path: `/post?category=${categoryPost}` }
+      ? {
+          label:
+            categoryPost === "Info"
+              ? t("info")
+              : categoryPost === "Release"
+                ? t("release")
+                : t("event"),
+          path: `/post?category=${categoryPost}`,
+        }
       : null,
   ].filter(Boolean);
 
