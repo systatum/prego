@@ -8,6 +8,11 @@ export function createMetadata(title?: string, description?: string): Metadata {
   return {
     title: title ? `${title} - ${BASE_TITLE}` : BASE_TITLE,
     description: description ? description : BASE_DESCRIPTION,
+    alternates: {
+      types: {
+        "application/rss+xml": "https://systatum.com/rss",
+      },
+    },
   };
 }
 
