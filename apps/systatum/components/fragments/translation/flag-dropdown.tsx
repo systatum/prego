@@ -30,7 +30,7 @@ export default function FlagDropdown() {
   const handleMouseLeave = useCallback(() => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 300);
+    }, 150);
   }, []);
 
   return (
