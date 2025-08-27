@@ -52,12 +52,14 @@ export default function PostsClientPage(props: ClientPostProps) {
         ? format(date, "yyyy/MM/dd")
         : "";
 
+      const relativePath = post._sys.relativePath.split(".");
+
       return {
         id: post?.id,
         published: formattedDate,
         title: post?.title,
         tags: post?.tags?.map((tag) => tag?.tag?.name) || [],
-        url: `/post/${post._sys.filename}`,
+        url: `/post/${relativePath[0]}`,
         excerpt:
           post.excerpt && typeof post.excerpt !== "string"
             ? post.excerpt.children[0]?.children[0]?.text
