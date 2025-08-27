@@ -62,6 +62,7 @@
     "info": "Info",
     "release": "Release",
     "event": "Event",
+    "post": "Post",
     "emptyContent": "No content available"
   }
 }
