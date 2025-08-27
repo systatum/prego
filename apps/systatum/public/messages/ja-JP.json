@@ -57,11 +57,12 @@
     }
   },
   "postPage": {
-    "title": "最新情報",
+    "title": "お知らせ",
     "all": "すべて",
     "info": "情報",
     "release": "リリース",
     "event": "イベント",
+    "post": "お知らせ",
     "emptyContent": "コンテンツは利用できません"
   }
 }

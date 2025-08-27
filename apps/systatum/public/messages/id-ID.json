@@ -57,11 +57,12 @@
     }
   },
   "postPage": {
-    "title": "Apa Kabar",
+    "title": "Kabar Terbaru",
     "all": "Semua",
     "info": "Info",
     "release": "Rilis",
     "event": "Acara",
+    "post": "Kabar",
     "emptyContent": "Konten Tidak Tersedia"
   }
 }

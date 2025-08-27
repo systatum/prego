@@ -36,19 +36,22 @@ export default function PostClientPage(props: ClientPostProps) {
     formattedDate = format(date, "yyyy/MM/dd");
   }
 
-  const LINK_ITEMS = [
-    { label: "Systatum", path: "/" },
-    { label: "Post", path: "/post" },
-    { label: post.category.name, path: `/post?category=${post.category.name}` },
-    { label: post.title, path: `/post/${post._sys.filename}` },
-  ];
-
   const categoryTranslated =
     post.category.name === "Info"
       ? t("info")
       : post.category.name === "Release"
         ? t("release")
         : t("event");
+
+  const LINK_ITEMS = [
+    { label: "Systatum", path: "/" },
+    { label: t("post"), path: "/post" },
+    {
+      label: categoryTranslated,
+      path: `/post?category=${post.category.name}`,
+    },
+    { label: post.title, path: `/post/${post._sys.filename}` },
+  ];
 
   return (
     <ErrorBoundary>

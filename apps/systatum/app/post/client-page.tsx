@@ -52,12 +52,14 @@ export default function PostsClientPage(props: ClientPostProps) {
         ? format(date, "yyyy/MM/dd")
         : "";
 
+      const relativePath = post._sys.relativePath.split(".");
+
       return {
         id: post?.id,
         published: formattedDate,
         title: post?.title,
         tags: post?.tags?.map((tag) => tag?.tag?.name) || [],
-        url: `/post/${post._sys.filename}`,
+        url: `/post/${relativePath[0]}`,
         excerpt:
           post.excerpt && typeof post.excerpt !== "string"
             ? post.excerpt.children[0]?.children[0]?.text
@@ -83,9 +85,17 @@ export default function PostsClientPage(props: ClientPostProps) {
 
   const LINK_ITEMS = [
     { label: "Systatum", path: "/" },
-    { label: "Post", path: "/post" },
+    { label: t("post"), path: "/post" },
     categoryPost
-      ? { label: categoryPost, path: `/post?category=${categoryPost}` }
+      ? {
+          label:
+            categoryPost === "Info"
+              ? t("info")
+              : categoryPost === "Release"
+                ? t("release")
+                : t("event"),
+          path: `/post?category=${categoryPost}`,
+        }
       : null,
   ].filter(Boolean);
 

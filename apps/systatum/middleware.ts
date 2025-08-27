@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LOCALE_MAP, LOCALES } from "./constants/Locale";
 
 export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
   const localeCookie = request.cookies.get("SYSTATUM_LOCALE")?.value;
 
   const url = request.nextUrl;
@@ -21,6 +22,15 @@ export default function middleware(request: NextRequest) {
 
   if (!localeCookie || localeCookie !== locale) {
     response.cookies.set("SYSTATUM_LOCALE", locale, { path: "/" });
+  }
+
+  if (pathname.startsWith("/post")) {
+    const localePath = pathname.split("/")[2];
+    const isFilteringPath = LOCALE_MAP[localePath];
+
+    if (localePath) {
+      response.cookies.set("SYSTATUM_LOCALE", isFilteringPath, { path: "/" });
+    }
   }
 
   return response;
