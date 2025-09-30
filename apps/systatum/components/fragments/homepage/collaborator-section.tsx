@@ -3,8 +3,7 @@
 import { cn } from "@/lib/utils";
 import { RiCloseFill } from "@remixicon/react";
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
-import { useState } from "react";
-import { scrollToId } from "./../../../../../packages/components/tools/scroll-to-id";
+import { Fragment, useMemo, useState } from "react";
 import TitleSection from "../../layout/title";
 import { useTranslations } from "next-intl";
 
@@ -132,6 +131,20 @@ export default function Collaborator() {
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [expandedProfile, setExpandedProfile] =
     useState<ProfileCollaboratorProps | null>(null);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const contentCollaborator = useMemo(() => {
+    if (!isMobile) {
+      return PROFILE_COLLABORATOR.map((data) => [data]);
+    }
+
+    return PROFILE_COLLABORATOR.reduce((acc, profile, index) => {
+      const pairIndex = Math.floor(index / 2);
+      if (!acc[pairIndex]) acc[pairIndex] = [];
+      acc[pairIndex].push(profile);
+      return acc;
+    }, []);
+  }, [isMobile]);
 
   return (
     <div className="pt-24 pb-32 bg-gray-50 flex justify-center flex-col gap-20">
@@ -144,89 +157,148 @@ export default function Collaborator() {
               "sm:grid sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
           )}
         >
-          {PROFILE_COLLABORATOR.map((profile) => (
-            <motion.div
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeInUp}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              onClick={() => {
-                if (
-                  expandedProfile === null ||
-                  expandedProfile.id !== profile.id
-                ) {
-                  setExpandedProfile(profile);
-                  setIsHovered(profile.id);
-                  scrollToId("content-profile");
-                } else if (profile.id === isHovered) {
-                  setExpandedProfile(null);
-                }
-              }}
-              onMouseLeave={() => {
-                setIsHovered(null);
-              }}
-              onMouseEnter={() => {
-                setIsHovered(profile.id);
-              }}
-              className="relative flex items-center justify-center cursor-pointer min-w-[180px] w-fit h-full"
-              key={profile.id}
-            >
-              <div
-                className={cn(
-                  "border rounded-full transition-transform duration-300",
-                  (isHovered === profile.id ||
-                    (expandedProfile && expandedProfile.id === profile.id)) &&
-                    "border-blue-500 scale-110"
-                )}
-              >
-                <div
-                  className={cn(
-                    "w-40 h-40 rounded-full border border-transparent bg-white overflow-hidden",
-                    (isHovered === profile.id ||
-                      (expandedProfile && expandedProfile.id === profile.id)) &&
-                      "border-4 border-transparent"
-                  )}
-                >
-                  <div className="relative w-full h-full">
-                    {isHovered === profile.id ||
-                    (expandedProfile && expandedProfile.id === profile.id) ? (
-                      <img
-                        src={profile.profile_picture_url}
-                        alt={`Profile Collaborator Systatum ${profile.name_long}`}
-                        width={160}
-                        height={160}
-                        className="object-cover w-full h-full"
-                      />
-                    ) : (
-                      <img
-                        src={profile.profile_picture_url}
-                        alt={`Profile Collaborator Systatum ${profile.name_long}`}
-                        width={160}
-                        height={160}
-                        className="object-cover w-full h-full blur-sm"
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
+          {contentCollaborator.map((data, dataIndex) => {
+            const shouldShowExpanded = data?.some(
+              (p) => expandedProfile?.id === p.id
+            );
 
-              <div className="flex flex-col absolute -top-1 z-10 left-0">
-                <span
-                  className={cn(
-                    "font-semibold text-shadow",
-                    isHovered === profile.id && "text-blue-800"
-                  )}
-                >
-                  {profile.name_short}
-                </span>
-                <span className="text-sm font-medium bg-white w-fit border border-gray-200 shadow-xs px-2">
-                  #{profile.teams.short}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+            return (
+              <Fragment key={`pair-${dataIndex}`}>
+                {data.map((profile) => (
+                  <motion.div
+                    key={profile.id}
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={fadeInUp}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    onClick={() => {
+                      if (
+                        expandedProfile === null ||
+                        expandedProfile.id !== profile.id
+                      ) {
+                        setExpandedProfile(profile);
+                        setIsHovered(profile.id);
+                      } else if (profile.id === isHovered) {
+                        setExpandedProfile(null);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      setIsHovered(null);
+                    }}
+                    onMouseEnter={() => {
+                      setIsHovered(profile.id);
+                    }}
+                    className="relative flex items-center justify-center cursor-pointer min-w-[180px] w-fit h-full"
+                  >
+                    <div
+                      className={cn(
+                        "border rounded-full transition-transform duration-300",
+                        (isHovered === profile.id ||
+                          (expandedProfile &&
+                            expandedProfile.id === profile.id)) &&
+                          "border-blue-500 scale-110"
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          "w-40 h-40 rounded-full border border-transparent bg-white overflow-hidden",
+                          (isHovered === profile.id ||
+                            (expandedProfile &&
+                              expandedProfile.id === profile.id)) &&
+                            "border-4 border-transparent"
+                        )}
+                      >
+                        <div className="relative w-full h-full">
+                          {isHovered === profile.id ||
+                          (expandedProfile &&
+                            expandedProfile.id === profile.id) ? (
+                            <img
+                              src={profile.profile_picture_url}
+                              alt={`Profile Collaborator Systatum ${profile.name_long}`}
+                              width={160}
+                              height={160}
+                              className="object-cover w-full h-full"
+                            />
+                          ) : (
+                            <img
+                              src={profile.profile_picture_url}
+                              alt={`Profile Collaborator Systatum ${profile.name_long}`}
+                              width={160}
+                              height={160}
+                              className="object-cover w-full h-full blur-sm"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col absolute -top-1 z-10 left-0">
+                      <span
+                        className={cn(
+                          "font-semibold text-shadow",
+                          isHovered === profile.id && "text-blue-800"
+                        )}
+                      >
+                        {profile.name_short}
+                      </span>
+                      <span className="text-sm font-medium bg-white w-fit border border-gray-200 shadow-xs px-2">
+                        #{profile.teams.short}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {shouldShowExpanded && (
+                  <motion.div
+                    id="content-profile"
+                    className="px-4 sm:hidden flex sm:px-0 w-full"
+                  >
+                    <div className="bg-white w-full border-gray-200 rounded-xs shadow-xs max-w-[580px] sm:max-w-full p-6 relative">
+                      <button
+                        onClick={() => {
+                          setIsHovered(null);
+                          setExpandedProfile(null);
+                        }}
+                        className="cursor-pointer absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-xs transition-colors duration-200"
+                        aria-label="Close profile"
+                      >
+                        <RiCloseFill className="w-5 h-5 text-gray-500" />
+                      </button>
+
+                      <div className="flex flex-col sm:flex-row gap-6">
+                        <div className="flex-shrink-0">
+                          <div className="w-32 h-32 rounded-xs overflow-hidden border border-gray-300">
+                            <img
+                              src={expandedProfile.profile_picture_url}
+                              alt={`Profile of ${expandedProfile.name_long}`}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          <div className="flex flex-col">
+                            <h3 className="text-4xl md:text-2xl font-bold text-gray-900">
+                              {expandedProfile.name_long}
+                            </h3>
+                            <p className="text-base md:text-lg text-gray-600">
+                              {expandedProfile.teams.long}
+                            </p>
+                          </div>
+
+                          <div className="text-gray-700 text-sm md:text-base leading-relaxed">
+                            {expandedProfile.bio}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </Fragment>
+            );
+          })}
         </div>
+
         <AnimatePresence>
           {expandedProfile !== null && (
             <motion.div
@@ -235,9 +307,9 @@ export default function Collaborator() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="mt-12 px-4 sm:px-0 flex w-full"
+              className="mt-12 px-4 sm:flex sm:px-0 hidden w-full"
             >
-              <div className="bg-white border w-full border-gray-200 rounded-xs shadow-xs max-w-[580px] sm:max-w-full p-6 relative">
+              <div className="bg-white w-full border-gray-200 rounded-xs shadow-xs max-w-[580px] sm:max-w-full p-6 relative">
                 <button
                   onClick={() => {
                     setIsHovered(null);
