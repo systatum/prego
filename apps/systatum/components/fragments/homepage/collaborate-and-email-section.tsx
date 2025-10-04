@@ -37,9 +37,7 @@ export default function CollaborateAndEmail() {
             <h3 className="font-semibold text-3xl sm:text-4xl md:text-5xl">
               {t("title")}
             </h3>
-            <span className="sm:text-sm md:text-base lg:text-lg">
-              {t("subtitle")}
-            </span>
+            <span className="text-lg">{t("subtitle")}</span>
           </div>
         </div>
         <FormCollaborateAndEmail />
@@ -136,6 +134,7 @@ function FormCollaborateAndEmail() {
         formValues={value}
         validationSchema={collaborateSchema}
         onValidityChange={setIsFormValid}
+        labelSize="18px"
         mode="onChange"
       />
       <Button
