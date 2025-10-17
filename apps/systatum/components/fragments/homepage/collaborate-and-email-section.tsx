@@ -37,9 +37,7 @@ export default function CollaborateAndEmail() {
             <h3 className="font-semibold text-3xl sm:text-4xl md:text-5xl">
               {t("title")}
             </h3>
-            <span className="sm:text-sm md:text-base lg:text-lg">
-              {t("subtitle")}
-            </span>
+            <span className="text-lg">{t("subtitle")}</span>
           </div>
         </div>
         <FormCollaborateAndEmail />
@@ -59,6 +57,7 @@ function FormCollaborateAndEmail() {
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const collaborateSchema = z.object({
     name: z.string().min(3, t("validationErrorFormName")),
@@ -66,29 +65,18 @@ function FormCollaborateAndEmail() {
     message: z.string().optional(),
   });
 
-  const onChangeForm = (e?: StatefulOnChangeType) => {
-    if (e && "target" in e) {
-      const target = e.target;
-      const { name, value } = target;
-
-      setValue((prev) => ({ ...prev, [name]: value }));
-    }
-  };
-
   const EMPLOYEE_FIELDS: FormFieldProps[] = [
     {
       name: "name",
       title: t("labelFormName"),
       type: "text",
       required: true,
-      onChange: onChangeForm,
     },
     {
       name: "email",
       title: t("labelFormEmail"),
       type: "text",
       required: false,
-      onChange: onChangeForm,
     },
     {
       name: "message",
@@ -96,12 +84,12 @@ function FormCollaborateAndEmail() {
       type: "textarea",
       rows: 4,
       required: true,
-      onChange: onChangeForm,
     },
   ];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await fetch("/.netlify/functions/send-email", {
@@ -122,6 +110,8 @@ function FormCollaborateAndEmail() {
     } catch (error) {
       console.error(error);
       toast.error("Network error, please try again");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -132,14 +122,19 @@ function FormCollaborateAndEmail() {
       className="flex flex-col text-white gap-3 w-full min-w-[300px] "
     >
       <StatefulForm
+        onChange={({ currentState }) => {
+          setValue((prev) => ({ ...prev, ...currentState }));
+        }}
         fields={EMPLOYEE_FIELDS}
         formValues={value}
         validationSchema={collaborateSchema}
         onValidityChange={setIsFormValid}
+        labelSize="18px"
         mode="onChange"
       />
       <Button
-        disabled={!isFormValid}
+        isLoading={isLoading}
+        disabled={!isFormValid || isLoading}
         type="submit"
         containerStyle={css`
           width: 100%;
