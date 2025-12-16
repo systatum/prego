@@ -28,11 +28,11 @@
     "postcss": "^8.5.4",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
-    "react-swipeable": "^7.0.2",
     "typescript": "^5.8.3",
     "zustand": "^5.0.5"
   },
   "dependencies": {
+    "react-swipeable": "^7.0.2",
     "@headlessui/react": "^2.2.4",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",

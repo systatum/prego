@@ -324,6 +324,9 @@ importers:
       react-player:
         specifier: ^2.16.0
         version: 2.16.0(react@19.1.0)
+      react-swipeable:
+        specifier: ^7.0.2
+        version: 7.0.2(react@19.1.0)
       react-use-measure:
         specifier: ^2.1.7
         version: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -394,9 +397,6 @@ importers:
       postcss-nesting:
         specifier: ^13.0.1
         version: 13.0.2(postcss@8.5.5)
-      react-swipeable:
-        specifier: ^7.0.2
-        version: 7.0.2(react@19.1.0)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
