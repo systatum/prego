@@ -1,8 +1,8 @@
 "use client";
 
-import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVideoDialog } from "./VideoDialogContext";
+import { RiPlayLine } from "@remixicon/react";
 
 interface HeroVideoProps {
   videoSrc: string;
@@ -37,7 +37,7 @@ export default function HeroVideoDialog({
             <div
               className={`relative flex size-20 scale-100 items-center justify-center rounded-full bg-gradient-to-b from-primary/30 to-primary shadow-md transition-all duration-200 ease-out group-hover:scale-[1.2]`}
             >
-              <Play
+              <RiPlayLine
                 className="size-8 scale-100 fill-white text-white transition-transform duration-200 ease-out group-hover:scale-105"
                 style={{
                   filter:
