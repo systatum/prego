@@ -62,18 +62,18 @@ export default function Hero() {
             `fixed top-0 left-0 w-full z-50 px-14 sm:px-[50px] md:px-6 lg:px-[50px] py-4`,
             scrolled
               ? "bg-white backdrop-blur-md shadow-md md:bg-transparent md:backdrop-blur-none md:shadow-none"
-              : "bg-transparent"
+              : "bg-transparent",
           )}
         >
           <div
             className={cn(
               "text-xl w-[20px] hidden absolute",
-              scrolled && "flex md:hidden left-6 top-[19px]"
+              scrolled && "flex md:hidden left-6 top-[19px]",
             )}
           >
             <img
               alt="Systatum Logo"
-              src={"/systatum/2048icon.png"}
+              src={"/systatum/256icon.png"}
               width={300}
             />
           </div>
@@ -83,7 +83,7 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className={cn(
               "text-xl left-14 md:text-[36px] lg:text-[40px] montHeavy flex flex-row items-center gap-2",
-              lastSection && "md:text-white"
+              lastSection && "md:text-white",
             )}
           >
             Systatum
@@ -102,7 +102,7 @@ export default function Hero() {
           >
             <img
               alt="Systatum Logo"
-              src={"/systatum/2048icon.png"}
+              src={"/systatum/256icon.png"}
               width={300}
             />
           </motion.div>
@@ -138,7 +138,7 @@ export default function Hero() {
             >
               <img
                 alt="Systatum Logo"
-                src={"/systatum/2048icon.png"}
+                src={"/systatum/256icon.png"}
                 width={300}
               />
             </motion.div>
@@ -150,7 +150,7 @@ export default function Hero() {
             "font-light items-center w-full justify-start text-5xl sm:text-6xl md:text-7xl lg:text-8xl max-w-[350px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]",
             showOtherElements
               ? "md:translate-x-[200px] lg:translate-x-[320px]"
-              : "absolute top-[376px] sm:top-[128px] sm:left-[167px] md:left-[200px] lg:left-[320px]"
+              : "absolute top-[376px] sm:top-[128px] sm:left-[167px] md:left-[200px] lg:left-[320px]",
           )}
         >
           {displayedText}
