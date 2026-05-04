@@ -3,10 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  RiLayoutGridFill,
   RiTriangleFill,
-  RiLinksLine,
-  RiFileTextFill,
   RiGithubFill,
   RiSlackFill,
   RiNotionFill,
@@ -59,8 +56,6 @@ function TrustedBy() {
 
 const Section = styled.section`
   padding: 4rem 6rem;
-  background: #f5f0e8;
-  border-top: 1px solid #d4ccba;
 
   @media (max-width: 768px) {
     padding: 3rem 1.5rem;
