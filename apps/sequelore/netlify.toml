@@ -1,0 +1,17 @@
+[build]
+  base = "apps/sequelore"
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[dev]
+  base = "apps/sequelore"
+  command = "npm run dev"
+
+[functions]
+  node_bundler = "esbuild"
+
+
+
