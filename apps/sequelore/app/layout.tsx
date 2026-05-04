@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
 import "@/styles.css";
-import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
 import { TinaUrlFixer } from "@/helpers/tina-url-fixer";
+import StyledComponentRegistry from "@/lib/styled-component-registry";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -40,12 +40,13 @@ export default function RootLayout({
       className={cn(fontSans.variable, nunito.variable, lato.variable)}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
-        <TinaUrlFixer />
-        <VideoDialogProvider>
-          {children}
-          <VideoDialog />
-        </VideoDialogProvider>
-        <TailwindIndicator />
+        <StyledComponentRegistry>
+          <TinaUrlFixer />
+          <VideoDialogProvider>
+            {children}
+            <VideoDialog />
+          </VideoDialogProvider>
+        </StyledComponentRegistry>
       </body>
     </html>
   );
