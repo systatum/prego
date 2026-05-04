@@ -25,8 +25,9 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Tina",
-  description: "Tina Cloud Starter",
+  title: "Sequelore",
+  description:
+    "Sequelore is the modern database platform for building, scaling, and shipping products with confidence.",
 };
 
 export default function RootLayout({
