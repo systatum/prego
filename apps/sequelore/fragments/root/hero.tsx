@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components/layout/container";
-import { Text } from "@/components/layout/typography";
+import { BulletList, Text } from "@/components/layout/typography";
 import { HeroBackground } from "@/public/assets";
 import { Button } from "@systatum/coneto/button";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import {
   RiStackLine,
   RiCodeSSlashLine,
 } from "@remixicon/react";
+import { Badge } from "@systatum/coneto/badge";
 
 export function Hero() {
   const TITLE_CONTENT = [
@@ -52,13 +53,32 @@ export function Hero() {
         `}
       >
         <NewBadge href="#">
-          ✦ <span>New</span> Sequelore 2.0 is now in beta →
+          <Badge
+            caption="✦ New"
+            backgroundColor="#627D68"
+            textColor="white"
+            styles={{
+              self: css`
+                border-radius: 20px;
+                height: 28px;
+                cursor: pointer;
+              `,
+            }}
+          />
+          <span
+            style={{
+              paddingRight: "0.7rem",
+            }}
+          >
+            Sequelore 2.0 is now in beta →
+          </span>
         </NewBadge>
         {TITLE_CONTENT?.map((content) => (
           <Text.H1
             styles={{
               self: css`
                 color: ${content?.color};
+                font-size: 32px;
               `,
             }}
           >
@@ -86,20 +106,35 @@ export function Hero() {
 
         <Button variant="success">Download</Button>
 
-        <TrustBadges>
-          <TrustBadge>
+        <BulletList
+          styles={{
+            self: css`
+              display: flex;
+              align-items: center;
+              gap: 1.5rem;
+              flex-direction: row;
+              flex-wrap: wrap;
+
+              @media (max-width: 640px) {
+                justify-content: center;
+              }
+            `,
+          }}
+        >
+          <BulletList.Item color="#6b6b5a">
             <RiShieldCheckLine size={16} />
             Secure by design
-          </TrustBadge>
-          <TrustBadge>
+          </BulletList.Item>
+
+          <BulletList.Item color="#6b6b5a">
             <RiStackLine size={16} />
             Built for scale
-          </TrustBadge>
-          <TrustBadge>
+          </BulletList.Item>
+          <BulletList.Item color="#6b6b5a">
             <RiCodeSSlashLine size={16} />
             Developer friendly
-          </TrustBadge>
-        </TrustBadges>
+          </BulletList.Item>
+        </BulletList>
       </HeroContent>
 
       <HeroContent
@@ -149,7 +184,6 @@ const NewBadge = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.3rem 0.75rem;
   background: #e8f0ea;
   border: 1px solid #d4ccba;
   border-radius: 9999px;
@@ -164,25 +198,8 @@ const NewBadge = styled.a`
     background: #d4e8d8;
   }
 
-  span {
-    color: #c17f3b;
+  &:hover [aria-label="badge"] {
+    background-color: #4f6656;
+    transition: all 0.2s ease;
   }
-`;
-
-const TrustBadges = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-
-  @media (max-width: 640px) {
-    justify-content: center;
-  }
-`;
-
-const TrustBadge = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.875rem;
-  color: #6b6b5a;
 `;
