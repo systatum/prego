@@ -91,6 +91,7 @@ export function Hero() {
               flex-wrap: wrap;
               gap: 0.3em;
               flex-direction: column;
+              font-size: 36px;
               @media (max-width: 640px) {
                 justify-content: center;
                 align-items: center;
