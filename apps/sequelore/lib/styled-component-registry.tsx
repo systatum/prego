@@ -14,9 +14,8 @@ export default function StyledComponentRegistry({
     return new ServerStyleSheet();
   });
 
-  if (!styledComponentsStyleSheet) return null;
-
   useServerInsertedHTML(() => {
+    if (!styledComponentsStyleSheet) return null;
     const styles = styledComponentsStyleSheet.getStyleElement();
     styledComponentsStyleSheet.instance.clearTag();
 
@@ -28,7 +27,7 @@ export default function StyledComponentRegistry({
   }
 
   return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+    <StyleSheetManager sheet={styledComponentsStyleSheet?.instance}>
       {children}
     </StyleSheetManager>
   );
