@@ -164,6 +164,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@19.1.0)(react@19.1.0)
+      '@systatum/coneto':
+        specifier: 3.0.0
+        version: 3.0.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.2.4
@@ -179,9 +182,6 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
-      lucide-react:
-        specifier: ^0.484.0
-        version: 0.484.0(react@19.1.0)
       mermaid:
         specifier: ^11.12.0
         version: 11.14.0
@@ -200,18 +200,21 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
-      react-icons:
-        specifier: ^5.5.0
-        version: 5.5.0(react@19.1.0)
       react-player:
         specifier: ^2.16.1
         version: 2.16.1(react@19.1.0)
+      react-swipeable:
+        specifier: ^7.0.2
+        version: 7.0.2(react@19.1.0)
       react-use-measure:
         specifier: ^2.1.7
         version: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       shiki:
         specifier: ^3.4.2
         version: 3.23.0
+      styled-components:
+        specifier: ^6.1.19
+        version: 6.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       styled-jsx:
         specifier: ^5.1.7
         version: 5.1.7(@babel/core@7.27.4)(react@19.1.0)
@@ -234,6 +237,9 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
+      '@remixicon/react':
+        specifier: ^4.6.0
+        version: 4.6.0(react@19.1.0)
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.8.2)
@@ -3565,6 +3571,12 @@ packages:
       react: ^19.1.0
       react-dom: ^19.1.0
 
+  '@systatum/coneto@3.0.0':
+    resolution: {integrity: sha512-DZFrt50XsjbCYMYBzvNifClDwV9HAk9ClB3yEQsXVg5ujkbEx7yOENjY9/66XMonfAq/uy2EMYjOc0Yh3vv/zQ==}
+    peerDependencies:
+      react: ^19.1.0
+      react-dom: ^19.1.0
+
   '@tabby_ai/hijri-converter@1.0.5':
     resolution: {integrity: sha512-r5bClKrcIusDoo049dSL8CawnHR6mRdDwhlQuIgZRNty68q0x8k3Lf1BtPAMxRf/GgnHBnIO4ujd3+GQdLWzxQ==}
     engines: {node: '>=16.0.0'}
@@ -6246,6 +6258,9 @@ packages:
   dompurify@3.2.6:
     resolution: {integrity: sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==}
 
+  dompurify@3.2.7:
+    resolution: {integrity: sha512-WhL/YuveyGXJaerVlMYGWhvQswa7myDG17P7Vu65EWC05o8vfeNbvNf4d/BOvH99+ZW+LlQsc1GDKMa1vNK6dw==}
+
   dompurify@3.4.2:
     resolution: {integrity: sha512-lHeS9SA/IKeIFFyYciHBr2n0v1VMPlSj843HdLOwjb2OxNwdq9Xykxqhk+FE42MzAdHvInbAolSE4mhahPpjXA==}
 
@@ -8018,6 +8033,11 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
+  marked@14.0.0:
+    resolution: {integrity: sha512-uIj4+faQ+MgHgwUW1l2PsPglZLOLOT1uErt06dAPtx2kjteLAkbsd/0FiYg/MGS+i7ZKLb7w2WClxHkzOOuryQ==}
+    engines: {node: '>= 18'}
+    hasBin: true
+
   marked@15.0.12:
     resolution: {integrity: sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==}
     engines: {node: '>= 18'}
@@ -8388,6 +8408,9 @@ packages:
 
   monaco-editor@0.31.0:
     resolution: {integrity: sha512-H3QmysEwxxY8oxmFhIFcY9JkuwilUDa6txdAxb797cVr7XFZX27a3SDwcGJmTlV9iGPwdh132r3KKCS5aNL4Gg==}
+
+  monaco-editor@0.55.1:
+    resolution: {integrity: sha512-jz4x+TJNFHwHtwuV9vA9rMujcZRb0CEilTEwG2rRSpe/A7Jdkuj8xPKttCgOh+v/lkHy7HsZ64oj+q3xoAFl9A==}
 
   motion-dom@12.18.1:
     resolution: {integrity: sha512-dR/4EYT23Snd+eUSLrde63Ws3oXQtJNw/krgautvTfwrN/2cHfCZMdu6CeTxVfRRWREW3Fy1f5vobRDiBb/q+w==}
@@ -8871,6 +8894,10 @@ packages:
 
   pdfjs-dist@5.4.149:
     resolution: {integrity: sha512-Xe8/1FMJEQPUVSti25AlDpwpUm2QAVmNOpFP0SIahaPIOKBKICaefbzogLdwey3XGGoaP4Lb9wqiw2e9Jqp0LA==}
+    engines: {node: '>=20.16.0 || >=22.3.0'}
+
+  pdfjs-dist@5.4.54:
+    resolution: {integrity: sha512-TBAiTfQw89gU/Z4LW98Vahzd2/LoCFprVGvGbTgFt+QCB1F+woyOPmNNVgLa6djX9Z9GGTnj7qE1UzpOVJiINw==}
     engines: {node: '>=20.16.0 || >=22.3.0'}
 
   pend@1.2.0:
@@ -11772,7 +11799,7 @@ snapshots:
       debug: 4.4.1(supports-color@8.1.1)
       find-up: 6.3.0
       node-html-parser: 5.3.3
-      semver: 7.7.2
+      semver: 7.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -14080,7 +14107,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.3(@types/react@19.1.0)(react@19.1.0)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
-      framer-motion: 12.18.1(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      framer-motion: 12.38.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       pdfjs-dist: 5.4.149
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -14094,6 +14121,23 @@ snapshots:
       - '@types/react-dom'
       - cypress
       - supports-color
+
+  '@systatum/coneto@3.0.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@floating-ui/react': 0.27.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@hookform/resolvers': 5.2.1(react-hook-form@7.62.0(react@19.1.0))
+      '@remixicon/react': 4.6.0(react@19.1.0)
+      framer-motion: 12.38.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      monaco-editor: 0.55.1
+      pdfjs-dist: 5.4.54
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-hook-form: 7.62.0(react@19.1.0)
+      react-swipeable: 7.0.2(react@19.1.0)
+      styled-components: 6.1.19(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      zod: 3.25.64
+    transitivePeerDependencies:
+      - '@emotion/is-prop-valid'
 
   '@tabby_ai/hijri-converter@1.0.5': {}
 
@@ -14262,6 +14306,14 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.2.4
 
+  '@tailwindcss/typography@0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
+
   '@tailwindcss/typography@0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3)))':
     dependencies:
       lodash.castarray: 4.4.0
@@ -14285,11 +14337,6 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.1.10
-
-  '@tailwindcss/typography@0.5.19(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))':
-    dependencies:
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
 
   '@tailwindcss/typography@0.5.19(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.2)))':
     dependencies:
@@ -14456,15 +14503,15 @@ snapshots:
       '@graphql-tools/graphql-file-loader': 7.5.17(graphql@15.8.0)
       '@graphql-tools/load': 7.8.14(graphql@15.8.0)
       '@rollup/pluginutils': 5.1.4(rollup@4.43.0)
-      '@svgr/core': 8.1.0(typescript@5.9.3)
+      '@svgr/core': 8.1.0(typescript@5.8.3)
       '@tailwindcss/aspect-ratio': 0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))
       '@tailwindcss/container-queries': 0.1.1(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))
-      '@tailwindcss/typography': 0.5.19(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))
+      '@tailwindcss/typography': 0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))
       '@tinacms/app': 2.2.8(@codemirror/language@6.0.0)(@types/node@20.19.1)(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(yup@1.6.1)
-      '@tinacms/graphql': 1.5.18(react@19.1.0)(typescript@5.9.3)
+      '@tinacms/graphql': 1.5.18(react@19.1.0)(typescript@5.8.3)
       '@tinacms/metrics': 1.0.9(fs-extra@11.3.0)
       '@tinacms/schema-tools': 1.7.4(react@19.1.0)(yup@1.6.1)
-      '@tinacms/search': 1.0.45(abstract-level@1.0.4)(react@19.1.0)(sucrase@3.35.0)(typescript@5.9.3)(yup@1.6.1)
+      '@tinacms/search': 1.0.45(abstract-level@1.0.4)(react@19.1.0)(sucrase@3.35.0)(typescript@5.8.3)(yup@1.6.1)
       '@vitejs/plugin-react': 3.1.0(vite@4.5.14(@types/node@20.19.1)(lightningcss@1.32.0))
       altair-express-middleware: 7.3.6
       async-lock: 1.4.1
@@ -14494,9 +14541,9 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       readable-stream: 4.7.0
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
-      tinacms: 2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.9.3)
+      tinacms: 2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.8.3)
       typanion: 3.13.0
-      typescript: 5.9.3
+      typescript: 5.8.3
       vite: 4.5.14(@types/node@20.19.1)(lightningcss@1.32.0)
       yup: 1.6.1
       zod: 3.25.64
@@ -18174,6 +18221,10 @@ snapshots:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
+  dompurify@3.2.7:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
+
   dompurify@3.4.2:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
@@ -18546,7 +18597,7 @@ snapshots:
       tinyglobby: 0.2.14
       unrs-resolver: 1.9.0
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.33.0(eslint@9.28.0(jiti@2.6.1))(typescript@5.8.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.28.0(jiti@2.6.1))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.33.0(eslint@9.28.0(jiti@2.6.1))(typescript@5.8.2))(eslint-import-resolver-typescript@3.10.1)(eslint@9.28.0(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -20193,6 +20244,8 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
+  marked@14.0.0: {}
+
   marked@15.0.12: {}
 
   marked@16.4.2: {}
@@ -20880,6 +20933,11 @@ snapshots:
 
   monaco-editor@0.31.0: {}
 
+  monaco-editor@0.55.1:
+    dependencies:
+      dompurify: 3.2.7
+      marked: 14.0.0
+
   motion-dom@12.18.1:
     dependencies:
       motion-utils: 12.18.1
@@ -21374,6 +21432,10 @@ snapshots:
   pathe@2.0.3: {}
 
   pdfjs-dist@5.4.149:
+    optionalDependencies:
+      '@napi-rs/canvas': 0.1.80
+
+  pdfjs-dist@5.4.54:
     optionalDependencies:
       '@napi-rs/canvas': 0.1.80
 
