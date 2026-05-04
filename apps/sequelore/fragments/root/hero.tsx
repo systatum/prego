@@ -12,13 +12,26 @@ import {
   RiCodeSSlashLine,
 } from "@remixicon/react";
 import { Badge } from "@systatum/coneto/badge";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+const DB_LABELS = [
+  { caption: "PostgreSQL", color: "#446F53" },
+  { caption: "MySQL", color: "#7B6A5C" },
+];
 
 export function Hero() {
-  const TITLE_CONTENT = [
-    { caption: "Your data.", color: "#446F53" },
-    { caption: "Structured.", color: "#446F53" },
-    { caption: "Effortless.", color: "#7B6A5C" },
-  ];
+  const [shown, setShown] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShown((prev) => (prev + 1) % DB_LABELS.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const current = DB_LABELS[shown];
 
   return (
     <Container
@@ -65,26 +78,48 @@ export function Hero() {
               `,
             }}
           />
-          <span
-            style={{
-              paddingRight: "0.7rem",
-            }}
-          >
+          <span style={{ paddingRight: "0.7rem" }}>
             Sequelore 2.0 is now in beta →
           </span>
         </NewBadge>
-        {TITLE_CONTENT?.map((content) => (
-          <Text.H1
-            styles={{
-              self: css`
-                color: ${content?.color};
-                font-size: 32px;
-              `,
-            }}
-          >
-            {content?.caption}
-          </Text.H1>
-        ))}
+
+        <Text.H1
+          styles={{
+            self: css`
+              font-size: clamp(1.75rem, 3vw, 2.5rem);
+              display: flex;
+              flex-wrap: wrap;
+              gap: 0.3em;
+              flex-direction: column;
+              @media (max-width: 640px) {
+                justify-content: center;
+                align-items: center;
+              }
+            `,
+          }}
+        >
+          <span>You never used a</span>
+
+          <RotatingWrapper aria-live="polite" aria-atomic="true">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={current.caption}
+                style={{
+                  color: current.color,
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                {current.caption}
+              </motion.span>
+            </AnimatePresence>
+          </RotatingWrapper>
+
+          <span>database studio</span>
+          <span>this good.</span>
+        </Text.H1>
 
         <Text
           styles={{
@@ -125,7 +160,6 @@ export function Hero() {
             <RiShieldCheckLine size={16} />
             Secure by design
           </BulletList.Item>
-
           <BulletList.Item color="#6b6b5a">
             <RiStackLine size={16} />
             Built for scale
@@ -160,16 +194,26 @@ export function Hero() {
       >
         <Image
           src={HeroBackground}
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
+          style={{ width: "100%", height: "100%" }}
           alt="image application for sequelore"
         />
       </HeroContent>
     </Container>
   );
 }
+
+const RotatingWrapper = styled.span`
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 1.2em;
+
+  @media (max-width: 640px) {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+`;
 
 const HeroContent = styled.div<{ $style?: CSSProp }>`
   display: flex;
