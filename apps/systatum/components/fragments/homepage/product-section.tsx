@@ -26,7 +26,7 @@ export default function Product() {
     {
       title: "Coneto",
       description: t("conetoDescription"),
-      image: "/systatum/2048icon.png",
+      image: "/systatum/256icon.png",
       link: "https://coneto.systatum.com",
     },
     {
@@ -66,7 +66,7 @@ export default function Product() {
             onMouseLeave={() => setIsHovered(null)}
             className={cn(
               "flex bg-white transform duration-300 animate-in flex-col gap-10 sm:min-w-[400px] md:min-w-0 p-6 rounded-xs overflow-hidden relative border-2 w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
-              isHovered === index && "border-blue-400"
+              isHovered === index && "border-blue-400",
             )}
             key={index}
           >
@@ -97,7 +97,7 @@ export default function Product() {
             <h2
               className={cn(
                 "px-2 block text-2xl font-mono font-semibold hover-title-animation",
-                isHovered === index && "is-hovered text-white"
+                isHovered === index && "is-hovered text-white",
               )}
             >
               {product.title}
@@ -108,7 +108,7 @@ export default function Product() {
               aria-label="logo"
               className={cn(
                 "absolute -bottom-3 -right-3 lg:-bottom-6 lg:-right-4 w-[120px] md:w-[120px] lg:w-[120px]",
-                isHovered !== index && "grayscale"
+                isHovered !== index && "grayscale",
               )}
             >
               <img alt="Systatum Logo" src={product.image} width={150} />
