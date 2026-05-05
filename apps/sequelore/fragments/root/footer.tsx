@@ -54,6 +54,9 @@ export function Footer() {
           position: relative;
           overflow: hidden;
           padding: 0px;
+          @media (max-width: 840px) {
+            padding: 0px;
+          }
           @media (max-width: 640px) {
             padding: 0px;
           }
