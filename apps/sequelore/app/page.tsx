@@ -1,9 +1,25 @@
+import dynamic from "next/dynamic";
 import { Container } from "@/components/layout/container";
-import { Features } from "@/fragments/root/features";
-import { Footer } from "@/fragments/root/footer";
-import { Hero } from "@/fragments/root/hero";
-import { TrustedBy } from "@/fragments/root/trusted-by";
-import { OurCompany } from "@/fragments/root/our-company";
+
+const Hero = dynamic(() =>
+  import("@/fragments/root/hero").then((mod) => mod.Hero),
+);
+
+const Features = dynamic(() =>
+  import("@/fragments/root/features").then((mod) => mod.Features),
+);
+
+const TrustedBy = dynamic(() =>
+  import("@/fragments/root/trusted-by").then((mod) => mod.TrustedBy),
+);
+
+const OurCompany = dynamic(() =>
+  import("@/fragments/root/our-company").then((mod) => mod.OurCompany),
+);
+
+const DownloadApps = dynamic(() =>
+  import("@/fragments/root/download-apps").then((mod) => mod.DownloadApps),
+);
 
 export default function Home() {
   return (
@@ -11,7 +27,7 @@ export default function Home() {
       <Hero />
       <Features />
       <TrustedBy />
-      <Footer />
+      <DownloadApps />
       <OurCompany />
     </Container>
   );
