@@ -14,7 +14,6 @@ import {
 import { Badge } from "@systatum/coneto/badge";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { play } from "@/fonts";
 import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
 import { applyId } from "../../../../packages/components/tools/apply-id";
 
@@ -62,6 +61,7 @@ export function Hero() {
         <HeroContent
           $style={css`
             width: 70%;
+            gap: 24px;
             @media (max-width: 768px) {
               width: 100%;
               justify-content: center;
@@ -90,8 +90,6 @@ export function Hero() {
           <Text.H1
             styles={{
               self: css`
-                font-family: ${play.style.fontFamily};
-
                 font-size: clamp(1.75rem, 3vw, 2.5rem);
                 display: flex;
                 flex-wrap: wrap;
@@ -211,10 +209,9 @@ export function Hero() {
             }
 
             @media (max-width: 768px) {
-              transform: translateX(0px) translateY(-50%);
+              transform: translateX(0px) translateY(0px);
               max-width: 600px;
               position: relative;
-              transform: translateY(0);
             }
           `}
         >
