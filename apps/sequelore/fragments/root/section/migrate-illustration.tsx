@@ -77,6 +77,7 @@ const MigrateIllustration: React.FC = () => (
             `,
           }}
           variant="success"
+          pressed
         >
           Deploy to production
         </Button>
