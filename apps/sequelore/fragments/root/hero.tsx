@@ -40,6 +40,7 @@ export function Hero() {
           @media (max-width: 768px) {
             padding: 80px 20px;
           }
+          padding-top: 120px;
           overflow: hidden;
         `,
       }}
