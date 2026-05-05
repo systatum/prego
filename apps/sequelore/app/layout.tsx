@@ -4,6 +4,7 @@ import { Inter as FontSans, Lato, Nunito } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "@/styles.css";
 import StyledComponentRegistry from "@/lib/styled-component-registry";
+import { Navbar } from "@/fragments/root/navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,7 +39,10 @@ export default function RootLayout({
       className={cn(fontSans.variable, nunito.variable, lato.variable)}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
-        <StyledComponentRegistry>{children}</StyledComponentRegistry>
+        <StyledComponentRegistry>
+          <Navbar />
+          {children}
+        </StyledComponentRegistry>
       </body>
     </html>
   );
