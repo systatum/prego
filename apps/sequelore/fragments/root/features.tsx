@@ -11,6 +11,7 @@ import {
   RiUploadCloud2Line,
 } from "@remixicon/react";
 import { BulletList, Text } from "@/components/layout/typography";
+import { Container } from "@/components/layout/container";
 
 export function Features() {
   const FEATURES: FeatureSectionProps[] = [
@@ -69,10 +70,6 @@ interface FeatureSectionProps {
   reverse?: boolean;
 }
 
-interface InnerProps {
-  $reverse: boolean;
-}
-
 function FeatureSection({
   number,
   icon,
@@ -83,8 +80,29 @@ function FeatureSection({
   reverse = false,
 }: FeatureSectionProps) {
   return (
-    <Section $reverse={reverse}>
-      <Inner $reverse={reverse}>
+    <Container.Section
+      reverse={reverse}
+      styles={{
+        self: css`
+          margin-left: 0px;
+          margin-right: 0px;
+        `,
+      }}
+    >
+      <Container.Section.Inner
+        reverse={reverse}
+        styles={{
+          self: css`
+            margin-left: 0px;
+            margin-right: 0px;
+            width: 100%;
+
+            @media (max-width: 1080px) {
+              flex-direction: column;
+            }
+          `,
+        }}
+      >
         <TextBlock>
           {icon && <IconBadge>{icon}</IconBadge>}
           <Text.H2>
@@ -114,50 +132,10 @@ function FeatureSection({
         </TextBlock>
 
         <IllustrationWrapper>{illustration}</IllustrationWrapper>
-      </Inner>
-    </Section>
+      </Container.Section.Inner>
+    </Container.Section>
   );
 }
-
-const Section = styled.section<InnerProps>`
-  padding: 4rem;
-  ${({ $reverse }) =>
-    $reverse &&
-    css`
-      backdrop-filter: brightness(0.96) saturate(0.9);
-    `}
-
-  @media (max-width: 768px) {
-    padding: 4rem 1.5rem;
-  }
-`;
-
-const Inner = styled.div<InnerProps>`
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-
-  ${({ $reverse }) =>
-    $reverse &&
-    css`
-      direction: rtl;
-      > * {
-        direction: ltr;
-      }
-    `}
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    direction: ltr;
-    > * {
-      direction: ltr;
-    }
-  }
-`;
 
 const TextBlock = styled.div`
   display: flex;
