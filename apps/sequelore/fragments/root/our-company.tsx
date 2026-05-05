@@ -37,12 +37,22 @@ export function OurCompany() {
           `,
         }}
       >
-        <Image width={60} src={SystatumImage} alt="our company - systatum" />
+        <Image
+          style={{
+            marginTop: "10px",
+          }}
+          width={60}
+          src={SystatumImage}
+          alt="our company - systatum"
+        />
         <Text.H2
           styles={{
             self: css`
               font-size: 48px;
               color: #6b6b5a;
+              @media (max-width: 640px) {
+                font-size: 40px;
+              }
             `,
           }}
         >
