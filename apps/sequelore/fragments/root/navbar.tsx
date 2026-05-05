@@ -202,6 +202,15 @@ function DesktopNavbar() {
               display: flex;
             }
           `,
+          self: css`
+            background-color: #2c5f3f;
+            &:hover {
+              background-color: #326c47;
+            }
+            &:active {
+              background-color: #234c32;
+            }
+          `,
         }}
         onClick={() => scrollToId("download-sequelore")}
       >
@@ -293,6 +302,13 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
                 `,
                 self: css`
                   width: 100%;
+                  background-color: #2c5f3f;
+                  &:hover {
+                    background-color: #326c47;
+                  }
+                  &:active {
+                    background-color: #234c32;
+                  }
                 `,
               }}
               onClick={() => {

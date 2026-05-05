@@ -74,6 +74,14 @@ const MigrateIllustration: React.FC = () => (
             self: css`
               border-radius: 8px;
               width: 100%;
+
+              background-color: #2c5f3f;
+              &:hover {
+                background-color: #326c47;
+              }
+              &:active {
+                background-color: #234c32;
+              }
             `,
           }}
           variant="success"

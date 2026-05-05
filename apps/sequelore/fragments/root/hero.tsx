@@ -63,7 +63,6 @@ export function Hero() {
             width: 70%;
             gap: 24px;
             @media (max-width: 768px) {
-              width: 100%;
               justify-content: center;
               align-items: center;
             }
@@ -82,9 +81,23 @@ export function Hero() {
                 `,
               }}
             />
-            <span style={{ paddingRight: "0.7rem" }}>
-              Sequelore 2.0 is now in beta →
-            </span>
+            <Text
+              styles={{
+                self: css`
+                  display: flex;
+                  flex-direction: row;
+                  gap: 10px;
+                  padding-right: 14px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  width: 100%;
+                  justify-content: space-between;
+                `,
+              }}
+            >
+              <span>Sequelore 2.0 is now in beta</span>
+              <span>→</span>
+            </Text>
           </NewBadge>
 
           <Text.H1
@@ -148,39 +161,21 @@ export function Hero() {
 
           <Button
             variant="success"
+            styles={{
+              self: css`
+                background-color: #2c5f3f;
+                &:hover {
+                  background-color: #326c47;
+                }
+                &:active {
+                  background-color: #234c32;
+                }
+              `,
+            }}
             onClick={() => scrollToId("download-sequelore")}
           >
             Download
           </Button>
-
-          <BulletList
-            styles={{
-              self: css`
-                display: flex;
-                align-items: center;
-                gap: 1.5rem;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                @media (max-width: 768px) {
-                  justify-content: center;
-                }
-              `,
-            }}
-          >
-            <BulletList.Item color="#6b6b5a">
-              <RiShieldCheckLine size={16} />
-              Secure by design
-            </BulletList.Item>
-            <BulletList.Item color="#6b6b5a">
-              <RiStackLine size={16} />
-              Built for scale
-            </BulletList.Item>
-            <BulletList.Item color="#6b6b5a">
-              <RiCodeSSlashLine size={16} />
-              Developer friendly
-            </BulletList.Item>
-          </BulletList>
         </HeroContent>
 
         <HeroContent
@@ -261,6 +256,7 @@ const NewBadge = styled.a`
   cursor: pointer;
   width: fit-content;
   transition: background 0.2s;
+  width: 50%;
 
   &:hover {
     background: #d4e8d8;
