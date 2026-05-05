@@ -268,7 +268,6 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push(`/${item.href}`);
                   handleNavClick(String(item.href));
                 }}
               >
