@@ -10,8 +10,8 @@ const autocompleteOptions = [
 const tableHeaders = ["id", "name", "email", "created_at"];
 
 const tableRows = [
-  ["1", "Alim Naufal", "alim@systatum.com", "2024-05-12"],
-  ["2", "Adam Systatum", "adam@systatum.com", "2024-05-12"],
+  ["1", "Adam Noto Hakarsa", "adam@systatum.com", "2024-05-12"],
+  ["2", "Alim Naufal", "alim@systatum.com", "2024-05-12"],
 ];
 
 const QueryIllustration: React.FC = () => (
