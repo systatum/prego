@@ -22,6 +22,21 @@ const DB_LABELS = [
   { caption: "MySQL", color: "#7B6A5C" },
 ];
 
+const BULLET_ITEMS = [
+  {
+    icon: RiShieldCheckLine,
+    label: "Secure by design",
+  },
+  {
+    icon: RiStackLine,
+    label: "Built for scale",
+  },
+  {
+    icon: RiCodeSSlashLine,
+    label: "Developer friendly",
+  },
+];
+
 export function Hero() {
   const [shown, setShown] = useState(0);
 
@@ -40,9 +55,6 @@ export function Hero() {
       id={applyId("hero")}
       styles={{
         self: css`
-          @media (max-width: 768px) {
-            padding: 80px 20px;
-          }
           padding-top: 120px;
           overflow: hidden;
         `,
@@ -52,8 +64,13 @@ export function Hero() {
         styles={{
           self: css`
             width: 100%;
+            justify-content: end;
+            align-items: end;
             @media (max-width: 768px) {
+              gap: 3rem;
               flex-direction: column;
+              justify-content: center;
+              align-items: center;
             }
           `,
         }}
@@ -62,9 +79,16 @@ export function Hero() {
           $style={css`
             width: 70%;
             gap: 24px;
+            z-index: 20;
             @media (max-width: 768px) {
+              width: 100%;
               justify-content: center;
               align-items: center;
+            }
+            @media (max-width: 640px) {
+              justify-content: center;
+              align-items: center;
+              padding-top: 80px;
             }
           `}
         >
@@ -109,9 +133,13 @@ export function Hero() {
                 gap: 0.3em;
                 flex-direction: column;
                 font-size: 36px;
+                min-width: 315px;
+
                 @media (max-width: 768px) {
                   justify-content: center;
-                  align-items: center;
+                  text-align: center;
+                }
+                @media (max-width: 640px) {
                 }
               `,
             }}
@@ -178,33 +206,59 @@ export function Hero() {
           </Button>
         </HeroContent>
 
+        <BulletList
+          styles={{
+            self: css`
+              display: flex;
+              align-items: center;
+              gap: 1.5rem;
+              flex-direction: row;
+              flex-wrap: wrap;
+              width: 100%;
+              justify-content: center;
+
+              @media (max-width: 768px) {
+                justify-content: center;
+              }
+            `,
+          }}
+        >
+          {BULLET_ITEMS.map(({ icon: Icon, label }) => (
+            <BulletList.Item key={label} color="#6b6b5a">
+              <Icon size={16} />
+              {label}
+            </BulletList.Item>
+          ))}
+        </BulletList>
+
         <HeroContent
           $style={css`
             position: absolute;
             max-width: 800px;
             right: 0px;
             top: 50%;
-            transform: translateX(40px) translateY(-50%);
+            transform: translateX(40px) translateY(-55%);
             padding-top: 50px;
             padding-right: 0;
 
             @media (max-width: 1280px) {
               max-width: 700px;
-              transform: translateX(70px) translateY(-50%);
+              transform: translateX(70px) translateY(-55%);
             }
 
             @media (max-width: 1080px) {
-              transform: translateX(150px) translateY(-50%);
+              transform: translateX(150px) translateY(-55%);
             }
 
-            @media (max-width: 840px) {
-              transform: translateX(100px) translateY(-50%);
+            @media (max-width: 820px) {
+              transform: translateX(140px) translateY(-55%);
 
-              max-width: 500px;
+              max-width: 570px;
             }
 
             @media (max-width: 768px) {
               transform: translateX(0px) translateY(0px);
+              padding-top: 0px;
               max-width: 600px;
               position: relative;
             }
@@ -255,8 +309,8 @@ const NewBadge = styled.a`
   color: #2c5f3f;
   cursor: pointer;
   width: fit-content;
+  min-width: 314px;
   transition: background 0.2s;
-  width: 50%;
 
   &:hover {
     background: #d4e8d8;
