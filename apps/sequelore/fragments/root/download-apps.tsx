@@ -41,9 +41,9 @@ export function DownloadApps() {
   ];
 
   const DUCKS = [
-    { x: 2, y: -20, delay: 0 },
-    { x: 6, y: 24, delay: 0.8 },
-    { x: 19, y: 0, delay: 1.6 },
+    { x: 2, y: -20, delay: 0, xMob: 60, yMob: 5 },
+    { x: 6, y: 24, delay: 0.8, xMob: 20, yMob: 20 },
+    { x: 19, y: 0, delay: 1.6, xMob: 10, yMob: -10 },
   ];
 
   return (
@@ -64,53 +64,71 @@ export function DownloadApps() {
       }}
     >
       <WaterSection>
-        <DownloadPanel>
-          <Text
-            styles={{
-              self: css`
-                font-size: 11px;
-                font-weight: 500;
-                color: rgba(0, 0, 0, 0.6);
-                letter-spacing: 0.08em;
-                text-transform: uppercase;
-                margin: 0 0 2px 0;
-              `,
-            }}
-          >
-            Download
-          </Text>
+        <Container.Section.Inner
+          styles={{
+            self: css`
+              position: relative;
+              width: 100%;
+              max-width: 1280px;
+              margin: 0 auto;
+              min-height: 280px;
 
-          {DOWNLOAD_OPTIONS.map((item) => (
-            <Button
-              key={item.key}
-              icon={{
-                image: item.icon,
-                size: 24,
-              }}
+              @media (max-width: 640px) {
+                min-height: 600px;
+              }
+            `,
+          }}
+        >
+          <DownloadPanel>
+            <Text
               styles={{
-                self: buttonStyles,
-              }}
-              onClick={() => {
-                router.push(item.link);
+                self: css`
+                  font-size: 11px;
+                  font-weight: 500;
+                  color: rgba(0, 0, 0, 0.6);
+                  letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                  margin: 0 0 2px 0;
+                `,
               }}
             >
-              <BtnLabel>
-                <Text styles={{ self: BtnTitle }}>{item.title}</Text>
-                <Text styles={{ self: BtnSub }}>{item.sub}</Text>
-              </BtnLabel>
-            </Button>
-          ))}
-        </DownloadPanel>
+              Download
+            </Text>
 
-        {DUCKS.map((duck, i) => (
-          <Duck
-            key={i}
-            src={DuckSwimming.src}
-            $x={duck.x}
-            $y={duck.y}
-            $delay={duck.delay}
-          />
-        ))}
+            {DOWNLOAD_OPTIONS.map((item) => (
+              <Button
+                key={item.key}
+                icon={{
+                  image: item.icon,
+                  size: 24,
+                }}
+                styles={{
+                  self: buttonStyles,
+                }}
+                onClick={() => {
+                  router.push(item.link);
+                }}
+              >
+                <BtnLabel>
+                  <Text styles={{ self: BtnTitle }}>{item.title}</Text>
+                  <Text styles={{ self: BtnSub }}>{item.sub}</Text>
+                </BtnLabel>
+              </Button>
+            ))}
+          </DownloadPanel>
+
+          {DUCKS.map((duck, i) => (
+            <Duck
+              key={i}
+              src={DuckSwimming.src}
+              $x={duck.x}
+              $y={duck.y}
+              $xMob={duck.xMob}
+              $yMob={duck.yMob}
+              $delay={duck.delay}
+            />
+          ))}
+        </Container.Section.Inner>
       </WaterSection>
     </Container.Section>
   );
@@ -126,6 +144,7 @@ const WaterSection = styled.section`
   width: 100%;
   min-height: 280px;
   overflow: hidden;
+  align-items: center;
 
   background-image: url(${WaterImage.src});
   background-repeat: repeat-x;
@@ -135,29 +154,32 @@ const WaterSection = styled.section`
 
   image-rendering: auto;
 
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      #ffffff 0%,
-      rgba(255, 255, 255, 0) 30%
-    );
-    z-index: 1;
+  @media (max-width: 640px) {
+    min-height: 600px;
   }
 `;
 
-const Duck = styled.img<{ $x: number; $y?: number; $delay: number }>`
+const Duck = styled.img<{
+  $x: number;
+  $y?: number;
+  $xMob: number;
+  $yMob?: number;
+  $delay: number;
+}>`
   position: absolute;
   bottom: ${({ $y }) => $y ?? "0"}%;
   right: ${({ $x }) => $x}%;
-  height: 80%;
+  height: 200px;
 
   animation: ${bobble} 3.5s ease-in-out infinite;
   animation-delay: ${({ $delay }) => $delay}s;
 
   pointer-events: none;
+
+  @media (max-width: 640px) {
+    bottom: ${({ $yMob }) => $yMob ?? "0"}%;
+    right: ${({ $xMob }) => $xMob}%;
+  }
 `;
 
 const DownloadPanel = styled.div`
@@ -170,6 +192,14 @@ const DownloadPanel = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 260px;
+
+  @media (max-width: 640px) {
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    top: 25%;
+  }
 `;
 
 const buttonStyles = css`
@@ -203,6 +233,10 @@ const buttonStyles = css`
   &:active {
     background: rgba(255, 255, 255, 0.2);
   }
+
+  @media (max-width: 640px) {
+    min-width: 400px;
+  }
 `;
 
 const BtnLabel = styled.span`
@@ -225,11 +259,14 @@ const BtnSub = css`
   font-weight: 400;
 `;
 
-const BtnArrow = styled.span`
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  flex-shrink: 0;
+const WaterInner = styled.div`
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 280px;
 `;
+
 const LinuxIcon = () => (
   <svg
     width="24"
