@@ -34,178 +34,175 @@ export function Hero() {
   const current = DB_LABELS[shown];
 
   return (
-    <Container
+    <Container.Section
       styles={{
         self: css`
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          padding: 4rem;
-          position: relative;
-          max-width: 1280px;
-
-          @media (max-width: 768px) {
-            padding-left: 20px;
-            padding-right: 20px;
-          }
-
           @media (max-width: 640px) {
-            padding: 80px 0px;
+            padding: 80px 20px;
             flex-direction: column;
           }
         `,
       }}
     >
-      <HeroContent
-        $style={css`
-          width: 70%;
-          @media (max-width: 640px) {
+      <Container.Section.Inner
+        styles={{
+          self: css`
+            margin: 0px;
             width: 100%;
-            justify-content: center;
-            align-items: center;
-          }
-        `}
+          `,
+        }}
       >
-        <NewBadge href="#">
-          <Badge
-            caption="✦ New"
-            backgroundColor="#627D68"
-            textColor="white"
+        <HeroContent
+          $style={css`
+            width: 70%;
+            @media (max-width: 640px) {
+              width: 100%;
+              justify-content: center;
+              align-items: center;
+            }
+          `}
+        >
+          <NewBadge href="#">
+            <Badge
+              caption="✦ New"
+              backgroundColor="#627D68"
+              textColor="white"
+              styles={{
+                self: css`
+                  border-radius: 20px;
+                  height: 28px;
+                  cursor: pointer;
+                `,
+              }}
+            />
+            <span style={{ paddingRight: "0.7rem" }}>
+              Sequelore 2.0 is now in beta →
+            </span>
+          </NewBadge>
+
+          <Text.H1
             styles={{
               self: css`
-                border-radius: 20px;
-                height: 28px;
-                cursor: pointer;
+                font-size: clamp(1.75rem, 3vw, 2.5rem);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3em;
+                flex-direction: column;
+                font-size: 36px;
+                @media (max-width: 640px) {
+                  justify-content: center;
+                  align-items: center;
+                }
               `,
             }}
-          />
-          <span style={{ paddingRight: "0.7rem" }}>
-            Sequelore 2.0 is now in beta →
-          </span>
-        </NewBadge>
+          >
+            <span>You never used a</span>
 
-        <Text.H1
-          styles={{
-            self: css`
-              font-size: clamp(1.75rem, 3vw, 2.5rem);
-              display: flex;
-              flex-wrap: wrap;
-              gap: 0.3em;
-              flex-direction: column;
-              font-size: 36px;
-              @media (max-width: 640px) {
-                justify-content: center;
+            <RotatingWrapper aria-live="polite" aria-atomic="true">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={current.caption}
+                  style={{
+                    color: current.color,
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                  {current.caption}
+                </motion.span>
+              </AnimatePresence>
+            </RotatingWrapper>
+
+            <span>database studio</span>
+            <span>this good.</span>
+          </Text.H1>
+
+          <Text
+            styles={{
+              self: css`
+                max-width: 300px;
+                @media (max-width: 800px) {
+                  max-width: 240px;
+                }
+                @media (max-width: 640px) {
+                  text-align: center;
+                  max-width: 400px;
+                }
+              `,
+            }}
+          >
+            Sequelore is the modern database platform for building, scaling, and
+            shipping products with confidence.
+          </Text>
+
+          <Button variant="success">Download</Button>
+
+          <BulletList
+            styles={{
+              self: css`
+                display: flex;
                 align-items: center;
-              }
-            `,
-          }}
-        >
-          <span>You never used a</span>
+                gap: 1.5rem;
+                flex-direction: row;
+                flex-wrap: wrap;
 
-          <RotatingWrapper aria-live="polite" aria-atomic="true">
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={current.caption}
-                style={{
-                  color: current.color,
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-              >
-                {current.caption}
-              </motion.span>
-            </AnimatePresence>
-          </RotatingWrapper>
+                @media (max-width: 640px) {
+                  justify-content: center;
+                }
+              `,
+            }}
+          >
+            <BulletList.Item color="#6b6b5a">
+              <RiShieldCheckLine size={16} />
+              Secure by design
+            </BulletList.Item>
+            <BulletList.Item color="#6b6b5a">
+              <RiStackLine size={16} />
+              Built for scale
+            </BulletList.Item>
+            <BulletList.Item color="#6b6b5a">
+              <RiCodeSSlashLine size={16} />
+              Developer friendly
+            </BulletList.Item>
+          </BulletList>
+        </HeroContent>
 
-          <span>database studio</span>
-          <span>this good.</span>
-        </Text.H1>
-
-        <Text
-          styles={{
-            self: css`
-              max-width: 300px;
-              @media (max-width: 800px) {
-                max-width: 240px;
-              }
-              @media (max-width: 640px) {
-                text-align: center;
-                max-width: 400px;
-              }
-            `,
-          }}
-        >
-          Sequelore is the modern database platform for building, scaling, and
-          shipping products with confidence.
-        </Text>
-
-        <Button variant="success">Download</Button>
-
-        <BulletList
-          styles={{
-            self: css`
-              display: flex;
-              align-items: center;
-              gap: 1.5rem;
-              flex-direction: row;
-              flex-wrap: wrap;
-
-              @media (max-width: 640px) {
-                justify-content: center;
-              }
-            `,
-          }}
-        >
-          <BulletList.Item color="#6b6b5a">
-            <RiShieldCheckLine size={16} />
-            Secure by design
-          </BulletList.Item>
-          <BulletList.Item color="#6b6b5a">
-            <RiStackLine size={16} />
-            Built for scale
-          </BulletList.Item>
-          <BulletList.Item color="#6b6b5a">
-            <RiCodeSSlashLine size={16} />
-            Developer friendly
-          </BulletList.Item>
-        </BulletList>
-      </HeroContent>
-
-      <HeroContent
-        $style={css`
-          position: absolute;
-          max-width: 600px;
-          right: 0px;
-          top: 50%;
-          transform: translateY(-50%);
-          padding-top: 50px;
-          padding-right: 0;
-
-          @media (max-width: 1280px) {
-            right: -70px;
-          }
-
-          @media (max-width: 800px) {
-            max-width: 500px;
-          }
-
-          @media (max-width: 640px) {
+        <HeroContent
+          $style={css`
+            position: absolute;
+            max-width: 800px;
             right: 0px;
-            position: relative;
-            transform: translateY(0);
-          }
-        `}
-      >
-        <Image
-          src={HeroBackground}
-          style={{ width: "100%", height: "100%" }}
-          alt="image application for sequelore"
-        />
-      </HeroContent>
-    </Container>
+            top: 50%;
+            transform: translateY(-50%);
+            padding-top: 50px;
+            padding-right: 0;
+
+            @media (max-width: 1280px) {
+              max-width: 700px;
+              right: -60px;
+            }
+
+            @media (max-width: 800px) {
+              max-width: 500px;
+            }
+
+            @media (max-width: 640px) {
+              right: 0px;
+              position: relative;
+              transform: translateY(0);
+            }
+          `}
+        >
+          <Image
+            src={HeroBackground}
+            style={{ width: "100%", height: "100%" }}
+            alt="image application for sequelore"
+          />
+        </HeroContent>
+      </Container.Section.Inner>
+    </Container.Section>
   );
 }
 
