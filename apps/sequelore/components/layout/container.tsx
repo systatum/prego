@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import styled, { css, CSSProp } from "styled-components";
 
 interface InnerProps {
@@ -8,45 +8,44 @@ interface InnerProps {
   $style?: CSSProp;
 }
 
-function Container({
-  styles,
-  children,
-}: {
+interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   styles?: { self?: CSSProp };
   children?: ReactNode;
-}) {
-  return <BaseContainer $style={styles?.self}>{children}</BaseContainer>;
+}
+
+function Container({ styles, children, ...props }: ContainerProps) {
+  return (
+    <BaseContainer $style={styles?.self} {...props}>
+      {children}
+    </BaseContainer>
+  );
 }
 
 const BaseContainer = styled.div<{ $style?: CSSProp }>`
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   position: relative;
 
-  @media (max-width: 840px) {
-    gap: 0px;
-  }
-
   ${({ $style }) => $style}
 `;
+
+interface SectionProps extends HTMLAttributes<HTMLElement> {
+  styles?: { self?: CSSProp };
+  children?: ReactNode;
+  reverse?: boolean;
+}
 
 function Section({
   styles,
   children,
   reverse = false,
-  id,
-}: {
-  styles?: { self?: CSSProp };
-  children?: ReactNode;
-  reverse?: boolean;
-  id?: string;
-}) {
+  ...props
+}: SectionProps) {
   return (
-    <BaseSection id={id} $reverse={reverse} $style={styles?.self}>
+    <BaseSection $reverse={reverse} $style={styles?.self} {...props}>
       {children}
     </BaseSection>
   );
@@ -79,17 +78,20 @@ const BaseSection = styled.section<InnerProps>`
   ${({ $style }) => $style}
 `;
 
+interface InnerComponentProps extends HTMLAttributes<HTMLDivElement> {
+  styles?: { self?: CSSProp };
+  children?: ReactNode;
+  reverse?: boolean;
+}
+
 function Inner({
   styles,
   children,
   reverse = false,
-}: {
-  styles?: { self?: CSSProp };
-  children?: ReactNode;
-  reverse?: boolean;
-}) {
+  ...props
+}: InnerComponentProps) {
   return (
-    <BaseInner $reverse={reverse} $style={styles?.self}>
+    <BaseInner $reverse={reverse} $style={styles?.self} {...props}>
       {children}
     </BaseInner>
   );
