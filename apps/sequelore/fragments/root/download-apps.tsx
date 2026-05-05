@@ -10,7 +10,7 @@ import React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { applyId } from "../../../../packages/components/tools/apply-id";
 
-export function Footer() {
+export function DownloadApps() {
   const router = useRouter();
 
   const DOWNLOAD_OPTIONS = [
