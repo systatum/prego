@@ -37,6 +37,8 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export function Navbar() {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -66,6 +68,7 @@ export function Navbar() {
             image: "/assets/sequelore_128.png",
             size: 30,
           }}
+          onClick={() => router.push("/")}
           variant="ghost"
           styles={{
             self: css`
