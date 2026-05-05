@@ -27,6 +27,10 @@ const BaseContainer = styled.div<{ $style?: CSSProp }>`
   margin-right: auto;
   position: relative;
 
+  @media (max-width: 840px) {
+    gap: 0px;
+  }
+
   ${({ $style }) => $style}
 `;
 
