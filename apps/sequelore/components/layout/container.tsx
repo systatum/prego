@@ -71,7 +71,7 @@ const BaseSection = styled.section<InnerProps>`
   }
 
   @media (max-width: 640px) {
-    padding: 80px 30px;
+    padding: 60px 30px;
     flex-direction: column;
   }
 
