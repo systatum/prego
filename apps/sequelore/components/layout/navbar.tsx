@@ -8,6 +8,7 @@ import styled, { css, CSSProp } from "styled-components";
 import { useRouter } from "next/navigation";
 import { Button } from "@systatum/coneto/button";
 import { OverlayBlocker } from "@systatum/coneto/overlay-blocker";
+import { play } from "@/fonts";
 
 interface NavItem {
   title: string;
@@ -61,12 +62,23 @@ export default function Navbar() {
         <Button
           icon={{
             image: "/assets/sequelore_128.png",
+            size: 30,
           }}
           variant="ghost"
           styles={{
             self: css`
               padding: 0px 10px;
               font-weight: 600;
+              font-size: 22px;
+              font-family: ${play.style.fontFamily};
+
+              &:hover {
+                background-color: transparent;
+                box-shadow: none;
+              }
+              &:focus-visible {
+                background-color: transparent;
+              }
             `,
           }}
         >

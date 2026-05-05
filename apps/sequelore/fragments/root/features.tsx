@@ -12,6 +12,7 @@ import {
 } from "@remixicon/react";
 import { BulletList, Text } from "@/components/layout/typography";
 import { Container } from "@/components/layout/container";
+import { play } from "@/fonts";
 
 export function Features() {
   const FEATURES: FeatureSectionProps[] = [
@@ -103,7 +104,13 @@ function FeatureSection({
       >
         <TextBlock>
           {icon && <IconBadge>{icon}</IconBadge>}
-          <Text.H2>
+          <Text.H2
+            styles={{
+              self: css`
+                font-family: ${play.style.fontFamily};
+              `,
+            }}
+          >
             {number}. {title}
           </Text.H2>
           <Text

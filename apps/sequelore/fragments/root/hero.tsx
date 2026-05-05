@@ -14,6 +14,7 @@ import {
 import { Badge } from "@systatum/coneto/badge";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { play } from "@/fonts";
 
 const DB_LABELS = [
   { caption: "PostgreSQL", color: "#446F53" },
@@ -86,6 +87,8 @@ export function Hero() {
           <Text.H1
             styles={{
               self: css`
+                font-family: ${play.style.fontFamily};
+
                 font-size: clamp(1.75rem, 3vw, 2.5rem);
                 display: flex;
                 flex-wrap: wrap;
