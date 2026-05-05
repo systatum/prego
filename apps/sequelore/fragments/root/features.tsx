@@ -101,7 +101,6 @@ function FeatureSection({
         styles={{
           self: css`
             width: 100%;
-
             @media (max-width: 1080px) {
               flex-direction: column;
             }
@@ -142,7 +141,7 @@ function FeatureSection({
           </BulletList>
         </TextBlock>
 
-        <IllustrationWrapper>{illustration}</IllustrationWrapper>
+        {illustration}
       </Container.Section.Inner>
     </Container.Section>
   );
@@ -176,14 +175,6 @@ const Checkmark = styled.span`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-`;
-
-const IllustrationWrapper = styled.div`
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  aspect-ratio: 520 / 360;
-  width: 100%;
 `;
 
 const CheckSVG: React.FC = () => (
