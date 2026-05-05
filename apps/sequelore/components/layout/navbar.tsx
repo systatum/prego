@@ -9,6 +9,30 @@ import { useRouter } from "next/navigation";
 import { Button } from "@systatum/coneto/button";
 import { OverlayBlocker } from "@systatum/coneto/overlay-blocker";
 
+interface NavItem {
+  title: string;
+  href?: string;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  {
+    title: "Product",
+    href: "/product",
+  },
+  {
+    title: "Pricing",
+    href: "/pricing",
+  },
+  {
+    title: "Docs",
+    href: "/docs",
+  },
+  {
+    title: "Company",
+    href: "/company",
+  },
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -94,6 +118,7 @@ const NavbarWrapper = styled.div<{ $scrolled: boolean }>`
   transition: box-shadow 0.3s ease;
   background-image: url("/assets/paper-background.png");
   background-repeat: repeat;
+  border-bottom: 1px solid #f1f1f1;
 
   ${({ $scrolled }) =>
     $scrolled &&
@@ -113,8 +138,7 @@ const NavbarInner = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 60px;
-  border-bottom: 1px solid #f1f1f1;
+  padding: 0 20px;
   background-image: url("/assets/paper-background.png");
   background-repeat: repeat;
   z-index: 50;
@@ -125,15 +149,6 @@ const NavbarInner = styled.div`
   @media (min-width: 1440px) {
     padding: 0 0px;
   }
-`;
-
-const CtaGroup = styled.div<{ $style?: CSSProp }>`
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 8px;
-
-  ${({ $style }) => $style}
 `;
 
 function DesktopNavbar() {
@@ -155,18 +170,20 @@ function DesktopNavbar() {
         ))}
       </Nav>
 
-      <CtaGroup
-        $style={css`
-          display: none;
+      <Button
+        variant="success"
+        styles={{
+          containerStyle: css`
+            display: none;
 
-          @media (min-width: 840px) {
-            display: flex;
-          }
-        `}
+            @media (min-width: 840px) {
+              display: flex;
+            }
+          `,
+        }}
       >
-        <Button variant="ghost">Sign in</Button>
-        <Button variant="success">Get Started</Button>
-      </CtaGroup>
+        Download
+      </Button>
     </>
   );
 }
@@ -243,45 +260,23 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
 
             <Divider />
 
-            <CtaGroup
-              $style={css`
-                display: flex;
-                flex-direction: column;
-
-                @media (min-width: 840px) {
-                  display: none;
-                }
-              `}
+            <Button
+              styles={{
+                containerStyle: css`
+                  width: 100%;
+                  @media (min-width: 840px) {
+                    display: none;
+                  }
+                `,
+                self: css`
+                  width: 100%;
+                `,
+              }}
+              onClick={() => setIsOpen(false)}
+              variant="success"
             >
-              <Button
-                styles={{
-                  containerStyle: css`
-                    width: 100%;
-                  `,
-                  self: css`
-                    width: 100%;
-                  `,
-                }}
-                onClick={() => setIsOpen(false)}
-                variant="ghost"
-              >
-                Sign in
-              </Button>
-              <Button
-                styles={{
-                  containerStyle: css`
-                    width: 100%;
-                  `,
-                  self: css`
-                    width: 100%;
-                  `,
-                }}
-                onClick={() => setIsOpen(false)}
-                variant="success"
-              >
-                Get Started
-              </Button>
-            </CtaGroup>
+              Get Started
+            </Button>
           </Drawer>
         </>
       )}
@@ -314,43 +309,3 @@ const Divider = styled.div`
   background-color: #f1f1f1;
   margin: 8px 0;
 `;
-
-interface NavChild {
-  label: string;
-  href: string;
-  description?: string;
-  icon?: string;
-}
-
-interface NavItem {
-  title: string;
-  href?: string;
-  children?: NavChild[];
-}
-
-export const NAV_ITEMS: NavItem[] = [
-  {
-    title: "Product",
-    href: "/product",
-  },
-  {
-    title: "Features",
-    href: "/features",
-  },
-  {
-    title: "Integrations",
-    href: "/integration",
-  },
-  {
-    title: "Pricing",
-    href: "/pricing",
-  },
-  {
-    title: "Docs",
-    href: "/docs",
-  },
-  {
-    title: "Company",
-    href: "/company",
-  },
-];
