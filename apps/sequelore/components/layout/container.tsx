@@ -91,11 +91,12 @@ function Inner({
 
 const BaseInner = styled.div<InnerProps>`
   margin: 0 auto;
-  gap: 5rem;
+  gap: 4rem;
   align-items: center;
   max-width: 1280px;
   display: flex;
   flex-direction: row;
+  position: relative;
 
   ${({ $reverse }) =>
     $reverse &&
