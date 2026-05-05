@@ -178,6 +178,11 @@ function DesktopNavbar() {
           <Button
             key={index}
             variant="ghost"
+            styles={{
+              self: css`
+                color: #2c5f3f;
+              `,
+            }}
             onClick={() => {
               router.push(String(item.href));
             }}
@@ -264,6 +269,7 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
                   `,
                   self: css`
                     width: 100%;
+                    color: #2c5f3f;
                   `,
                 }}
                 onClick={(e) => {
@@ -289,10 +295,13 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
                   width: 100%;
                 `,
               }}
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                scrollToId("download-sequelore");
+              }}
               variant="success"
             >
-              Get Started
+              Download
             </Button>
           </Drawer>
         </>
