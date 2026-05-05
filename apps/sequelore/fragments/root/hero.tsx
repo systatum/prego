@@ -37,9 +37,8 @@ export function Hero() {
     <Container.Section
       styles={{
         self: css`
-          @media (max-width: 640px) {
+          @media (max-width: 768px) {
             padding: 80px 20px;
-            flex-direction: column;
           }
         `,
       }}
@@ -47,15 +46,17 @@ export function Hero() {
       <Container.Section.Inner
         styles={{
           self: css`
-            margin: 0px;
             width: 100%;
+            @media (max-width: 768px) {
+              flex-direction: column;
+            }
           `,
         }}
       >
         <HeroContent
           $style={css`
             width: 70%;
-            @media (max-width: 640px) {
+            @media (max-width: 768px) {
               width: 100%;
               justify-content: center;
               align-items: center;
@@ -89,7 +90,7 @@ export function Hero() {
                 gap: 0.3em;
                 flex-direction: column;
                 font-size: 36px;
-                @media (max-width: 640px) {
+                @media (max-width: 768px) {
                   justify-content: center;
                   align-items: center;
                 }
@@ -126,7 +127,7 @@ export function Hero() {
                 @media (max-width: 800px) {
                   max-width: 240px;
                 }
-                @media (max-width: 640px) {
+                @media (max-width: 768px) {
                   text-align: center;
                   max-width: 400px;
                 }
@@ -148,7 +149,7 @@ export function Hero() {
                 flex-direction: row;
                 flex-wrap: wrap;
 
-                @media (max-width: 640px) {
+                @media (max-width: 768px) {
                   justify-content: center;
                 }
               `,
@@ -173,7 +174,7 @@ export function Hero() {
           $style={css`
             position: absolute;
             max-width: 800px;
-            right: 0px;
+            right: -40px;
             top: 50%;
             transform: translateY(-50%);
             padding-top: 50px;
@@ -181,15 +182,21 @@ export function Hero() {
 
             @media (max-width: 1280px) {
               max-width: 700px;
-              right: -60px;
+              right: -70px;
             }
 
-            @media (max-width: 800px) {
+            @media (max-width: 1080px) {
+              right: -150px;
+            }
+
+            @media (max-width: 840px) {
+              right: -100px;
               max-width: 500px;
             }
 
-            @media (max-width: 640px) {
+            @media (max-width: 768px) {
               right: 0px;
+              max-width: 600px;
               position: relative;
               transform: translateY(0);
             }
@@ -212,7 +219,7 @@ const RotatingWrapper = styled.span`
   width: 100%;
   height: 1.2em;
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     align-items: center;
     justify-content: center;
     text-align: center;

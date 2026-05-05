@@ -93,8 +93,6 @@ function FeatureSection({
         reverse={reverse}
         styles={{
           self: css`
-            margin-left: 0px;
-            margin-right: 0px;
             width: 100%;
 
             @media (max-width: 1080px) {
