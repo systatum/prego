@@ -41,9 +41,9 @@ export function DownloadApps() {
   ];
 
   const DUCKS = [
-    { x: 2, y: -20, delay: 0, xMob: 60, yMob: 5 },
+    { x: 2, y: -20, delay: 0, xMob: 40, yMob: 5 },
     { x: 6, y: 24, delay: 0.8, xMob: 20, yMob: 20 },
-    { x: 19, y: 0, delay: 1.6, xMob: 10, yMob: -10 },
+    { x: 19, y: 0, delay: 1.6, xMob: 5, yMob: -5 },
   ];
 
   return (
@@ -83,8 +83,8 @@ export function DownloadApps() {
             <Text
               styles={{
                 self: css`
-                  font-size: 11px;
-                  font-weight: 500;
+                  font-size: 14px;
+                  font-weight: 600;
                   color: rgba(0, 0, 0, 0.6);
                   letter-spacing: 0.08em;
                   text-transform: uppercase;
@@ -148,9 +148,8 @@ const WaterSection = styled.section`
 
   background-image: url(${WaterImage.src});
   background-repeat: repeat-x;
-
-  background-size: auto;
-  background-position: 0 bottom;
+  background-size: auto 100%;
+  background-position: center 0px;
 
   image-rendering: auto;
 
@@ -198,7 +197,7 @@ const DownloadPanel = styled.div`
     align-items: center;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    top: 25%;
+    top: 30%;
   }
 `;
 
@@ -210,15 +209,14 @@ const buttonStyles = css`
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(4px);
   box-shadow:
     0 2px 16px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   cursor: pointer;
   text-align: left;
-  min-width: 240px;
-  height: 50px;
+  min-width: 400px;
+  height: 60px;
 
   transition:
     background 0.18s,
@@ -274,20 +272,15 @@ const LinuxIcon = () => (
     viewBox="0 0 256 256"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <ellipse cx="128" cy="150" rx="70" ry="80" fill="#000000" />
-
-    <ellipse cx="128" cy="165" rx="45" ry="55" fill="#ffffff" />
-
-    <circle cx="128" cy="85" r="50" fill="#000000" />
-
-    <ellipse cx="108" cy="75" rx="10" ry="14" fill="#ffffff" />
-    <ellipse cx="148" cy="75" rx="10" ry="14" fill="#ffffff" />
-    <circle cx="108" cy="80" r="5" fill="#000000" />
-    <circle cx="148" cy="80" r="5" fill="#000000" />
-
-    <ellipse cx="128" cy="100" rx="18" ry="10" fill="#f4a300" />
-
-    <ellipse cx="95" cy="225" rx="20" ry="10" fill="#f4a300" />
-    <ellipse cx="160" cy="225" rx="20" ry="10" fill="#f4a300" />
+    <ellipse cx="128" cy="150" rx="70" ry="80" fill="#2f2f2f" />
+    <ellipse cx="128" cy="165" rx="45" ry="55" fill="#d1d1d1" />
+    <circle cx="128" cy="85" r="50" fill="#2a2a2a" />
+    <ellipse cx="108" cy="75" rx="10" ry="14" fill="#e5e5e5" />
+    <ellipse cx="148" cy="75" rx="10" ry="14" fill="#e5e5e5" />
+    <circle cx="108" cy="80" r="5" fill="#1a1a1a" />
+    <circle cx="148" cy="80" r="5" fill="#1a1a1a" />
+    <ellipse cx="128" cy="100" rx="18" ry="10" fill="#9e9e9e" />
+    <ellipse cx="95" cy="225" rx="20" ry="10" fill="#8a8a8a" />
+    <ellipse cx="160" cy="225" rx="20" ry="10" fill="#8a8a8a" />
   </svg>
 );
