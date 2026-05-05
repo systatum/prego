@@ -54,7 +54,7 @@ export function DownloadApps() {
           position: relative;
           overflow: hidden;
           padding: 0px;
-          @media (max-width: 840px) {
+          @media (max-width: 820px) {
             padding: 0px;
           }
           @media (max-width: 640px) {
@@ -233,7 +233,8 @@ const buttonStyles = css`
   }
 
   @media (max-width: 640px) {
-    min-width: 400px;
+    min-width: 340px;
+    max-width: 340px;
   }
 `;
 

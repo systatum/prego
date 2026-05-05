@@ -104,7 +104,7 @@ export function Navbar() {
           }}
           styles={{
             containerStyle: css`
-              @media (min-width: 840px) {
+              @media (min-width: 820px) {
                 display: none;
               }
             `,
@@ -198,7 +198,7 @@ function DesktopNavbar() {
           containerStyle: css`
             display: none;
 
-            @media (min-width: 840px) {
+            @media (min-width: 820px) {
               display: flex;
             }
           `,
@@ -227,7 +227,7 @@ const Nav = styled.nav`
 
   display: none;
 
-  @media (min-width: 840px) {
+  @media (min-width: 820px) {
     display: flex;
   }
 `;
@@ -296,7 +296,7 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
               styles={{
                 containerStyle: css`
                   width: 100%;
-                  @media (min-width: 840px) {
+                  @media (min-width: 820px) {
                     display: none;
                   }
                 `,
@@ -340,7 +340,7 @@ const Drawer = styled(motion.div)`
   flex-direction: column;
   gap: 4px;
 
-  @media (min-width: 840px) {
+  @media (min-width: 820px) {
     display: none;
   }
 `;
