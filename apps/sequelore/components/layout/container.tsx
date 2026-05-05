@@ -38,13 +38,15 @@ function Section({
   styles,
   children,
   reverse = false,
+  id,
 }: {
   styles?: { self?: CSSProp };
   children?: ReactNode;
   reverse?: boolean;
+  id?: string;
 }) {
   return (
-    <BaseSection $reverse={reverse} $style={styles?.self}>
+    <BaseSection id={id} $reverse={reverse} $style={styles?.self}>
       {children}
     </BaseSection>
   );
