@@ -119,7 +119,9 @@ export function Hero() {
             </RotatingWrapper>
 
             <span>database studio</span>
-            <span>this good.</span>
+            <span>
+              this <TextGood>good.</TextGood>
+            </span>
           </Text.H1>
 
           <Text
@@ -259,5 +261,23 @@ const NewBadge = styled.a`
   &:hover [aria-label="badge"] {
     background-color: #4f6656;
     transition: all 0.2s ease;
+  }
+`;
+
+const TextGood = styled.span`
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' height='20' viewBox='0 0 113 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath opacity='0.3' d='M6.02311 13.4983C14.6826 10.0015 50.7159 6.70745 106.181 7.00002' stroke='%23446f53' stroke-width='12' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
   }
 `;
