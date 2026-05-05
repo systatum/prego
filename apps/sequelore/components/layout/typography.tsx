@@ -108,6 +108,28 @@ const TextBase = styled.p<{ $style?: CSSProp; $color?: string }>`
   ${({ $style }) => $style}
 `;
 
+function Label({
+  children,
+  styles,
+  color,
+}: React.PropsWithChildren<TypographyProps>) {
+  return (
+    <BaseLabel $style={styles?.self} $color={color}>
+      {children}
+    </BaseLabel>
+  );
+}
+
+const BaseLabel = styled.label<{ $style?: CSSProp; $color?: string }>`
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b6b5a;
+  font-family: "DM Sans", sans-serif;
+`;
+
 function BulletList({
   children,
   styles,
@@ -155,6 +177,7 @@ const BulletListItemBase = styled.li<{ $style?: CSSProp; $color?: string }>`
 Text.H1 = H1;
 Text.H2 = H2;
 Text.H3 = H3;
+Text.Label = Label;
 
 BulletList.Item = BulletListItem;
 
