@@ -40,6 +40,7 @@ export function Hero() {
           @media (max-width: 768px) {
             padding: 80px 20px;
           }
+          overflow: hidden;
         `,
       }}
     >
@@ -174,28 +175,29 @@ export function Hero() {
           $style={css`
             position: absolute;
             max-width: 800px;
-            right: -40px;
+            right: 0px;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateX(40px) translateY(-50%);
             padding-top: 50px;
             padding-right: 0;
 
             @media (max-width: 1280px) {
               max-width: 700px;
-              right: -70px;
+              transform: translateX(70px) translateY(-50%);
             }
 
             @media (max-width: 1080px) {
-              right: -150px;
+              transform: translateX(150px) translateY(-50%);
             }
 
             @media (max-width: 840px) {
-              right: -100px;
+              transform: translateX(100px) translateY(-50%);
+
               max-width: 500px;
             }
 
             @media (max-width: 768px) {
-              right: 0px;
+              transform: translateX(0px) translateY(-50%);
               max-width: 600px;
               position: relative;
               transform: translateY(0);
