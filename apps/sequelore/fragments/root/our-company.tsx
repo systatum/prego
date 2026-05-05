@@ -24,7 +24,6 @@ export function OurCompany() {
         `,
       }}
     >
-      <Text.Label>Built by</Text.Label>
       <Container.Section.Inner
         onClick={() => {
           router.push("https://systatum.com");
@@ -33,6 +32,7 @@ export function OurCompany() {
           self: css`
             gap: 24px;
             justify-content: center;
+            align-items: center;
             cursor: pointer;
           `,
         }}
@@ -46,7 +46,7 @@ export function OurCompany() {
             `,
           }}
         >
-          Systatum
+          systatum.com
         </Text.H2>
       </Container.Section.Inner>
     </Container.Section>
