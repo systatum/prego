@@ -10,6 +10,7 @@ import {
 } from "@remixicon/react";
 import { Container } from "@/components/layout/container";
 import { applyId } from "../../../../packages/components/tools/apply-id";
+import { Text } from "@/components/layout/typography";
 
 const LOGOS = [
   { name: "Lattice", icon: <Lattice /> },
@@ -27,10 +28,11 @@ export function TrustedBy() {
       styles={{
         self: css`
           flex-direction: column;
+          gap: 30px;
         `,
       }}
     >
-      <Label>Trusted by modern teams at</Label>
+      <Text.Label>Trusted by modern teams at</Text.Label>
       <LogoRow>
         {LOGOS.map(({ name, icon }) => (
           <LogoItem key={name}>
@@ -42,17 +44,6 @@ export function TrustedBy() {
     </Container.Section>
   );
 }
-
-const Label = styled.p`
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #6b6b5a;
-  margin-bottom: 2rem;
-  font-family: "DM Sans", sans-serif;
-`;
 
 const LogoRow = styled.div`
   display: flex;
