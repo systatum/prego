@@ -13,10 +13,12 @@ import {
 import { BulletList, Text } from "@/components/layout/typography";
 import { Container } from "@/components/layout/container";
 import { play } from "@/fonts";
+import { applyId } from "../../../../packages/components/tools/apply-id";
 
 export function Features() {
   const FEATURES: FeatureSectionProps[] = [
     {
+      id: applyId("design-model"),
       number: "1",
       icon: <RiDatabase2Line />,
       title: "Design your data model",
@@ -31,6 +33,7 @@ export function Features() {
       reverse: false,
     },
     {
+      id: applyId("query-explore"),
       number: "2",
       icon: <RiCodeBoxLine />,
       title: "Query and explore with confidence",
@@ -45,6 +48,7 @@ export function Features() {
       reverse: true,
     },
     {
+      id: applyId("migrate-deploy"),
       number: "3",
       icon: <RiUploadCloud2Line />,
       title: "Migrate and deploy seamlessly",
@@ -55,13 +59,13 @@ export function Features() {
       reverse: false,
     },
   ];
-
   return FEATURES.map((feature) => (
     <FeatureSection key={feature.number} {...feature} />
   ));
 }
 
 interface FeatureSectionProps {
+  id?: string;
   number: string;
   icon?: React.ReactNode;
   title: string;
@@ -72,6 +76,7 @@ interface FeatureSectionProps {
 }
 
 function FeatureSection({
+  id,
   number,
   icon,
   title,
@@ -82,6 +87,7 @@ function FeatureSection({
 }: FeatureSectionProps) {
   return (
     <Container.Section
+      id={id}
       reverse={reverse}
       styles={{
         self: css`
