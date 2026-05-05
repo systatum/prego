@@ -15,6 +15,8 @@ import { Badge } from "@systatum/coneto/badge";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { play } from "@/fonts";
+import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
+import { applyId } from "../../../../packages/components/tools/apply-id";
 
 const DB_LABELS = [
   { caption: "PostgreSQL", color: "#446F53" },
@@ -36,6 +38,7 @@ export function Hero() {
 
   return (
     <Container.Section
+      id={applyId("hero")}
       styles={{
         self: css`
           @media (max-width: 768px) {
@@ -145,7 +148,12 @@ export function Hero() {
             shipping products with confidence.
           </Text>
 
-          <Button variant="success">Download</Button>
+          <Button
+            variant="success"
+            onClick={() => scrollToId("download-sequelore")}
+          >
+            Download
+          </Button>
 
           <BulletList
             styles={{
