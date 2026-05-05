@@ -42,6 +42,8 @@ export function Hero() {
           justify-content: space-between;
           align-items: center;
           padding: 4rem;
+          position: relative;
+          max-width: 1280px;
 
           @media (max-width: 768px) {
             padding-left: 20px;
@@ -176,11 +178,15 @@ export function Hero() {
         $style={css`
           position: absolute;
           max-width: 600px;
-          right: -70px;
+          right: 0px;
           top: 50%;
           transform: translateY(-50%);
           padding-top: 50px;
           padding-right: 0;
+
+          @media (max-width: 1280px) {
+            right: -70px;
+          }
 
           @media (max-width: 800px) {
             max-width: 500px;
