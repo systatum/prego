@@ -66,7 +66,7 @@ export function Navbar() {
         <Button
           icon={{
             image: "/assets/sequelore_128.png",
-            size: 30,
+            size: 48,
           }}
           onClick={() => router.push("/")}
           variant="ghost"
@@ -136,6 +136,7 @@ const NavbarWrapper = styled.div<{ $scrolled: boolean }>`
   background-image: url("/assets/paper-background.png");
   background-repeat: repeat;
   border-bottom: 1px solid #f1f1f1;
+  padding: 8px 0px;
 
   ${({ $scrolled }) =>
     $scrolled &&
