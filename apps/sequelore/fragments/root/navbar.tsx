@@ -12,30 +12,6 @@ import { play } from "@/fonts";
 import { applyId } from "../../../../packages/components/tools/apply-id";
 import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
 
-interface NavItem {
-  title: string;
-  href?: string;
-}
-
-const NAV_ITEMS: NavItem[] = [
-  {
-    title: "Product",
-    href: "/product",
-  },
-  {
-    title: "Pricing",
-    href: "/pricing",
-  },
-  {
-    title: "Docs",
-    href: "/docs",
-  },
-  {
-    title: "Company",
-    href: "/company",
-  },
-];
-
 export function Navbar() {
   const router = useRouter();
 
@@ -76,6 +52,7 @@ export function Navbar() {
               font-weight: 600;
               font-size: 22px;
               font-family: ${play.style.fontFamily};
+              color: #2c5f3f;
 
               &:hover {
                 background-color: transparent;
@@ -169,29 +146,8 @@ const NavbarInner = styled.div`
 `;
 
 function DesktopNavbar() {
-  const router = useRouter();
-
   return (
     <>
-      <Nav>
-        {NAV_ITEMS.map((item, index) => (
-          <Button
-            key={index}
-            variant="ghost"
-            styles={{
-              self: css`
-                color: #2c5f3f;
-              `,
-            }}
-            onClick={() => {
-              router.push(String(item.href));
-            }}
-          >
-            {item.title}
-          </Button>
-        ))}
-      </Nav>
-
       <Button
         variant="success"
         styles={{
@@ -268,28 +224,6 @@ function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
             transition={{ type: "spring", stiffness: 300, damping: 40 }}
             {...swipeHandlers}
           >
-            {NAV_ITEMS.map((item, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                styles={{
-                  containerStyle: css`
-                    width: 100%;
-                  `,
-                  self: css`
-                    width: 100%;
-                    color: #2c5f3f;
-                  `,
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(String(item.href));
-                }}
-              >
-                {item.title}
-              </Button>
-            ))}
-
             <Divider />
 
             <Button
