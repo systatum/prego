@@ -1,7 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
 import { Inter as FontSans, Lato, Nunito } from "next/font/google";
-import { cn } from "@/lib/utils";
 import "@/styles.css";
 import StyledComponentRegistry from "@/lib/styled-component-registry";
 import { Navbar } from "@/fragments/root/navbar";
@@ -36,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(fontSans.variable, nunito.variable, lato.variable)}
+      className={`${fontSans.variable} ${nunito.variable} ${lato.variable}`}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
         <StyledComponentRegistry>
