@@ -1,3 +1,4 @@
+import { Collaborator } from "@/components/fragments/homepage/collaborator-section";
 import dynamic from "next/dynamic";
 
 const Hero = dynamic(
@@ -17,11 +18,6 @@ const Product = dynamic(
 
 const Post = dynamic(
   () => import("@/components/fragments/homepage/post-section"),
-  { ssr: true },
-);
-
-const Collaborator = dynamic(
-  () => import("@/components/fragments/homepage/collaborator-section"),
   { ssr: true },
 );
 
