@@ -99,7 +99,7 @@ function FormCollaborateAndEmail() {
         name: "email",
         title: t("labelFormEmail"),
         type: "text",
-        required: false,
+        required: true,
         textbox: textboxProps,
       },
       {
@@ -107,7 +107,6 @@ function FormCollaborateAndEmail() {
         title: t("labelFormMessage"),
         type: "textarea",
         rows: 4,
-        required: true,
         textarea: textboxProps,
       },
     ],
