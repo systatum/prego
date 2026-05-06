@@ -21,6 +21,7 @@ export function OurCompany() {
           background: white;
           flex-direction: column;
           gap: 30px;
+          padding: 40px;
         `,
       }}
     >
@@ -49,7 +50,7 @@ export function OurCompany() {
           styles={{
             self: css`
               font-size: 48px;
-              color: #6b6b5a;
+              color: black;
               font-family: "MontHeavy", sans-serif;
               @media (max-width: 640px) {
                 font-size: 40px;
