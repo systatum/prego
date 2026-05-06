@@ -136,7 +136,6 @@ const NavbarWrapper = styled.div<{ $scrolled: boolean }>`
   background-image: url("/assets/paper-background.png");
   background-repeat: repeat;
   border-bottom: 1px solid #f1f1f1;
-  padding: 8px 0px;
 
   ${({ $scrolled }) =>
     $scrolled &&
@@ -156,7 +155,7 @@ const NavbarInner = styled.div`
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 30px 20px;
   background-image: url("/assets/paper-background.png");
   background-repeat: repeat;
   z-index: 50;
