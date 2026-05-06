@@ -1,9 +1,34 @@
-import CollaborateAndEmail from "@/components/fragments/homepage/collaborate-and-email-section";
-import Collaborator from "@/components/fragments/homepage/collaborator-section";
-import Hero from "@/components/fragments/homepage/hero-section";
-import Product from "@/components/fragments/homepage/product-section";
-import Reason from "@/components/fragments/homepage/reason-section";
-import Post from "@/components/fragments/homepage/post-section";
+import dynamic from "next/dynamic";
+
+const Hero = dynamic(
+  () => import("@/components/fragments/homepage/hero-section"),
+  { ssr: true },
+);
+
+const Reason = dynamic(
+  () => import("@/components/fragments/homepage/reason-section"),
+  { ssr: true },
+);
+
+const Product = dynamic(
+  () => import("@/components/fragments/homepage/product-section"),
+  { ssr: true },
+);
+
+const Post = dynamic(
+  () => import("@/components/fragments/homepage/post-section"),
+  { ssr: true },
+);
+
+const Collaborator = dynamic(
+  () => import("@/components/fragments/homepage/collaborator-section"),
+  { ssr: true },
+);
+
+const CollaborateAndEmail = dynamic(
+  () => import("@/components/fragments/homepage/collaborate-and-email-section"),
+  { ssr: true },
+);
 
 export default function HomepageContent() {
   return (
