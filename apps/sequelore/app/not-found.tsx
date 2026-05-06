@@ -19,7 +19,16 @@ export default function NotFound({
         `,
       }}
     >
-      <ErrorSlate code={code} title={title}>
+      <ErrorSlate
+        styles={{
+          cubeFaceStyle: css`
+            border-color: #1d3b28;
+            background-color: #2c5f3f;
+          `,
+        }}
+        code={code}
+        title={title}
+      >
         {children}
       </ErrorSlate>
     </Container>
