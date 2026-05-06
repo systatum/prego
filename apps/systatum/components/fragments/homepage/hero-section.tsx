@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import FlagDropdown from "../translation/flag-dropdown";
+import Image from "next/image";
 
 export default function Hero() {
   const pathname = usePathname();
@@ -81,7 +82,12 @@ export default function Hero() {
               scrolled && "flex md:hidden left-6 top-[19px]",
             )}
           >
-            <img alt="Systatum Logo" src="/systatum/256icon.png" width={300} />
+            <Image
+              alt="Systatum Logo"
+              src="/systatum/256icon.png"
+              width={300}
+              height={300}
+            />
           </div>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
@@ -106,7 +112,12 @@ export default function Hero() {
             aria-label="logo-systatum-medium-to-up"
             className="w-[120px] md:w-[160px] lg:w-[210px] md:left-8 lg:left-12 top-[240px] lg:top-[280px] md:fixed md:flex hidden"
           >
-            <img alt="Systatum Logo" src="/systatum/256icon.png" width={300} />
+            <Image
+              alt="Systatum Logo"
+              src="/systatum/256icon.png"
+              width={300}
+              height={300}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -134,10 +145,11 @@ export default function Hero() {
               aria-label="logo-systatum-mobile-to-small"
               className="w-[120px] md:w-[160px] lg:w-[210px] left-16 top-[280px] md:hidden"
             >
-              <img
+              <Image
                 alt="Systatum Logo"
                 src="/systatum/256icon.png"
                 width={300}
+                height={300}
               />
             </motion.div>
           )}

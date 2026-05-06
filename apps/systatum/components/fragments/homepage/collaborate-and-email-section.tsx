@@ -8,6 +8,7 @@ import { css } from "styled-components";
 import { RiLinkedinBoxFill } from "@remixicon/react";
 import { toast } from "react-hot-toast";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const EMPTY_FORM = { name: "", email: "", message: "" };
 
@@ -22,7 +23,12 @@ export default function CollaborateAndEmail() {
       <div className="flex md:flex-row flex-col justify-between md:pt-[200px] gap-6">
         <div className="flex md:flex-row flex-col gap-10 w-full">
           <div className="relative md:min-w-[90px] pt-[6px] md:min-h-[90px] md:max-w-[90px] md:max-h-[90px]">
-            <img alt="Systatum Logo" src="/systatum/256icon.png" width={200} />
+            <Image
+              alt="Systatum Logo"
+              src="/systatum/256icon.png"
+              width={200}
+              height={200}
+            />
           </div>
           <div
             aria-label="title-and-description"
