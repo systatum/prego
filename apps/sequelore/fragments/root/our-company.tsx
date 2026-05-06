@@ -18,7 +18,7 @@ export function OurCompany() {
       id={applyId("our-company")}
       styles={{
         self: css`
-          background: #f5f0e8;
+          background: white;
           flex-direction: column;
           gap: 30px;
         `,
@@ -39,7 +39,7 @@ export function OurCompany() {
       >
         <Image
           style={{
-            marginTop: "10px",
+            marginTop: "4px",
           }}
           width={60}
           src={SystatumImage}
@@ -50,6 +50,7 @@ export function OurCompany() {
             self: css`
               font-size: 48px;
               color: #6b6b5a;
+              font-family: "MontHeavy", sans-serif;
               @media (max-width: 640px) {
                 font-size: 40px;
               }
