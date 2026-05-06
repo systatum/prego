@@ -77,6 +77,16 @@ function FormCollaborateAndEmail() {
       self: css`
         background-color: transparent;
         color: white;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          -webkit-text-fill-color: white;
+          transition: background-color 9999s ease-in-out 0s;
+          box-shadow: 0 0 0px 1000px transparent inset;
+          background-color: transparent !important;
+        }
       `,
     },
   };
