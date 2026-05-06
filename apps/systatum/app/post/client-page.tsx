@@ -113,15 +113,17 @@ export default function PostsClientPage(props: ClientPostProps) {
     <ErrorBoundary>
       <Section
         className={cn(
-          isPostPage ? "py-2" : "py-20 px-0 mx-0 w-full max-w-full"
+          isPostPage ? "py-2" : "py-20 px-0 mx-0 w-full max-w-full",
         )}
       >
         {isPostPage && (
           <div className="mx-auto w-fit flex">
             <Crumb
-              style={css`
-                font-size: 14px;
-              `}
+              styles={{
+                self: css`
+                  font-size: 14px;
+                `,
+              }}
             >
               {LINK_ITEMS.map((data, index) => (
                 <Crumb.Item
@@ -141,7 +143,7 @@ export default function PostsClientPage(props: ClientPostProps) {
             "flex flex-col gap-10",
             isPostPage
               ? "py-10 md:max-w-4xl mx-auto max-w-xl"
-              : "max-w-full w-full"
+              : "max-w-full w-full",
           )}
         >
           {isPostPage ? (
@@ -157,19 +159,21 @@ export default function PostsClientPage(props: ClientPostProps) {
               {CATEGORY_ITEMS.map((data, index) => (
                 <Badge
                   key={index}
-                  badgeStyle={css`
-                    ${data.label !== "All" &&
-                    css`
-                      min-width: 80px;
-                    `}
-                    height: fit-content;
-                    cursor: pointer;
+                  styles={{
+                    self: css`
+                      ${data.label !== "All" &&
+                      css`
+                        min-width: 80px;
+                      `}
+                      height: fit-content;
+                      cursor: pointer;
 
-                    &:hover {
-                      border-color: #045e95;
-                      transition: all ease-in-out 0.2s;
-                    }
-                  `}
+                      &:hover {
+                        border-color: #045e95;
+                        transition: all ease-in-out 0.2s;
+                      }
+                    `,
+                  }}
                   caption={data.label ?? data.label}
                   onClick={(e) => {
                     e.preventDefault();
@@ -200,16 +204,18 @@ export default function PostsClientPage(props: ClientPostProps) {
                   >
                     <div className="flex flex-row gap-3 w-fit">
                       <Badge
-                        badgeStyle={css`
-                          min-width: 80px;
-                          height: fit-content;
-                          cursor: pointer;
-                          font-size: 16px;
-                          ${!isPostPage &&
-                          css`
-                            font-weight: 500;
-                          `}
-                        `}
+                        styles={{
+                          self: css`
+                            min-width: 80px;
+                            height: fit-content;
+                            cursor: pointer;
+                            font-size: 16px;
+                            ${!isPostPage &&
+                            css`
+                              font-weight: 500;
+                            `}
+                          `,
+                        }}
                         caption={categoryTranslated || categoryTranslated}
                         onClick={(e) => {
                           e.preventDefault();
@@ -221,7 +227,7 @@ export default function PostsClientPage(props: ClientPostProps) {
                       <div
                         className={cn(
                           "text-lg w-full flex flex-row",
-                          !isPostPage && "font-medium"
+                          !isPostPage && "font-medium",
                         )}
                       >
                         {post.title}
@@ -241,7 +247,7 @@ export default function PostsClientPage(props: ClientPostProps) {
               <span
                 className={cn(
                   "text-gray-400 text-sm italic w-full border-2 border-dashed px-10 border-gray-300 rounded-xl bg-gray-50 flex flex-col items-center justify-center text-center",
-                  isPostPage ? "py-[200px]" : "py-[100px]"
+                  isPostPage ? "py-[200px]" : "py-[100px]",
                 )}
               >
                 No content available

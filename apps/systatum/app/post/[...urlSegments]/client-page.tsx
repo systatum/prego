@@ -59,9 +59,11 @@ export default function PostClientPage(props: ClientPostProps) {
         <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto">
           <div className="flex flex-row w-fit mx-auto">
             <Crumb
-              style={css`
-                font-size: 14px;
-              `}
+              styles={{
+                self: css`
+                  font-size: 14px;
+                `,
+              }}
               maxShown={4}
             >
               {LINK_ITEMS.map((data, index) => (
@@ -117,11 +119,12 @@ export default function PostClientPage(props: ClientPostProps) {
             </span>
             <Link href={`/post?category=${post.category.name}`}>
               <Badge
-                badgeStyle={css`
-                  min-width: 80px;
-                  height: fit-content;
-                  cursor: pointer;
-                `}
+                styles={{
+                  self: css`
+                    height: fit-content;
+                    cursor: pointer;
+                  `,
+                }}
                 caption={categoryTranslated || undefined}
                 withCircle
               />
