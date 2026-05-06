@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { RiMenuLine, RiCloseLine } from "@remixicon/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { SwipeableHandlers, useSwipeable } from "react-swipeable";
+import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 import { useRouter } from "next/navigation";
 import { Button } from "@systatum/coneto/button";
-import { OverlayBlocker } from "@systatum/coneto/overlay-blocker";
 import { play } from "@/fonts";
 import { applyId } from "../../../../packages/components/tools/apply-id";
 import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id";
@@ -15,7 +12,6 @@ import { scrollToId } from "./../../../../packages/components/tools/scroll-to-id
 export function Navbar() {
   const router = useRouter();
 
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,20 +20,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const swipeHandlers = useSwipeable({
-    onSwipedUp: () => setIsOpen(false),
-    trackMouse: true,
-    trackTouch: true,
-  });
-
   return (
     <NavbarWrapper id={applyId("navigation-bar")} $scrolled={scrolled}>
-      <MobileNavbar
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        swipeHandlers={swipeHandlers}
-      />
-
       <NavbarInner>
         <Button
           icon={{
@@ -67,34 +51,26 @@ export function Navbar() {
           Sequelore
         </Button>
 
-        <DesktopNavbar />
-
-        <MotionButton
-          variant="ghost"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label="Toggle menu"
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.1 }}
-          icon={{
-            image: isOpen ? RiCloseLine : RiMenuLine,
-            size: 22,
-          }}
+        <Button
+          variant="success"
           styles={{
             containerStyle: css`
-              @media (min-width: 820px) {
-                display: none;
-              }
+              display: flex;
             `,
             self: css`
-              padding: 0px;
-              width: 40px;
-              height: 40px;
-              justify-content: center;
-              align-self: center;
-              font-weight: 600;
+              background-color: #2c5f3f;
+              &:hover {
+                background-color: #326c47;
+              }
+              &:active {
+                background-color: #234c32;
+              }
             `,
           }}
-        />
+          onClick={() => scrollToId("download-sequelore")}
+        >
+          Download
+        </Button>
       </NavbarInner>
     </NavbarWrapper>
   );
@@ -145,37 +121,6 @@ const NavbarInner = styled.div`
   }
 `;
 
-function DesktopNavbar() {
-  return (
-    <>
-      <Button
-        variant="success"
-        styles={{
-          containerStyle: css`
-            display: none;
-
-            @media (min-width: 820px) {
-              display: flex;
-            }
-          `,
-          self: css`
-            background-color: #2c5f3f;
-            &:hover {
-              background-color: #326c47;
-            }
-            &:active {
-              background-color: #234c32;
-            }
-          `,
-        }}
-        onClick={() => scrollToId("download-sequelore")}
-      >
-        Download
-      </Button>
-    </>
-  );
-}
-
 const Nav = styled.nav`
   flex-direction: row;
   align-items: center;
@@ -187,78 +132,6 @@ const Nav = styled.nav`
     display: flex;
   }
 `;
-
-interface MobileNavbarProps {
-  isOpen: boolean | null;
-  swipeHandlers: SwipeableHandlers;
-  setIsOpen: (value: boolean) => void;
-}
-
-function MobileNavbar({ isOpen, swipeHandlers, setIsOpen }: MobileNavbarProps) {
-  const router = useRouter();
-
-  const handleNavClick = (href: string) => {
-    setIsOpen(false);
-    setTimeout(() => router.push(href), 200);
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <OverlayBlocker
-            zIndex={30}
-            styles={{
-              self: css`
-                position: fixed;
-              `,
-            }}
-            show={isOpen}
-            onClick={() => setIsOpen(false)}
-          />
-
-          <Drawer
-            initial={{ y: "-100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 40 }}
-            {...swipeHandlers}
-          >
-            <Divider />
-
-            <Button
-              styles={{
-                containerStyle: css`
-                  width: 100%;
-                  @media (min-width: 820px) {
-                    display: none;
-                  }
-                `,
-                self: css`
-                  width: 100%;
-                  background-color: #2c5f3f;
-                  &:hover {
-                    background-color: #326c47;
-                  }
-                  &:active {
-                    background-color: #234c32;
-                  }
-                `,
-              }}
-              onClick={() => {
-                setIsOpen(false);
-                scrollToId("download-sequelore");
-              }}
-              variant="success"
-            >
-              Download
-            </Button>
-          </Drawer>
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
 
 const Drawer = styled(motion.div)`
   position: absolute;
