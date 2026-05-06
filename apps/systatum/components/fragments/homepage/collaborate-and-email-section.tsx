@@ -2,11 +2,7 @@
 
 import React, { FormEvent, useMemo, useState } from "react";
 import { z } from "zod";
-import {
-  FormFieldProps,
-  StatefulForm,
-  StatefulOnChangeType,
-} from "@systatum/coneto/stateful-form";
+import { FormFieldProps, StatefulForm } from "@systatum/coneto/stateful-form";
 import { Button } from "@systatum/coneto/button";
 import { css } from "styled-components";
 import { RiLinkedinBoxFill } from "@remixicon/react";
