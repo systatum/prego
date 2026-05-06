@@ -76,22 +76,113 @@ const LogoItem = styled.div`
   }
 `;
 
-function Lattice() {
+function Lattice({ size = 36 }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <rect x="1" y="1" width="7" height="7" rx="1.5" fill="#6B6B5A" />
-      <rect x="10" y="1" width="7" height="7" rx="1.5" fill="#6B6B5A" />
-      <rect x="1" y="10" width="7" height="7" rx="1.5" fill="#6B6B5A" />
-      <rect x="10" y="10" width="7" height="7" rx="1.5" fill="#6B6B5A" />
+    <svg width={size} height={size} viewBox="0 0 100 115" fill="none">
+      <path
+        d="M10 62 L28 80 L46 62"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M10 38 L28 56 L46 38"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M28 62 L46 80 L64 62"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M28 38 L46 56 L64 38"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M46 62 L64 80 L82 62"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M46 38 L64 56 L82 38"
+        stroke="#6B6B5A"
+        strokeWidth="13"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
     </svg>
   );
 }
 
-function Linear() {
+function Linear({ size = 30 }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <circle cx="9" cy="9" r="8" stroke="#6B6B5A" strokeWidth="1.5" />
-      <path d="M4 9 Q9 4 14 9" stroke="#6B6B5A" strokeWidth="1.5" fill="none" />
+    <svg width={size} height={size} viewBox="0 0 100 115" fill="none">
+      {/* Full circle clipping mask */}
+      <defs>
+        <clipPath id="circle">
+          <circle cx="50" cy="50" r="48" />
+        </clipPath>
+      </defs>
+
+      {/* Base circle */}
+      <circle cx="50" cy="50" r="48" fill="#6B6B5A" />
+
+      {/* Three diagonal slash stripes cut through the circle */}
+      <g clipPath="url(#circle)" fill="#6B6B5A">
+        {/* These dark gaps simulate the cuts */}
+      </g>
+
+      {/* Dark diagonal slashes (the gaps between segments) */}
+      <rect
+        x="-10"
+        y="34"
+        width="120"
+        height="9"
+        rx="4"
+        transform="rotate(-38 50 50)"
+        fill="black"
+        opacity="0.85"
+        clipPath="url(#circle)"
+      />
+      <rect
+        x="-10"
+        y="50"
+        width="120"
+        height="9"
+        rx="4"
+        transform="rotate(-38 50 50)"
+        fill="black"
+        opacity="0.85"
+        clipPath="url(#circle)"
+      />
+      <rect
+        x="-10"
+        y="66"
+        width="120"
+        height="9"
+        rx="4"
+        transform="rotate(-38 50 50)"
+        fill="black"
+        opacity="0.85"
+        clipPath="url(#circle)"
+      />
     </svg>
   );
 }
