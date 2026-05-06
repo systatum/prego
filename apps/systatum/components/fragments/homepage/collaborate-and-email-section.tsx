@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useMemo, useState } from "react";
 import { z } from "zod";
 import {
   FormFieldProps,
@@ -59,20 +59,27 @@ function FormCollaborateAndEmail() {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onChangeForm = (e?: StatefulOnChangeType) => {
-    if (e && "target" in e) {
-      const target = e.target;
-      const { name, value } = target;
+  const collaborateSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(3, t("validationErrorFormName")),
+        email: z.string().email(t("validationErrorFormEmail")),
+        message: z.string().optional(),
+      }),
+    [t],
+  );
 
-      setValue((prev) => ({ ...prev, [name]: value }));
-    }
+  const textboxProps = {
+    styles: {
+      labelStyle: css`
+        color: white;
+      `,
+      self: css`
+        background-color: transparent;
+        color: white;
+      `,
+    },
   };
-
-  const collaborateSchema = z.object({
-    name: z.string().min(3, t("validationErrorFormName")),
-    email: z.string().email(t("validationErrorFormEmail")),
-    message: z.string().optional(),
-  });
 
   const EMPLOYEE_FIELDS: FormFieldProps[] = [
     {
@@ -80,14 +87,14 @@ function FormCollaborateAndEmail() {
       title: t("labelFormName"),
       type: "text",
       required: true,
-      onChange: onChangeForm,
+      textbox: textboxProps,
     },
     {
       name: "email",
       title: t("labelFormEmail"),
       type: "text",
       required: false,
-      onChange: onChangeForm,
+      textbox: textboxProps,
     },
     {
       name: "message",
@@ -95,7 +102,7 @@ function FormCollaborateAndEmail() {
       type: "textarea",
       rows: 4,
       required: true,
-      onChange: onChangeForm,
+      textarea: textboxProps,
     },
   ];
 
@@ -140,28 +147,33 @@ function FormCollaborateAndEmail() {
         onValidityChange={setIsFormValid}
         labelSize="18px"
         mode="onChange"
+        onChange={({ currentState }) =>
+          setValue((prev) => ({ ...prev, ...currentState }))
+        }
       />
       <Button
         isLoading={isLoading}
         disabled={!isFormValid || isLoading}
         type="submit"
-        containerStyle={css`
-          width: 100%;
-        `}
-        buttonStyle={css`
-          width: 100%;
-          background-image: linear-gradient(90deg, #334aa3, #182042);
-          color: white;
-          &:hover {
-            background-image: linear-gradient(90deg, #3c52a6, #0e1c5a);
-          }
-          &:focus-visible {
-            outline: none;
-            box-shadow:
-              0 0 0 3px #0e1c5a,
-              0 0 0 5px #3c52a6;
-          }
-        `}
+        styles={{
+          containerStyle: css`
+            width: 100%;
+          `,
+          self: css`
+            width: 100%;
+            background-image: linear-gradient(90deg, #334aa3, #182042);
+            color: white;
+            &:hover {
+              background-image: linear-gradient(90deg, #3c52a6, #0e1c5a);
+            }
+            &:focus-visible {
+              outline: none;
+              box-shadow:
+                0 0 0 3px #0e1c5a,
+                0 0 0 5px #3c52a6;
+            }
+          `,
+        }}
       >
         Submit
       </Button>
