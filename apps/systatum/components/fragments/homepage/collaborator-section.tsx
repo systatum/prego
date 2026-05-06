@@ -6,6 +6,7 @@ import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { Fragment, useMemo, useState } from "react";
 import TitleSection from "../../layout/title";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 
 interface ProfileCollaboratorProps {
   id: number;
@@ -16,10 +17,10 @@ interface ProfileCollaboratorProps {
   profile_picture_url: string;
 }
 
-const fadeInLeft = {
-  initial: { opacity: 0, x: -40 },
-  animate: { opacity: 1, x: 0 },
-};
+export const Collaborator = dynamic(
+  () => Promise.resolve({ default: BaseCollaborator }),
+  { ssr: false },
+);
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -125,7 +126,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
   },
 ];
 
-export default function Collaborator() {
+function BaseCollaborator() {
   const t = useTranslations("landingPage.collaboratorSection");
 
   const [isHovered, setIsHovered] = useState<number | null>(null);
@@ -154,12 +155,12 @@ export default function Collaborator() {
           className={cn(
             "flex flex-wrap items-center justify-center lg:justify-start gap-10 px-4 md:px-10",
             PROFILE_COLLABORATOR.length > 4 &&
-              "sm:grid sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]"
+              "sm:grid sm:grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))]",
           )}
         >
           {contentCollaborator.map((data, dataIndex) => {
             const shouldShowExpanded = data?.some(
-              (p) => expandedProfile?.id === p.id
+              (p) => expandedProfile?.id === p.id,
             );
 
             return (
@@ -197,7 +198,7 @@ export default function Collaborator() {
                         (isHovered === profile.id ||
                           (expandedProfile &&
                             expandedProfile.id === profile.id)) &&
-                          "border-blue-500 scale-110"
+                          "border-blue-500 scale-110",
                       )}
                     >
                       <div
@@ -206,7 +207,7 @@ export default function Collaborator() {
                           (isHovered === profile.id ||
                             (expandedProfile &&
                               expandedProfile.id === profile.id)) &&
-                            "border-4 border-transparent"
+                            "border-4 border-transparent",
                         )}
                       >
                         <div className="relative w-full h-full">
@@ -237,7 +238,7 @@ export default function Collaborator() {
                       <span
                         className={cn(
                           "font-semibold text-shadow",
-                          isHovered === profile.id && "text-blue-800"
+                          isHovered === profile.id && "text-blue-800",
                         )}
                       >
                         {profile.name_short}
