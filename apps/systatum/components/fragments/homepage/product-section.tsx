@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import TitleSection from "../../layout/title";
 import { useTranslations } from "next-intl";
@@ -13,31 +13,76 @@ interface DataProductProps {
   link?: string;
 }
 
+const PARTICLES = Array.from({ length: 40 }, (_, i) => ({
+  id: i,
+  x: Math.random() * 300 - 150,
+  y: Math.random() * 200 - 100,
+  left: `${20 + i * 30}%`,
+  top: `${30 + i * 20}%`,
+  delay: i * 0.2,
+}));
+
+function ProductParticles() {
+  return (
+    <>
+      {PARTICLES.map(({ id, x, y, left, top, delay }) => (
+        <motion.div
+          key={id}
+          className="absolute w-2 h-2 bg-white/30 rounded-full"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+            x,
+            y,
+          }}
+          transition={{
+            duration: 2,
+            delay,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatDelay: 1,
+          }}
+          style={{ left, top }}
+        />
+      ))}
+    </>
+  );
+}
+
 export default function Product() {
   const t = useTranslations("landingPage.productSection");
 
-  const DATA_PRODUCTS: DataProductProps[] = [
-    {
-      title: "Workaty",
-      description: t("workatyDescription"),
-      image: "/product/workaty.png",
-      link: "https://workaty.com",
-    },
-    {
-      title: "Coneto",
-      description: t("conetoDescription"),
-      image: "/systatum/256icon.png",
-      link: "https://coneto.systatum.com",
-    },
-    {
-      title: "Gara",
-      description: t("garaDescription"),
-      image: "/product/gara.png",
-      link: "https://kodegara.org",
-    },
-  ];
+  const DATA_PRODUCTS: DataProductProps[] = useMemo(
+    () => [
+      {
+        title: "Workaty",
+        description: t("workatyDescription"),
+        image: "/product/workaty.png",
+        link: "https://workaty.com",
+      },
+      {
+        title: "Coneto",
+        description: t("conetoDescription"),
+        image: "/systatum/256icon.png",
+        link: "https://coneto.systatum.com",
+      },
+      {
+        title: "Gara",
+        description: t("garaDescription"),
+        image: "/product/gara.png",
+        link: "https://kodegara.org",
+      },
+    ],
+    [t],
+  );
 
   const [isHovered, setIsHovered] = useState<number | null>(null);
+
+  const handleMouseEnter = useCallback(
+    (index: number) => setIsHovered(index),
+    [],
+  );
+  const handleMouseLeave = useCallback(() => setIsHovered(null), []);
 
   return (
     <motion.div
@@ -54,6 +99,7 @@ export default function Product() {
           <motion.a
             href={product.link}
             target="_blank"
+            rel="noreferrer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
@@ -62,38 +108,16 @@ export default function Product() {
               ease: "easeOut",
             }}
             viewport={{ once: true, amount: 0.2 }}
-            onMouseEnter={() => setIsHovered(index)}
-            onMouseLeave={() => setIsHovered(null)}
+            onMouseEnter={() => handleMouseEnter(index)}
+            onMouseLeave={handleMouseLeave}
             className={cn(
               "flex bg-white transform duration-300 animate-in flex-col gap-10 sm:min-w-[400px] md:min-w-0 p-6 rounded-xs overflow-hidden relative border-2 w-full min-h-[400px] max-w-[400px] md:max-w-[450px]",
               isHovered === index && "border-blue-400",
             )}
             key={index}
           >
-            {isHovered === index &&
-              [...Array(40)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-white/30 rounded-full"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{
-                    opacity: [0, 1, 0],
-                    scale: [0, 1, 0],
-                    x: Math.random() * 300 - 150,
-                    y: Math.random() * 200 - 100,
-                  }}
-                  transition={{
-                    duration: 2,
-                    delay: i * 0.2,
-                    repeat: Number.POSITIVE_INFINITY,
-                    repeatDelay: 1,
-                  }}
-                  style={{
-                    left: `${20 + i * 30}%`,
-                    top: `${30 + i * 20}%`,
-                  }}
-                />
-              ))}
+            {isHovered === index && <ProductParticles />}
+
             <h2
               className={cn(
                 "px-2 block text-2xl font-mono font-semibold hover-title-animation",
@@ -104,6 +128,7 @@ export default function Product() {
             </h2>
 
             <p className="px-2">{product.description}</p>
+
             <div
               aria-label="logo"
               className={cn(
