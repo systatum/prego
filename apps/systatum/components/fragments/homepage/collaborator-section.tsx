@@ -7,6 +7,7 @@ import { Fragment, useMemo, useState } from "react";
 import TitleSection from "../../layout/title";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 interface ProfileCollaboratorProps {
   id: number;
@@ -214,7 +215,7 @@ function BaseCollaborator() {
                           {isHovered === profile.id ||
                           (expandedProfile &&
                             expandedProfile.id === profile.id) ? (
-                            <img
+                            <Image
                               src={profile.profile_picture_url}
                               alt={`Profile Collaborator Systatum ${profile.name_long}`}
                               width={160}
@@ -222,7 +223,7 @@ function BaseCollaborator() {
                               className="object-cover w-full h-full"
                             />
                           ) : (
-                            <img
+                            <Image
                               src={profile.profile_picture_url}
                               alt={`Profile Collaborator Systatum ${profile.name_long}`}
                               width={160}
