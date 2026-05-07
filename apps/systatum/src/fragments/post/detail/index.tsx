@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import client from "@tina/__generated__/client";
 import { Layout } from "@/fragments/layout/layout";
 import PostClientPage from "@/fragments/post/detail/client-page";
+import { HeadFC } from "gatsby";
+import { createMetadata } from "@/seo/metadata";
 
 export interface DetailPostProps {
   pageContext: {
     relativePath: string;
     locale?: string;
     slug?: string;
+    meta?: {
+      title: string;
+      description: string;
+      image: string;
+    };
   };
 }
 
@@ -31,3 +38,15 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
     </Layout>
   );
 }
+
+export const Head: HeadFC<{}, DetailPostProps["pageContext"]> = ({
+  pageContext,
+}) => {
+  const { meta } = pageContext;
+
+  return createMetadata({
+    title: meta?.title,
+    description: meta?.description,
+    image: meta?.image,
+  });
+};
