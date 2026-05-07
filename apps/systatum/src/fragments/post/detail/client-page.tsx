@@ -49,7 +49,7 @@ export default function PostClientPage(props: ClientPostProps) {
   const LINK_ITEMS = [
     { label: "Systatum", path: "/" },
     { label: tPost("post"), path: "/post" },
-    { label: categoryTranslated, path: "/post" },
+    { label: categoryTranslated, path: `/post?category=${categoryName}` },
     { label: post.title, path: "#" },
   ];
 
@@ -117,6 +117,7 @@ export default function PostClientPage(props: ClientPostProps) {
               }}
               caption={categoryTranslated}
               withCircle
+              onClick={() => navigate(`/post?category=${categoryName}`)}
             />
           </div>
 
