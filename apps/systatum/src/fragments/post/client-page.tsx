@@ -134,6 +134,7 @@ export function PostsClientPage(props: ClientPostProps) {
               styles={{
                 self: css`
                   font-size: 14px;
+                  cursor: pointer;
                 `,
               }}
             >

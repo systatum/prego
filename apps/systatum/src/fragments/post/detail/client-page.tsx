@@ -62,6 +62,7 @@ export default function PostClientPage(props: ClientPostProps) {
               styles={{
                 self: css`
                   font-size: 14px;
+                  cursor: pointer;
                 `,
               }}
               maxShown={4}
