@@ -22,20 +22,21 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
   const { createPage } = actions;
 
   const posts = await client.queries.postConnection();
-
   const edges = posts.data.postConnection.edges || [];
 
-  edges.forEach((edge) => {
+  for (const edge of edges) {
     const node = edge?.node;
-    if (!node) return;
+    if (!node) continue;
 
     const relativePath = node._sys.relativePath;
     const parts = relativePath.split("/");
-
     const locale = parts[0];
     const slug = parts[1]?.split(".")[0];
 
-    if (!locale || !slug) return;
+    if (!locale || !slug) continue;
+
+    const postData = await client.queries.post({ relativePath });
+    const post = postData.data?.post;
 
     createPage({
       path: `/post/${locale}/${slug}`,
@@ -44,9 +45,14 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
         locale,
         slug,
         relativePath,
+        meta: {
+          title: post?.title ?? "",
+          description: post?.excerpt ?? "",
+          image: post?.heroImg ?? "",
+        },
       },
     });
-  });
+  }
 };
 
 export const onCreateDevServer: GatsbyNode["onCreateDevServer"] = ({ app }) => {
