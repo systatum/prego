@@ -28,7 +28,6 @@ export default IndexPage;
 
 export const Head: HeadFC = () =>
   createMetadata({
-    title: "Systatum",
     description:
       "Systatum empowers institutions, organizations, and builders with systems that matter.",
   });
