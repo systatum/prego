@@ -5,7 +5,7 @@ import enUS from "./messages/en-US.json";
 import idID from "./messages/id-ID.json";
 import jaJP from "./messages/ja-JP.json";
 
-import { LOCALES } from "@/constants/locale";
+import { LOCALE_MAP, LOCALES } from "@/constants/locale";
 
 const savedLocale =
   typeof window !== "undefined"
@@ -15,7 +15,11 @@ const savedLocale =
 const browserLocale =
   typeof navigator !== "undefined" ? navigator.language : LOCALES.EN_US.id;
 
-const locale = savedLocale || browserLocale;
+const locale =
+  savedLocale ||
+  LOCALE_MAP[browserLocale] ||
+  LOCALE_MAP[browserLocale.split("-")[0]] ||
+  LOCALES.EN_US.id;
 
 i18n.use(initReactI18next).init({
   lng: locale,
