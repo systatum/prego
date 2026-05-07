@@ -72,10 +72,14 @@ export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
           ? node.excerpt
           : node.excerpt?.children?.[0]?.children?.[0]?.text ||
             BASE_DESCRIPTION,
-      date: node.date,
+      date: node.date ? new Date(node.date) : new Date(),
       url: `https://systatum.com/post/${slug}`,
       author: node.author?.name,
-      categories: node.tags || [],
+      categories: Array.isArray(node.tags)
+        ? node.tags
+            .map((t) => t?.tag?.name)
+            .filter((t): t is string => typeof t === "string")
+        : [],
       enclosure: node.heroImg
         ? { url: node.heroImg, type: "image/jpeg" }
         : undefined,
