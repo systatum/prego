@@ -5,10 +5,13 @@ import { Reason } from "@/fragments/homepage/reason-section";
 import { Product } from "@/fragments/homepage/product-section";
 import { Collaborator } from "@/fragments/homepage/collaborator-section";
 import { CollaborateAndEmail } from "@/fragments/homepage/collaborate-and-email-section";
+import LocaleProvider from "@/i18n/LocalizeProvider";
+import i18n from "@/i18n";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <main className="mx-auto w-full items-center justify-center gap-10">
+      <LocaleProvider locale={i18n.language} />
       <Hero />
       <div className="md:ml-55 lg:ml-75">
         <Reason />
@@ -22,4 +25,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC = () => <title>Systatum</title>;
