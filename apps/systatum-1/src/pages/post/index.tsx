@@ -2,7 +2,7 @@ import * as React from "react";
 import { createMetadata } from "@/seo/metadata";
 import { HeadFC, PageProps } from "gatsby";
 import { Layout } from "@/fragments/layout/layout";
-import { PostsClientPage } from "@/pages/post/client-page";
+import { PostsClientPage } from "@/fragments/post/client-page";
 import { fetchPosts } from "@/services/posts";
 
 export async function getServerData() {
