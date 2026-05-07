@@ -1,4 +1,5 @@
-import type { GatsbyConfig } from "gatsby";
+import type { GatsbyConfig, GatsbyNode } from "gatsby";
+import path from "path";
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -6,6 +7,19 @@ const config: GatsbyConfig = {
   },
   graphqlTypegen: true,
   plugins: [`gatsby-plugin-postcss`],
+};
+
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
+  actions,
+}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+        "@tina": path.resolve(__dirname, "tina"),
+      },
+    },
+  });
 };
 
 export default config;
