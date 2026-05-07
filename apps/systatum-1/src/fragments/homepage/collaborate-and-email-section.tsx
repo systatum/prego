@@ -185,7 +185,7 @@ function FormCollaborateAndEmail() {
 function Footer() {
   return (
     <div className="flex md:flex-row flex-col relative py-10 md:py-4 gap-4 md:gap-2 w-full items-center">
-      <div className="flex text-sm md:text-start text-center font-mono flex-col gap-1 w-full max-w-35">
+      <div className="flex text-sm md:text-start text-center font-mono! flex-col gap-1 w-full max-w-35">
         <span>Hakuraku Hills</span>
         <span>15-34 Yokohama</span>
         <span>Japan</span>
