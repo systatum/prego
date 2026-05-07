@@ -27,13 +27,12 @@ function IndexPage({
       <div className="md:ml-55 lg:ml-75">
         <Reason />
         <Product />
-        <Collaborator />
-
         <PostSection
           data={tinaData.data}
           variables={tinaData.variables}
           query={tinaData.query}
         />
+        <Collaborator />
       </div>
       <CollaborateAndEmail />
     </main>
