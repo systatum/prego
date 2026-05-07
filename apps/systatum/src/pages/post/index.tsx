@@ -29,6 +29,7 @@ export default function Post({
 
 export const Head: HeadFC = () =>
   createMetadata({
+    title: "Post",
     description:
       "Systatum empowers institutions, organizations, and builders with systems that matter.",
   });
