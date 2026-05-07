@@ -6,7 +6,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@tina/*": ["./tina/*"]
     },
     "ignoreDeprecations": "6.0",
     "esModuleInterop": true,
@@ -16,6 +17,7 @@
   },
   "include": [
     "./src/**/*",
+    "./tina/**/*",
     "./gatsby-node.ts",
     "./gatsby-config.ts",
     "./plugins/**/*",
