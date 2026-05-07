@@ -1,6 +1,7 @@
 import path from "path";
 import type { GatsbyNode } from "gatsby";
 import client from "./tina/__generated__/client";
+import fs from "fs";
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
@@ -45,5 +46,19 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
         relativePath,
       },
     });
+  });
+};
+
+export const onCreateDevServer: GatsbyNode["onCreateDevServer"] = ({ app }) => {
+  app.use("/admin", (req: any, res: any, next: any) => {
+    const filePath = path.resolve(__dirname, "static/admin/index.html");
+
+    if (fs.existsSync(filePath)) {
+      res.setHeader("Content-Type", "text/html");
+      res.end(fs.readFileSync(filePath));
+      return;
+    }
+
+    next();
   });
 };
