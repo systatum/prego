@@ -273,6 +273,9 @@ importers:
       '@systatum/coneto':
         specifier: 3.0.0
         version: 3.0.0(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tinacms/cli':
+        specifier: ^1.9.8
+        version: 1.9.8(@codemirror/language@6.0.0)(@types/node@20.19.1)(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(lightningcss@1.32.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.43.0)(scheduler@0.26.0)(sucrase@3.35.0)(terser@5.46.2)(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
       framer-motion:
         specifier: ^12.18.1
         version: 12.18.1(@emotion/is-prop-valid@1.2.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -297,6 +300,12 @@ importers:
       react-i18next:
         specifier: ^17.0.6
         version: 17.0.6(i18next@26.0.9(typescript@5.9.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
+      react-player:
+        specifier: ^2.16.0
+        version: 2.16.0(react@19.1.0)
+      tinacms:
+        specifier: ^2.7.8
+        version: 2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.9.3)
       zustand:
         specifier: ^5.0.5
         version: 5.0.5(@types/react@19.1.0)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
@@ -13979,7 +13988,7 @@ snapshots:
 
   '@floating-ui/react-dom@1.3.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@floating-ui/dom': 1.7.1
+      '@floating-ui/dom': 1.7.6
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
@@ -16031,7 +16040,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.7
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.4
     optionalDependencies:
       rollup: 4.43.0
 
@@ -16340,6 +16349,10 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
 
+  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))':
+    dependencies:
+      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
+
   '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3)))':
     dependencies:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3))
@@ -16351,6 +16364,10 @@ snapshots:
   '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3)))':
     dependencies:
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
+
+  '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))':
+    dependencies:
+      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
 
   '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3)))':
     dependencies:
@@ -16439,6 +16456,14 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
+
+  '@tailwindcss/typography@0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
 
   '@tailwindcss/typography@0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3)))':
     dependencies:
@@ -16614,6 +16639,84 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       readable-stream: 4.7.0
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
+      tinacms: 2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.8.3)
+      typanion: 3.13.0
+      typescript: 5.8.3
+      vite: 4.5.14(@types/node@20.19.1)(lightningcss@1.32.0)(terser@5.46.2)
+      yup: 1.6.1
+      zod: 3.25.64
+    transitivePeerDependencies:
+      - '@codemirror/language'
+      - '@types/node'
+      - '@types/react'
+      - '@types/react-dom'
+      - abstract-level
+      - encoding
+      - graphql-sock
+      - graphql-ws
+      - immer
+      - less
+      - lightningcss
+      - react-native
+      - rollup
+      - sass
+      - scheduler
+      - stylus
+      - sucrase
+      - sugarss
+      - supports-color
+      - terser
+      - ts-node
+
+  '@tinacms/cli@1.9.8(@codemirror/language@6.0.0)(@types/node@20.19.1)(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(lightningcss@1.32.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.43.0)(scheduler@0.26.0)(sucrase@3.35.0)(terser@5.46.2)(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))':
+    dependencies:
+      '@graphql-codegen/core': 2.6.8(graphql@15.8.0)
+      '@graphql-codegen/plugin-helpers': 7.0.0(graphql@15.8.0)
+      '@graphql-codegen/typescript': 4.1.6(graphql@15.8.0)
+      '@graphql-codegen/typescript-operations': 4.6.1(graphql@15.8.0)
+      '@graphql-codegen/visitor-plugin-common': 4.1.2(graphql@15.8.0)
+      '@graphql-inspector/core': 4.2.2(graphql@15.8.0)
+      '@graphql-tools/graphql-file-loader': 7.5.17(graphql@15.8.0)
+      '@graphql-tools/load': 7.8.14(graphql@15.8.0)
+      '@rollup/pluginutils': 5.1.4(rollup@4.43.0)
+      '@svgr/core': 8.1.0(typescript@5.8.3)
+      '@tailwindcss/aspect-ratio': 0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))
+      '@tailwindcss/container-queries': 0.1.1(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))
+      '@tailwindcss/typography': 0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)))
+      '@tinacms/app': 2.2.8(@codemirror/language@6.0.0)(@types/node@20.19.1)(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(yup@1.6.1)
+      '@tinacms/graphql': 1.5.18(react@19.1.0)(typescript@5.8.3)
+      '@tinacms/metrics': 1.0.9(fs-extra@11.3.0)
+      '@tinacms/schema-tools': 1.7.4(react@19.1.0)(yup@1.6.1)
+      '@tinacms/search': 1.0.45(abstract-level@1.0.4)(react@19.1.0)(sucrase@3.35.0)(typescript@5.8.3)(yup@1.6.1)
+      '@vitejs/plugin-react': 3.1.0(vite@4.5.14(@types/node@20.19.1)(lightningcss@1.32.0)(terser@5.46.2))
+      altair-express-middleware: 7.3.6
+      async-lock: 1.4.1
+      auto-bind: 4.0.0
+      body-parser: 1.20.3
+      busboy: 1.6.0
+      chalk: 2.4.2
+      chokidar: 3.6.0
+      cli-spinner: 0.2.10
+      clipanion: 3.2.1(typanion@3.13.0)
+      cors: 2.8.5
+      crypto-js: 4.2.0
+      dotenv: 16.5.0
+      esbuild: 0.24.2
+      fs-extra: 11.3.0
+      graphql: 15.8.0
+      js-yaml: 4.1.0
+      log4js: 6.9.1
+      many-level: 2.0.0
+      memory-level: 1.0.0
+      minimatch: 5.1.6
+      normalize-path: 3.0.0
+      prettier: 2.8.8
+      progress: 2.0.3
+      prompts: 2.4.2
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      readable-stream: 4.7.0
+      tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
       tinacms: 2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.8.3)
       typanion: 3.13.0
       typescript: 5.8.3
@@ -17965,7 +18068,7 @@ snapshots:
 
   '@udecode/plate-floating@36.3.8(@udecode/plate-common@36.5.9(@types/react@19.1.0)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.107.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.103.0))(slate@0.103.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.107.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.103.0))(slate@0.103.0)':
     dependencies:
-      '@floating-ui/core': 1.7.1
+      '@floating-ui/core': 1.7.5
       '@floating-ui/react': 0.22.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@udecode/plate-common': 36.5.9(@types/react@19.1.0)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(slate-history@0.100.0(slate@0.103.0))(slate-hyperscript@0.100.0(slate@0.103.0))(slate-react@0.107.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(slate@0.103.0))(slate@0.103.0)
       react: 19.1.0
@@ -20219,7 +20322,7 @@ snapshots:
 
   date-fns@2.30.0:
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@babel/runtime': 7.29.2
 
   date-fns@3.6.0: {}
 
@@ -23311,7 +23414,7 @@ snapshots:
   log4js@6.9.1:
     dependencies:
       date-format: 4.0.14
-      debug: 4.4.1
+      debug: 4.4.3
       flatted: 3.3.3
       rfdc: 1.4.1
       streamroller: 3.1.5
@@ -24167,7 +24270,7 @@ snapshots:
 
   nano-css@5.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.5
       css-tree: 1.1.3
       csstype: 3.2.3
       fastest-stable-stringify: 2.0.2
@@ -24785,6 +24888,14 @@ snapshots:
     optionalDependencies:
       postcss: 8.5.6
       ts-node: 10.9.2(@types/node@20.19.1)(typescript@5.8.3)
+
+  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)):
+    dependencies:
+      lilconfig: 3.1.3
+      yaml: 2.8.0
+    optionalDependencies:
+      postcss: 8.5.6
+      ts-node: 10.9.2(@types/node@20.19.1)(typescript@5.9.3)
 
   postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3)):
     dependencies:
@@ -26585,7 +26696,34 @@ snapshots:
       postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.8.3))
       postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
-      resolve: 1.22.10
+      resolve: 1.22.12
+      sucrase: 3.35.0
+    transitivePeerDependencies:
+      - ts-node
+
+  tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3)):
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.6.0
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.3
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.21.7
+      lilconfig: 3.1.3
+      micromatch: 4.0.8
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.1.1
+      postcss: 8.5.6
+      postcss-import: 15.1.0(postcss@8.5.6)
+      postcss-js: 4.0.1(postcss@8.5.6)
+      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3))
+      postcss-nested: 6.2.0(postcss@8.5.6)
+      postcss-selector-parser: 6.1.2
+      resolve: 1.22.12
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
@@ -26612,7 +26750,7 @@ snapshots:
       postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@22.15.32)(typescript@5.8.3))
       postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
-      resolve: 1.22.10
+      resolve: 1.22.12
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
@@ -26639,7 +26777,7 @@ snapshots:
       postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.2))
       postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
-      resolve: 1.22.10
+      resolve: 1.22.12
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
@@ -26747,8 +26885,8 @@ snapshots:
   tinacms@2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.8.2):
     dependencies:
       '@ariakit/react': 0.4.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@floating-ui/dom': 1.7.1
-      '@floating-ui/react-dom': 2.1.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@floating-ui/dom': 1.7.6
+      '@floating-ui/react-dom': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@graphql-inspector/core': 6.2.1(graphql@15.8.0)
       '@headlessui/react': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@heroicons/react': 1.0.6(react@19.1.0)
@@ -26834,8 +26972,8 @@ snapshots:
   tinacms@2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.8.3):
     dependencies:
       '@ariakit/react': 0.4.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@floating-ui/dom': 1.7.1
-      '@floating-ui/react-dom': 2.1.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@floating-ui/dom': 1.7.6
+      '@floating-ui/react-dom': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@graphql-inspector/core': 6.2.1(graphql@15.8.0)
       '@headlessui/react': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@heroicons/react': 1.0.6(react@19.1.0)
@@ -26921,8 +27059,8 @@ snapshots:
   tinacms@2.7.8(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(scheduler@0.26.0)(sucrase@3.35.0)(typescript@5.9.3):
     dependencies:
       '@ariakit/react': 0.4.17(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@floating-ui/dom': 1.7.1
-      '@floating-ui/react-dom': 2.1.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@floating-ui/dom': 1.7.6
+      '@floating-ui/react-dom': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@graphql-inspector/core': 6.2.1(graphql@15.8.0)
       '@headlessui/react': 2.1.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@heroicons/react': 1.0.6(react@19.1.0)
@@ -27100,6 +27238,25 @@ snapshots:
       diff: 4.0.2
       make-error: 1.3.6
       typescript: 5.8.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optional: true
+
+  ts-node@10.9.2(@types/node@20.19.1)(typescript@5.9.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.19.1
+      acorn: 8.16.0
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.9.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optional: true
