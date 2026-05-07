@@ -11,7 +11,9 @@
     "dev": "tinacms dev -c \"gatsby develop\"",
     "dev-local": "gatsby develop",
     "start": "gatsby develop",
-    "build": "gatsby build",
+    "build": "tinacms build && gatsby build",
+    "build-gatsby": "gatsby build",
+    "build-local": "tinacms build --local --skip-indexing --skip-cloud-checks && gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit"
