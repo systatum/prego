@@ -8,6 +8,7 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
+        "@tina": path.resolve(__dirname, "tina"),
       },
     },
   });
