@@ -1,5 +1,4 @@
 import client from "@tina/__generated__/client";
-import i18n from "@/i18n";
 
 export async function fetchPosts() {
   try {
@@ -17,28 +16,22 @@ export async function fetchPosts() {
       });
 
       if (!posts.data.postConnection.edges) break;
-
       allEdges.push(...posts.data.postConnection.edges.reverse());
     }
 
-    const filteredEdges = allEdges.filter((edge) => {
-      const filename = edge?.node?._sys?.relativePath;
-      return filename?.startsWith(i18n.language);
-    });
-
-    const tinaData = {
-      ...posts,
-      data: {
-        ...posts.data,
-        postConnection: {
-          ...posts.data.postConnection,
-          edges: filteredEdges,
+    return {
+      props: {
+        tinaData: {
+          ...posts,
+          data: {
+            ...posts.data,
+            postConnection: {
+              ...posts.data.postConnection,
+              edges: allEdges,
+            },
+          },
         },
       },
-    };
-
-    return {
-      props: { tinaData },
     };
   } catch (error) {
     console.error("Failed to fetch posts:", error);
