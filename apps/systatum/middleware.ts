@@ -12,8 +12,8 @@ export default function middleware(request: NextRequest) {
     return NextResponse.rewrite(new URL("/not-found", request.url));
   }
 
-  const acceptLanguage = request.headers.get("Accept-Language");
-  const fallbackLocale = acceptLanguage.split(",")[0];
+  const acceptLanguage = request.headers.get("Accept-Language") || "";
+  const fallbackLocale = acceptLanguage.split(",")[0]?.trim();
   const fallbackLocaleMap = LOCALE_MAP[fallbackLocale] ?? LOCALES.EN_US.id;
 
   const locale = localeCookie || fallbackLocaleMap;
@@ -37,5 +37,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

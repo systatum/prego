@@ -1,19 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import FlagDropdown from "../translation/flag-dropdown";
+import Image from "next/image";
 
 export default function Hero() {
   const pathname = usePathname();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
   const t = useTranslations("landingPage.heroSection");
+  const fullText = t("title");
 
   const [displayedText, setDisplayedText] = useState("");
   const [showOtherElements, setShowOtherElements] = useState(false);
@@ -21,32 +19,45 @@ export default function Hero() {
   const [lastSection, setLastSection] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  const rafRef = useRef<number | null>(null);
+  const handleScroll = useCallback(() => {
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
       setScrolled(window.scrollY > 130);
 
       const target = document.getElementById("email-section");
-      if (!target) return;
-      const rect = target.getBoundingClientRect();
-      setLastSection(rect.top <= window.innerHeight * 0.05);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+      if (target) {
+        setLastSection(
+          target.getBoundingClientRect().top <= window.innerHeight * 0.05,
+        );
+      }
+    });
   }, []);
 
-  const fullText = t("title");
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     let currentIndex = 0;
+    setDisplayedText("");
+
     const typingInterval = setInterval(() => {
+      currentIndex++;
       if (currentIndex <= fullText.length) {
         setDisplayedText(fullText.slice(0, currentIndex));
-        currentIndex++;
       } else {
         clearInterval(typingInterval);
-        setTimeout(() => {
-          setShowOtherElements(true);
-        }, 500);
+        const timeout = setTimeout(() => setShowOtherElements(true), 500);
+        return () => clearTimeout(timeout);
       }
     }, 100);
 
@@ -59,7 +70,7 @@ export default function Hero() {
         <div
           id="header"
           className={cn(
-            `fixed top-0 left-0 w-full z-50 px-14 sm:px-[50px] md:px-6 lg:px-[50px] py-4`,
+            "fixed top-0 left-0 w-full z-50 px-14 sm:px-[50px] md:px-6 lg:px-[50px] py-4",
             scrolled
               ? "bg-white backdrop-blur-md shadow-md md:bg-transparent md:backdrop-blur-none md:shadow-none"
               : "bg-transparent",
@@ -71,10 +82,11 @@ export default function Hero() {
               scrolled && "flex md:hidden left-6 top-[19px]",
             )}
           >
-            <img
+            <Image
               alt="Systatum Logo"
-              src={"/systatum/256icon.png"}
+              src="/systatum/256icon.png"
               width={300}
+              height={300}
             />
           </div>
           <motion.div
@@ -100,10 +112,11 @@ export default function Hero() {
             aria-label="logo-systatum-medium-to-up"
             className="w-[120px] md:w-[160px] lg:w-[210px] md:left-8 lg:left-12 top-[240px] lg:top-[280px] md:fixed md:flex hidden"
           >
-            <img
+            <Image
               alt="Systatum Logo"
-              src={"/systatum/256icon.png"}
+              src="/systatum/256icon.png"
               width={300}
+              height={300}
             />
           </motion.div>
         )}
@@ -117,11 +130,7 @@ export default function Hero() {
             style={{ right: `${80 + i * 8}px` }}
             initial={{ opacity: 0, y: -20, scaleY: 0 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            transition={{
-              duration: 0.6,
-              delay: i * 0.2,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.6, delay: i * 0.2, ease: "easeOut" }}
             aria-label="strip for header-right"
           />
         ))}
@@ -136,10 +145,11 @@ export default function Hero() {
               aria-label="logo-systatum-mobile-to-small"
               className="w-[120px] md:w-[160px] lg:w-[210px] left-16 top-[280px] md:hidden"
             >
-              <img
+              <Image
                 alt="Systatum Logo"
-                src={"/systatum/256icon.png"}
+                src="/systatum/256icon.png"
                 width={300}
+                height={300}
               />
             </motion.div>
           )}
@@ -179,7 +189,7 @@ export default function Hero() {
             <span
               aria-label="divider-vertical"
               className="w-[3px] top-[2px] min-h-[70px] sm:min-h-[90px] lg:min-h-[120px] absolute border border-gray-600 bg-gray-600"
-            ></span>
+            />
             <span className="ml-4 md:ml-10 sm:max-w-full max-w-[300px] text-xl md:text-2xl lg:text-4xl">
               {t("subtitle")}
             </span>
