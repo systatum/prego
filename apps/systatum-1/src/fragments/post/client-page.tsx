@@ -37,7 +37,8 @@ function useQuery() {
 }
 
 export function PostsClientPage(props: ClientPostProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language;
 
   const tPost = (key: string) => t(`postPage.${key}`);
 
@@ -53,6 +54,8 @@ export function PostsClientPage(props: ClientPostProps) {
   const isPostPage = pathname.startsWith("/post");
 
   const posts: PostItem[] = (props.data?.postConnection.edges ?? [])
+    .filter((edge) => edge?.node?._sys?.relativePath?.startsWith(locale))
+
     .map((postData) => {
       const post = postData?.node;
       if (!post) return null;
