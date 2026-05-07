@@ -1,0 +1,68 @@
+{
+  "landingPage": {
+    "heroSection": {
+      "title": "System behind you.",
+      "subtitle": "We empower institutions, organizations, and builders with systems that matter."
+    },
+    "reasonSection": {
+      "title": "You, thank you.",
+      "subtitle": "You are the reason why we do what we do.",
+      "description1": "Your people, business, and platform deserve a system that's powerful yet non-intrusive. Great, but not confusing.",
+      "description2": "Think of us as your multiplier. From Workaty, our smart HR operating system, to our open-sourced design language Coneto, each product we build enabled leaders, builders, and thinkers at all stage to do more.",
+      "description3": "We believe you are meant to rise, and we are here to empower you to do good. We are here for the sake of your progress."
+    },
+    "productSection": {
+      "title": "What we did",
+      "workatyDescription": "Lorem ipsum...",
+      "conetoDescription": "Lorem ipsum...",
+      "garaDescription": "Lorem ipsum..."
+    },
+    "collaboratorSection": {
+      "title": "Members",
+      "ceo": {
+        "short": "CEO",
+        "long": "Chief Executive Officer"
+      },
+      "motsFe": {
+        "short": "MOTS",
+        "long": "Member of Technical Staff, Front-end"
+      },
+      "imotsPl": {
+        "short": "IMOTS",
+        "long": "Intern Member of Technical Staff, Programing Language Research Laboratory"
+      },
+      "pop": {
+        "short": "People",
+        "long": "People Operations"
+      },
+      "people": {
+        "adamBio": "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
+        "alimBio": "Passionate Frontend Engineer with a keen eye for user experience and modern web technologies. I love creating intuitive interfaces that bridge the gap between complex functionality and user-friendly design. I hope to bring more value to others through the web—building things that are not only useful, but also meaningful.",
+        "salwaBio": "Business Management and Digitalization are inseparable in today’s companies across all sectors. As a Bachelor in Business Management, I’m particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
+        "rahfiBio": "Software engineer focused on infrastructure and security. Interested in decentralized systems (aka blockchain), especially where performance, reliability, security, and governance matter most. Lifelong learner that always like to learn from mistakes.",
+        "kadeBio": "Software engineer by day and by night. Loves tackling complex and unique problems that are 'behind the scenes'. Regularly consults refactoring guru like some sort of a holy scripture. If I could choose any superpower, I'd pick the one my father has - the ability to fall asleep in under two minutes.",
+        "kentBio": "I’m someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
+        "gilberdiBio": "Computer science student who loves building things with code, especially on the backend. Curious about programming languages, philosophy, and books that bend your brain. Bilingual in Indonesian and English.",
+        "ceavinBio": "I’ve been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others."
+      }
+    },
+    "collaborateAndEmailSection": {
+      "title": "Our work ethics and solutions can thrive in your organizations, too.",
+      "subtitle": "We are open to collaboration requests, such as to develop a software peculiar to your needs, or in other avenues we can pour our Systatum energy into.",
+      "labelFormName": "Name",
+      "validationErrorFormName": "Name must be at least 3 characters long",
+      "labelFormEmail": "Email",
+      "validationErrorFormEmail": "Please enter a valid email address",
+      "labelFormMessage": "Message"
+    }
+  },
+  "postPage": {
+    "title": "What's Up",
+    "all": "All",
+    "info": "Info",
+    "release": "Release",
+    "event": "Event",
+    "post": "Post",
+    "emptyContent": "No content available"
+  }
+}
