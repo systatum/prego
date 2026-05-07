@@ -1,0 +1,14 @@
+[build]
+  base = "apps/systatum"
+  command = "npm run build"
+  publish = "public"
+
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
+
+[dev]
+  base = "apps/systatum"
+  command = "npm run dev"
+
+[functions]
+  node_bundler = "esbuild"
