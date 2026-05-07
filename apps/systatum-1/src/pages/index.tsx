@@ -7,6 +7,7 @@ import { Collaborator } from "@/fragments/homepage/collaborator-section";
 import { CollaborateAndEmail } from "@/fragments/homepage/collaborate-and-email-section";
 import LocaleProvider from "@/i18n/LocalizeProvider";
 import i18n from "@/i18n";
+import { createMetadata } from "@/seo/metadata";
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
@@ -25,4 +26,9 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Systatum</title>;
+export const Head: HeadFC = () =>
+  createMetadata({
+    title: "Systatum",
+    description:
+      "Systatum empowers institutions, organizations, and builders with systems that matter.",
+  });
