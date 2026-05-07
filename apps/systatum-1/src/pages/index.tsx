@@ -8,8 +8,18 @@ import { CollaborateAndEmail } from "@/fragments/homepage/collaborate-and-email-
 import LocaleProvider from "@/i18n/LocalizeProvider";
 import i18n from "@/i18n";
 import { createMetadata } from "@/seo/metadata";
+import { fetchPosts } from "@/services/posts";
+import PostSection from "@/fragments/homepage/post-section";
 
-const IndexPage: React.FC<PageProps> = () => {
+export async function getServerData() {
+  return await fetchPosts();
+}
+
+function IndexPage({
+  serverData,
+}: PageProps<object, object, unknown, { tinaData: any }>) {
+  const tinaData = serverData?.tinaData;
+
   return (
     <main className="mx-auto w-full items-center justify-center gap-10">
       <LocaleProvider locale={i18n.language} />
@@ -18,11 +28,17 @@ const IndexPage: React.FC<PageProps> = () => {
         <Reason />
         <Product />
         <Collaborator />
+
+        <PostSection
+          data={tinaData.data}
+          variables={tinaData.variables}
+          query={tinaData.query}
+        />
       </div>
       <CollaborateAndEmail />
     </main>
   );
-};
+}
 
 export default IndexPage;
 
