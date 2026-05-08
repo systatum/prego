@@ -94,9 +94,21 @@ export function PostsClientPage(props: ClientPostProps) {
 
   const CATEGORY_ITEMS = [
     { label: all, path: "/post" },
-    { label: information, path: "/post?category=Info" },
-    { label: release, path: "/post?category=Release" },
-    { label: event, path: "/post?category=Event" },
+    {
+      label: information,
+      path: "/post?category=Info",
+      color: "#3B82F6",
+    },
+    {
+      label: release,
+      path: "/post?category=Release",
+      color: "#10B981",
+    },
+    {
+      label: event,
+      path: "/post?category=Event",
+      color: "#F97316",
+    },
   ];
 
   const LINK_ITEMS = [
@@ -169,6 +181,7 @@ export function PostsClientPage(props: ClientPostProps) {
               {CATEGORY_ITEMS.map((item, index) => (
                 <Badge
                   key={index}
+                  circleColor={item?.color}
                   styles={{
                     self: css`
                       min-width: 90px;
@@ -219,6 +232,13 @@ export function PostsClientPage(props: ClientPostProps) {
                             font-size: 16px;
                           `,
                         }}
+                        circleColor={
+                          CATEGORY_ITEMS.find(
+                            (item) =>
+                              item.path ===
+                              `/post?category=${post.category.name}`,
+                          )?.color
+                        }
                         caption={categoryTranslated}
                         onClick={(e) => {
                           e?.preventDefault();

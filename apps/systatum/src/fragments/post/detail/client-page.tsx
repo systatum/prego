@@ -53,6 +53,16 @@ export default function PostClientPage(props: ClientPostProps) {
     { label: post.title, path: "#" },
   ];
 
+  const CATEGORY_ITEMS = {
+    Info: "#3B82F6",
+    Release: "#10B981",
+    Event: "#F97316",
+  };
+
+  const categoryColor = categoryName
+    ? CATEGORY_ITEMS[categoryName as keyof typeof CATEGORY_ITEMS]
+    : undefined;
+
   return (
     <ErrorBoundary>
       <Section className="py-2">
@@ -118,6 +128,7 @@ export default function PostClientPage(props: ClientPostProps) {
               }}
               caption={categoryTranslated}
               withCircle
+              circleColor={categoryColor}
               onClick={() => navigate(`/post?category=${categoryName}`)}
             />
           </div>
