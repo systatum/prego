@@ -4,6 +4,7 @@ import Global from "./collection/global";
 import Author from "./collection/author";
 import Tag from "./collection/tag";
 import Category from "./collection/category";
+import Page from "./collection/page";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -25,7 +26,7 @@ const config = defineConfig({
     basePath: "",
   },
   schema: {
-    collections: [Post, Category, Author, Tag, Global],
+    collections: [Post, Page, Category, Author, Tag, Global],
   },
 });
 
