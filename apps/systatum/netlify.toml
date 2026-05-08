@@ -1,10 +1,10 @@
 [build]
   base = "apps/systatum"
   command = "npm run build"
-  publish = ".next"
+  publish = "public"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-gatsby"
 
 [dev]
   base = "apps/systatum"
@@ -12,6 +12,3 @@
 
 [functions]
   node_bundler = "esbuild"
-
-
-

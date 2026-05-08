@@ -1,5 +1,5 @@
 import React from "react";
-import { videoBlockSchema } from "@/components/blocks/video";
+import { videoBlockSchema } from "@/fragments/blocks/video";
 import {
   Avatar,
   AvatarFallback,
@@ -35,7 +35,7 @@ const Post: Collection = {
           props: {
             name?: string;
           },
-          _internalSys: { path: string }
+          _internalSys: { path: string },
         ) => {
           const { name } = props;
           if (!name) return _internalSys.path;
@@ -70,7 +70,7 @@ const Post: Collection = {
             name?: string;
             avatar?: string;
           },
-          _internalSys: { path: string }
+          _internalSys: { path: string },
         ) => {
           const { name, avatar } = props;
           if (!name) return _internalSys.path;
@@ -117,7 +117,7 @@ const Post: Collection = {
               props: {
                 name?: string;
               },
-              _internalSys: { path: string }
+              _internalSys: { path: string },
             ) => props.name || _internalSys.path,
           },
         },

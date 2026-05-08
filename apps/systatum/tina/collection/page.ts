@@ -1,33 +1,33 @@
-import type { Collection } from 'tinacms';
-import { heroBlockSchema } from '@/components/blocks/hero';
-import { contentBlockSchema } from '@/components/blocks/content';
-import { testimonialBlockSchema } from '@/components/blocks/testimonial';
-import { featureBlockSchema } from '@/components/blocks/features';
-import { videoBlockSchema } from '@/components/blocks/video';
-import { calloutBlockSchema } from '@/components/blocks/callout';
-import { statsBlockSchema } from '@/components/blocks/stats';
-import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import type { Collection } from "tinacms";
+import { heroBlockSchema } from "@/fragments/blocks/hero";
+import { contentBlockSchema } from "@/fragments/blocks/content";
+import { testimonialBlockSchema } from "@/fragments/blocks/testimonial";
+import { featureBlockSchema } from "@/fragments/blocks/features";
+import { videoBlockSchema } from "@/fragments/blocks/video";
+import { calloutBlockSchema } from "@/fragments/blocks/callout";
+import { statsBlockSchema } from "@/fragments/blocks/stats";
+import { ctaBlockSchema } from "@/fragments/blocks/call-to-action";
 
 const Page: Collection = {
-  label: 'Pages',
-  name: 'page',
-  path: 'content/pages',
-  format: 'mdx',
+  label: "Pages",
+  name: "page",
+  path: "content/pages",
+  format: "mdx",
   ui: {
     router: ({ document }) => {
-      const filepath = document._sys.breadcrumbs.join('/');
-      if (filepath === 'home') {
-        return '/';
+      const filepath = document._sys.breadcrumbs.join("/");
+      if (filepath === "home") {
+        return "/";
       }
       return `/${filepath}`;
     },
   },
   fields: [
     {
-      type: 'object',
+      type: "object",
       list: true,
-      name: 'blocks',
-      label: 'Sections',
+      name: "blocks",
+      label: "Sections",
       ui: {
         visualSelector: true,
       },
