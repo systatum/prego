@@ -1,49 +1,116 @@
 <p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
+  <img alt="Systatum" src="https://systatum.com/favicon.ico" width="72" />
 </p>
+
 <h1 align="center">
-  Gatsby Minimal TypeScript Starter
+  Systatum
 </h1>
 
-## 🚀 Quick start
+<p align="center">
+  Systems that matter.
+</p>
 
-1.  **Create a Gatsby site.**
+<p align="center">
+  Systatum empowers institutions, organizations, and builders with systems that matter.
+</p>
 
-    Use the Gatsby CLI to create a new site, specifying the minimal TypeScript starter.
+---
 
-    ```shell
-    # create a new Gatsby site using the minimal TypeScript starter
-    npm init gatsby -- -ts
-    ```
+## ✨ Features
 
-2.  **Start developing.**
+- ⚡ Built with Gatsby + TypeScript
+- 🎨 Modern and scalable UI architecture
+- 📰 RSS feed support
+- 🔍 SEO and Open Graph metadata
+- 🌐 Internationalization ready
+- 📱 Fully responsive design
+- 🚀 Static-first performance
+- 🧩 Component-driven development
+- 🎛 Powered by `@systatum/coneto` for consistent and reusable UI components
 
-    Navigate into your new site’s directory and start it up.
+## 🚀 Getting Started
 
-    ```shell
-    cd my-gatsby-site/
-    npm run dev
-    ```
+### 1. Clone the repository
 
-3.  **Open the code and start customizing!**
+```bash
+git clone https://github.com/your-username/systatum.git
+```
 
-    Your site is now running at http://localhost:8000!
+### 2. Install dependencies
 
-    Edit `src/pages/index.tsx` to see your site update in real-time!
+```bash
+cd apps/systatum
+pnpm i
+```
 
-4.  **Learn more**
+### 3. Start development server
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter-ts)
+```bash
+npm run dev
+```
 
-## 🚀 Quick start (Netlify)
+Your site will be available at:
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+```bash
+http://localhost:8000
+```
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+## Project structure
+
+```bash
+pages/*
+src/
+├── fragments/
+├── styles/
+├── utils/
+└── constants/
+
+content/
+├── posts/
+├── authors/
+└── categories/
+
+.tina/
+├── config.ts
+└── __generated__/
+
+static/* // for public app
+```
+
+## 🚀 Preview Build Guide
+
+### 1. Push your latest changes
+
+Push your newest changes to the pull request branch.
+
+### 2. Verify your branch in Tina Cloud
+
+Open Tina Cloud:
+
+```txt
+https://app.tina.io/
+```
+
+Make sure your branch has been indexed successfully.
+
+### 3. Configure the Site URL
+
+Add your preview deployment URL as the `Site URL` inside Tina Cloud.
+
+This allows TinaCMS to access your preview environment correctly.
+
+### 4. Check environment variables
+
+Verify that the following environment variable matches your current preview branch:
+
+```env
+NEXT_PUBLIC_TINA_BRANCH
+```
+
+The branch name in Netlify must be the same as the branch indexed in Tina Cloud.
+
+This is required so Tina Cloud can properly sync and index schema changes.
+
+### 5. Re-deploy if needed
+
+If the preview deployment still fails after updating the environment variables, trigger a new deployment manually from `Netlify`.
