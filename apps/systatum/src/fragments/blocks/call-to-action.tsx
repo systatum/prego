@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { iconSchema } from "@tina/fields/icon";
@@ -34,7 +33,7 @@ export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
                   variant={action!.type === "link" ? "ghost" : "default"}
                   className="rounded-xl px-5 text-base"
                 >
-                  <Link href={action!.link!}>
+                  <a href={action!.link!}>
                     {action?.icon?.name && (
                       <Icon
                         data={{
@@ -48,7 +47,7 @@ export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
                       />
                     )}
                     <span className="text-nowrap">{action!.label}</span>
-                  </Link>
+                  </a>
                 </Button>
               </div>
             ))}

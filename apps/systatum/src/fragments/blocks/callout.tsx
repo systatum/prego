@@ -5,7 +5,6 @@ import { PageBlocksCallout } from "@tina/__generated__/types";
 import { ArrowRight } from "lucide-react";
 import { AnimatedGroup } from "./../../../../../packages/components/motion-primitives/animated-group";
 import { Section, sectionBlockSchemaField } from "@/fragments/layout/section";
-import { Link } from "gatsby";
 
 const transitionVariants = {
   item: {
@@ -31,9 +30,9 @@ export const Callout = ({ data }: { data: PageBlocksCallout }) => {
   return (
     <Section background={data.background!} className="py-6">
       <AnimatedGroup variants={transitionVariants}>
-        <Link
+        <a
           data-tina-field={tinaField(data, "url")}
-          to={data.url!}
+          href={data.url!}
           className="hover:bg-background bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300"
         >
           <span
@@ -54,7 +53,7 @@ export const Callout = ({ data }: { data: PageBlocksCallout }) => {
               </span>
             </div>
           </div>
-        </Link>
+        </a>
       </AnimatedGroup>
     </Section>
   );

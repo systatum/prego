@@ -9,7 +9,6 @@ import { AnimatedGroup } from "./../../../../../packages/components/motion-primi
 import { TextEffect } from "./../../../../../packages/components/motion-primitives/text-effect";
 import HeroVideoDialog from "./../../../../../packages/components/ui/hero-video-dialog";
 import { CSSProperties } from "react";
-import { Link } from "gatsby";
 
 const transitionVariants = {
   container: {
@@ -100,10 +99,10 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   variant={action!.type === "link" ? "ghost" : "default"}
                   className="rounded-xl px-5 text-base"
                 >
-                  <Link to={action!.link!}>
+                  <a href={action!.link!}>
                     {action?.icon && <Icon data={action?.icon as IconData} />}
                     <span className="text-nowrap">{action!.label}</span>
-                  </Link>
+                  </a>
                 </Button>
               </div>
             ))}
