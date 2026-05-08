@@ -2,7 +2,6 @@ import { defineConfig } from "tinacms";
 import Post from "./collection/post";
 import Global from "./collection/global";
 import Author from "./collection/author";
-import Page from "./collection/page";
 import Tag from "./collection/tag";
 import Category from "./collection/category";
 
@@ -26,7 +25,7 @@ const config = defineConfig({
     basePath: "",
   },
   schema: {
-    collections: [Page, Post, Category, Author, Tag, Global],
+    collections: [Post, Category, Author, Tag, Global],
   },
 });
 
