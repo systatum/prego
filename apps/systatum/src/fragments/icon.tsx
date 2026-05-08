@@ -1,16 +1,16 @@
 "use client";
 import * as BoxIcons from "react-icons/bi";
 import {
-  FaFacebookF,
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaYoutube,
-} from "react-icons/fa6";
-import { AiFillInstagram } from "react-icons/ai";
-import React, { SVGProps } from "react";
+  RiFacebookFill,
+  RiGithubFill,
+  RiLinkedinFill,
+  RiTwitterXFill,
+  RiYoutubeFill,
+  RiInstagramFill,
+  RemixiconComponentType,
+} from "@remixicon/react";
 import { useLayout } from "./layout/layout-context";
-import { IconType } from "react-icons";
+import { SVGProps } from "react";
 
 export interface IconData {
   name: keyof typeof IconOptions;
@@ -46,12 +46,12 @@ export const IconOptions = {
     </svg>
   ),
   ...BoxIcons,
-  FaFacebookF,
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaYoutube,
-  AiFillInstagram,
+  RiFacebookFill,
+  RiGithubFill,
+  RiLinkedinFill,
+  RiTwitterXFill,
+  RiYoutubeFill,
+  RiInstagramFill,
 };
 
 const iconColorClass: {
@@ -118,7 +118,7 @@ export const Icon: React.FC<IconProps> = ({
 
   const { name, color, size = "medium", style = "regular" } = data;
 
-  const IconSVG: IconType | React.FC<SVGProps<SVGSVGElement>> =
+  const IconSVG: RemixiconComponentType | React.FC<SVGProps<SVGSVGElement>> =
     IconOptions[name];
 
   const iconSizeClasses =

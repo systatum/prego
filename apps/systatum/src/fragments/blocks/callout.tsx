@@ -1,11 +1,11 @@
 import React from "react";
-import Link from "next/link";
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { PageBlocksCallout } from "@tina/__generated__/types";
 import { ArrowRight } from "lucide-react";
 import { AnimatedGroup } from "./../../../../../packages/components/motion-primitives/animated-group";
 import { Section, sectionBlockSchemaField } from "@/fragments/layout/section";
+import { Link } from "gatsby";
 
 const transitionVariants = {
   item: {
@@ -33,7 +33,7 @@ export const Callout = ({ data }: { data: PageBlocksCallout }) => {
       <AnimatedGroup variants={transitionVariants}>
         <Link
           data-tina-field={tinaField(data, "url")}
-          href={data.url!}
+          to={data.url!}
           className="hover:bg-background bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300"
         >
           <span

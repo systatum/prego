@@ -1,6 +1,3 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { PageBlocksHero, PageBlocksHeroImage } from "@tina/__generated__/types";
@@ -12,6 +9,7 @@ import { AnimatedGroup } from "./../../../../../packages/components/motion-primi
 import { TextEffect } from "./../../../../../packages/components/motion-primitives/text-effect";
 import HeroVideoDialog from "./../../../../../packages/components/ui/hero-video-dialog";
 import { CSSProperties } from "react";
+import { Link } from "gatsby";
 
 const transitionVariants = {
   container: {
@@ -102,7 +100,7 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                   variant={action!.type === "link" ? "ghost" : "default"}
                   className="rounded-xl px-5 text-base"
                 >
-                  <Link href={action!.link!}>
+                  <Link to={action!.link!}>
                     {action?.icon && <Icon data={action?.icon as IconData} />}
                     <span className="text-nowrap">{action!.label}</span>
                   </Link>
@@ -162,7 +160,7 @@ const ImageBlock = ({ image }: { image: PageBlocksHeroImage }) => {
 
   if (image.src) {
     return (
-      <Image
+      <img
         className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border max-w-full h-auto"
         alt={image!.alt || ""}
         src={image!.src!}
