@@ -9,6 +9,7 @@ import { Prism } from "tinacms/dist/rich-text/prism";
 import { Video } from "./blocks/video";
 import { PageBlocksVideo } from "@tina/__generated__/types";
 import { mermaid } from "./blocks/mermaid";
+import { Link } from "gatsby";
 
 export const components: Components<{
   BlockQuote: {
@@ -26,6 +27,33 @@ export const components: Components<{
   };
   video: PageBlocksVideo;
 }> = {
+  a: (props) => {
+    if (!props?.url) return null;
+
+    const isInternal = props.url.startsWith("/") || props.url.startsWith("#");
+
+    const className =
+      "text-blue-500 hover:text-blue-600 underline underline-offset-4 transition-colors";
+
+    if (isInternal) {
+      return (
+        <Link to={props.url} className={className}>
+          {props.children}
+        </Link>
+      );
+    }
+
+    return (
+      <a
+        href={props.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {props.children}
+      </a>
+    );
+  },
   code_block: (props) => {
     if (!props) {
       return <></>;
