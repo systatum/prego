@@ -42,6 +42,7 @@ export function PostsClientPage(props: ClientPostProps) {
 
   const tPost = (key: string) => t(`postPage.${key}`);
 
+  const all = tPost("all");
   const information = tPost("info");
   const release = tPost("release");
   const event = tPost("event");
@@ -92,7 +93,7 @@ export function PostsClientPage(props: ClientPostProps) {
     .filter(Boolean) as PostItem[];
 
   const CATEGORY_ITEMS = [
-    { label: tPost("all"), path: "/post" },
+    { label: all, path: "/post" },
     { label: information, path: "/post?category=Info" },
     { label: release, path: "/post?category=Release" },
     { label: event, path: "/post?category=Event" },
