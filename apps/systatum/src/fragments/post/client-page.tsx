@@ -171,7 +171,7 @@ export function PostsClientPage(props: ClientPostProps) {
                   key={index}
                   styles={{
                     self: css`
-                      min-width: 80px;
+                      min-width: 90px;
                       height: fit-content;
                       cursor: pointer;
 
@@ -213,7 +213,7 @@ export function PostsClientPage(props: ClientPostProps) {
                       <Badge
                         styles={{
                           self: css`
-                            min-width: 80px;
+                            min-width: 100px;
                             height: fit-content;
                             cursor: pointer;
                             font-size: 16px;
