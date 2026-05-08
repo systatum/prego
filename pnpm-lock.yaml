@@ -173,12 +173,18 @@ importers:
       gatsby:
         specifier: ^5.14.6
         version: 5.16.1(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(type-fest@4.41.0)(typescript@5.9.3)
+      gatsby-plugin-postcss:
+        specifier: ^6.16.0
+        version: 6.16.0(gatsby@5.16.1(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(type-fest@4.41.0)(typescript@5.9.3))(postcss@8.5.6)(typescript@5.9.3)(webpack@5.98.0)
       i18next:
         specifier: ^26.0.9
         version: 26.0.9(typescript@5.9.3)
       i18next-browser-languagedetector:
         specifier: ^8.2.1
         version: 8.2.1
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       postmark:
         specifier: ^4.0.5
         version: 4.0.5
@@ -222,12 +228,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
-      gatsby-plugin-postcss:
-        specifier: ^6.16.0
-        version: 6.16.0(gatsby@5.16.1(babel-eslint@10.1.0(eslint@7.32.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(type-fest@4.41.0)(typescript@5.9.3))(postcss@8.5.6)(typescript@5.9.3)(webpack@5.98.0)
-      postcss:
-        specifier: ^8.5.4
-        version: 8.5.6
       tailwindcss:
         specifier: ^4.2.4
         version: 4.2.4
