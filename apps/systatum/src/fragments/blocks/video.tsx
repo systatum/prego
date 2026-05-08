@@ -15,7 +15,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
   return (
     <Section
       background={data.background!}
-      className={`aspect-video ${data.color}`}
+      className={`aspect-video w-full ${data.color}`}
     >
       <ReactPlayer
         width="100%"
