@@ -1,7 +1,6 @@
 import React from "react";
 import { videoBlockSchema } from "@/fragments/blocks/video";
 import type { Collection } from "tinacms";
-import { Avatar } from "@systatum/coneto/avatar";
 
 const Post: Collection = {
   label: "Posts",
