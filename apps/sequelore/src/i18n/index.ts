@@ -31,11 +31,11 @@ i18n.use(initReactI18next).init({
     },
 
     [LOCALES.ID_ID.id]: {
-      translation: idID,
+      translation: enUS,
     },
 
     [LOCALES.JA_JP.id]: {
-      translation: jaJP,
+      translation: enUS,
     },
   },
 

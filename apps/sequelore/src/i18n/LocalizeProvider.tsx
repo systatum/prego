@@ -10,7 +10,7 @@ export default function LocaleProvider({ locale }: { locale: string }) {
 
 const initializeLocale = (localeFromServer?: string) => {
   if (!localeFromServer) return;
-  const code = localeFromServer;
+  const code = "en-US";
 
   let label = "English";
   let flag = "🇺🇸";
