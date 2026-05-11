@@ -25,8 +25,11 @@
     "@tinacms/cli": "^1.9.8",
     "framer-motion": "^12.18.1",
     "gatsby": "^5.14.6",
+    "gatsby-plugin-postcss": "^6.16.0",
+    "gatsby-plugin-styled-components": "^6.16.0",
     "i18next": "^26.0.9",
     "i18next-browser-languagedetector": "^8.2.1",
+    "postcss": "^8.5.6",
     "postmark": "^4.0.5",
     "react": "^19",
     "react-dom": "^19",
@@ -35,9 +38,7 @@
     "react-player": "^2.16.0",
     "rss": "^1.2.2",
     "tinacms": "^2.7.8",
-    "zustand": "^5.0.5",
-    "postcss": "^8.5.6",
-    "gatsby-plugin-postcss": "^6.16.0"
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@types/node": "^20.19.1",
