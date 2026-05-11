@@ -1,37 +1,52 @@
 "use client";
+
 import React, { useState, useContext } from "react";
-import { GlobalQuery } from "@tina/__generated__/types";
+
+export type Theme = {
+  color?: string;
+  darkMode?: string;
+};
+
+export type GlobalSettings = {
+  theme?: Theme;
+};
 
 interface LayoutState {
-  globalSettings: GlobalQuery["global"];
+  globalSettings?: GlobalSettings;
   setGlobalSettings: React.Dispatch<
-    React.SetStateAction<GlobalQuery["global"]>
+    React.SetStateAction<GlobalSettings | undefined>
   >;
-  pageData: object;
-  setPageData: React.Dispatch<React.SetStateAction<object>>;
-  theme: GlobalQuery["global"]["theme"];
+
+  pageData: unknown;
+  setPageData: React.Dispatch<React.SetStateAction<unknown>>;
+
+  theme?: Theme;
 }
 
 const LayoutContext = React.createContext<LayoutState | undefined>(undefined);
 
 export const useLayout = () => {
   const context = useContext(LayoutContext);
-  return (
-    context || {
+
+  if (!context) {
+    return {
       theme: {
         color: "blue",
-        darkMode: "",
       },
       globalSettings: undefined,
       pageData: undefined,
-    }
-  );
+      setGlobalSettings: () => {},
+      setPageData: () => {},
+    } as LayoutState;
+  }
+
+  return context;
 };
 
 interface LayoutProviderProps {
   children: React.ReactNode;
-  globalSettings: GlobalQuery["global"];
-  pageData: object;
+  globalSettings?: GlobalSettings;
+  pageData?: unknown;
 }
 
 export const LayoutProvider: React.FC<LayoutProviderProps> = ({
@@ -39,10 +54,11 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({
   globalSettings: initialGlobalSettings,
   pageData: initialPageData,
 }) => {
-  const [globalSettings, setGlobalSettings] = useState<GlobalQuery["global"]>(
-    initialGlobalSettings,
-  );
-  const [pageData, setPageData] = useState<object>(initialPageData);
+  const [globalSettings, setGlobalSettings] = useState<
+    GlobalSettings | undefined
+  >(initialGlobalSettings);
+
+  const [pageData, setPageData] = useState<unknown>(initialPageData);
 
   const theme = globalSettings?.theme;
 

@@ -1,8 +1,8 @@
 "use client";
 import * as React from "react";
 import type { Template } from "tinacms";
-import { Section } from "@/fragments/layout/section";
-import { sectionBlockSchemaField } from "@/fragments/layout/section";
+import { Section } from "./../layout/section";
+import { sectionBlockSchemaField } from "./../layout/section";
 import ReactPlayer from "react-player";
 
 export interface VideoBlockData {
