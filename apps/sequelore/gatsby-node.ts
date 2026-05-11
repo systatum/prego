@@ -3,7 +3,7 @@ import type { GatsbyNode } from "gatsby";
 import client from "./tina/__generated__/client";
 import fs from "fs";
 import RSS from "rss";
-import { generateDescription } from "@/seo/metadata";
+import { generateDescription } from "./src/seo/metadata";
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
