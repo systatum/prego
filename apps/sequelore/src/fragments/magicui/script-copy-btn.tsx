@@ -2,7 +2,6 @@ import { Button } from "../../../../../packages/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
 import { motion } from "motion/react";
-import { useTheme } from "next-themes";
 import { HTMLAttributes, useEffect, useState } from "react";
 import type { Template } from "tinacms";
 
@@ -26,7 +25,6 @@ export function ScriptCopyBtn({
   const [packageManager, setPackageManager] = useState(packageManagers[0]);
   const [copied, setCopied] = useState(false);
   const [highlightedCode, setHighlightedCode] = useState("");
-  const { theme } = useTheme();
   const command =
     commands.find((line) => line.startsWith(packageManager))?.split("|")[1] ||
     "";
@@ -50,7 +48,7 @@ export function ScriptCopyBtn({
     }
 
     loadHighlightedCode();
-  }, [command, theme, codeLanguage, lightTheme]);
+  }, [command, codeLanguage, lightTheme]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(command);

@@ -1,12 +1,10 @@
 "use client";
 import * as React from "react";
-import dynamic from "next/dynamic";
 import type { Template } from "tinacms";
 import { PageBlocksVideo } from "@tina/__generated__/types";
 import { Section } from "@/fragments/layout/section";
 import { sectionBlockSchemaField } from "@/fragments/layout/section";
-
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+import ReactPlayer from "react-player";
 
 export const Video = ({ data }: { data: PageBlocksVideo }) => {
   if (!data.url) {
