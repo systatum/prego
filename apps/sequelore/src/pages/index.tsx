@@ -36,8 +36,4 @@ function IndexPage({
 
 export default IndexPage;
 
-export const Head: HeadFC = () =>
-  createMetadata({
-    description:
-      "Systatum empowers institutions, organizations, and builders with systems that matter.",
-  });
+export const Head: HeadFC = () => createMetadata();

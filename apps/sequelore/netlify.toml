@@ -1,5 +1,5 @@
 [build]
-  base = "apps/systatum"
+  base = "apps/sequelore"
   command = "npm run build"
   publish = "public"
 
@@ -7,7 +7,7 @@
   package = "@netlify/plugin-gatsby"
 
 [dev]
-  base = "apps/systatum"
+  base = "apps/sequelore"
   command = "npm run dev"
 
 [functions]
