@@ -22,6 +22,9 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
   const { relativePath } = pageContext;
   const [tinaData, setTinaData] = useState<any>(null);
 
+  console.log("relative", relativePath);
+  console.log("tinaData", tinaData);
+
   useEffect(() => {
     client.queries.post({ relativePath }).then((result) => {
       setTinaData(result);
@@ -32,11 +35,7 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
 
   const { data, query, variables } = tinaData;
 
-  return (
-    <Layout rawPageData={tinaData}>
-      <PostClientPage data={data} query={query} variables={variables} />
-    </Layout>
-  );
+  return <pre>{JSON.stringify(tinaData, null, 2)}</pre>;
 }
 
 export const Head: HeadFC<{}, DetailPostProps["pageContext"]> = ({
