@@ -6,8 +6,7 @@ import {
   TinaMarkdownContent,
 } from "tinacms/dist/rich-text";
 import { Prism } from "tinacms/dist/rich-text/prism";
-import { Video } from "./blocks/video";
-import { PageBlocksVideo } from "@tina/__generated__/types";
+import { Video, VideoBlockData } from "./blocks/video";
 import { mermaid } from "./blocks/mermaid";
 import { Link } from "gatsby";
 
@@ -25,7 +24,7 @@ export const components: Components<{
     children: TinaMarkdownContent;
     disclaimer?: TinaMarkdownContent;
   };
-  video: PageBlocksVideo;
+  video: VideoBlockData;
 }> = {
   a: (props) => {
     if (!props?.url) return null;

@@ -1,12 +1,19 @@
 "use client";
 import * as React from "react";
 import type { Template } from "tinacms";
-import { PageBlocksVideo } from "@tina/__generated__/types";
 import { Section } from "@/fragments/layout/section";
 import { sectionBlockSchemaField } from "@/fragments/layout/section";
 import ReactPlayer from "react-player";
 
-export const Video = ({ data }: { data: PageBlocksVideo }) => {
+export interface VideoBlockData {
+  url?: string;
+  autoPlay?: boolean;
+  loop?: boolean;
+  color?: "default" | "tint" | "primary";
+  background?: string;
+}
+
+export const Video = ({ data }: { data: VideoBlockData }) => {
   if (!data.url) {
     return null;
   }
