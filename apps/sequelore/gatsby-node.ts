@@ -60,7 +60,7 @@ export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
   const feed = new RSS({
     title: "Sequelore",
     description:
-      "Sequelore empowers institutions, organizations, and builders with systems that matter.",
+      "Sequelore is a modern database platform for building, managing, and shipping data-driven products with confidence.",
     site_url: "https://sequelore.com",
     feed_url: "https://sequelore.com/rss.xml",
     language: "en",
