@@ -4,7 +4,7 @@ import type { HeadFC } from "gatsby";
 export const BASE_TITLE = "Sequelore";
 
 export const BASE_DESCRIPTION =
-  "Systatum empowers institutions, organizations, and builders with systems that matter.";
+  "Sequelore is a modern database platform for building, managing, and shipping data-driven products with confidence.";
 
 type MetadataProps = {
   title?: string;
