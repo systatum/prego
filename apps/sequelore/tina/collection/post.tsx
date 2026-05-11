@@ -1,5 +1,5 @@
 import React from "react";
-import { videoBlockSchema } from "@/fragments/blocks/video";
+import { videoBlockSchema } from "./../../../../packages/components/blocks/video";
 import type { Collection } from "tinacms";
 
 const Post: Collection = {

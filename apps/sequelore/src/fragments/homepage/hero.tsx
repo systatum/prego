@@ -1,5 +1,8 @@
-import { Container } from "@/fragments/layout/container";
-import { BulletList, Text } from "@/fragments/layout/typography";
+import {
+  BulletList,
+  Text,
+} from "./../../../../../packages/components/layout/typography";
+import { Container } from "./../../../../../packages/components/layout/container";
 import { Button } from "@systatum/coneto/button";
 import styled, { css, CSSProp } from "styled-components";
 import {

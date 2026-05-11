@@ -8,8 +8,8 @@ import {
   RiSlackFill,
   RiNotionFill,
 } from "@remixicon/react";
-import { Container } from "@/fragments/layout/container";
-import { Text } from "@/fragments/layout/typography";
+import { Text } from "./../../../../../packages/components/layout/typography";
+import { Container } from "./../../../../../packages/components/layout/container";
 import { applyId } from "../../../../../packages/components/tools/apply-id";
 
 const LOGOS = [

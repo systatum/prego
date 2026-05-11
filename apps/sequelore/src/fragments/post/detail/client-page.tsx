@@ -3,14 +3,14 @@ import { format } from "date-fns";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { PostQuery } from "@tina/__generated__/types";
-import { components } from "@/fragments/mdx-components";
-import ErrorBoundary from "@/fragments/error-boundary";
 import { Badge } from "@systatum/coneto/badge";
 import { css } from "styled-components";
 import { Crumb } from "@systatum/coneto/crumb";
-import { Section } from "@/fragments/layout/section";
 import { navigate } from "gatsby";
 import { useTranslation } from "react-i18next";
+import { components } from "./../../../../../../packages/components/mdx-components";
+import ErrorBoundary from "./../../../../../../packages/components/error-boundary";
+import { Section } from "./../../../../../../packages/components/layout/section";
 
 export interface ClientPostProps {
   data: PostQuery;

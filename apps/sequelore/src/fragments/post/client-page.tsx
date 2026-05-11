@@ -5,14 +5,14 @@ import {
   PostConnectionQuery,
   PostConnectionQueryVariables,
 } from "@tina/__generated__/types";
-import ErrorBoundary from "@/fragments/error-boundary";
-import { Section } from "@/fragments/layout/section";
 import { Badge } from "@systatum/coneto/badge";
 import { css } from "styled-components";
 import { Crumb } from "@systatum/coneto/crumb";
 import { cn } from "@/lib/utils";
-import TitleSection from "@/fragments/layout/title";
 import { useTranslation } from "react-i18next";
+import ErrorBoundary from "./../../../../../packages/components/error-boundary";
+import { Section } from "./../../../../../packages/components/layout/section";
+import TitleSection from "./../../../../../packages/components/layout/title";
 
 export interface ClientPostProps {
   data: PostConnectionQuery;
