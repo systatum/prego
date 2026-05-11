@@ -73,6 +73,13 @@ export default function PostClientPage(props: ClientPostProps) {
                 self: css`
                   font-size: 14px;
                   cursor: pointer;
+
+                  @media (max-width: 640px) {
+                    max-width: 90px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                  }
                 `,
               }}
               maxShown={4}

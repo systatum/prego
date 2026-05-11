@@ -160,7 +160,17 @@ export function PostsClientPage(props: ClientPostProps) {
               }}
             >
               {LINK_ITEMS.map((item, index) => (
-                <Crumb.Item key={index} onClick={() => navigate(item.path)}>
+                <Crumb.Item
+                  styles={{
+                    self: css`
+                      @media (max-width: 640px) {
+                        max-width: 40px;
+                      }
+                    `,
+                  }}
+                  key={index}
+                  onClick={() => navigate(item.path)}
+                >
                   {item.label}
                 </Crumb.Item>
               ))}
