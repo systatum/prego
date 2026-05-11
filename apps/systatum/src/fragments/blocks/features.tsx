@@ -12,7 +12,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-} from "./../../../../../packages/components/ui/card";
+} from "../../../../../packages/components/ui/card";
 import { Section } from "@/fragments/layout/section";
 import { sectionBlockSchemaField } from "@/fragments/layout/section";
 import { FC, ReactNode } from "react";

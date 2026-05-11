@@ -3,7 +3,7 @@ import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { PageBlocksCallout } from "@tina/__generated__/types";
 import { ArrowRight } from "lucide-react";
-import { AnimatedGroup } from "./../../../../../packages/components/motion-primitives/animated-group";
+import { AnimatedGroup } from "../../../../../packages/components/motion-primitives/animated-group";
 import { Section, sectionBlockSchemaField } from "@/fragments/layout/section";
 
 const transitionVariants = {
