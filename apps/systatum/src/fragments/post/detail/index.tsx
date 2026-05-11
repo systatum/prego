@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import client from "@tina/__generated__/client";
-import { Layout } from "@/fragments/layout/layout";
+import { Layout } from "./../../../../../../packages/components/layout/layout";
 import PostClientPage from "@/fragments/post/detail/client-page";
 import { HeadFC } from "gatsby";
 import { createMetadata } from "@/seo/metadata";

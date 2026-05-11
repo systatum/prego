@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "./../lib/utils";
 import { Check, Copy } from "lucide-react";
 import { motion } from "motion/react";
 import { HTMLAttributes, useEffect, useState } from "react";

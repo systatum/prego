@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { RiCloseFill } from "@remixicon/react";
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import React, { Fragment, useMemo, useState } from "react";
-import TitleSection from "./../layout/title";
+import TitleSection from "./../../../../../packages/components/layout/title";
 import { useTranslation } from "react-i18next";
 
 interface ProfileCollaboratorProps {
