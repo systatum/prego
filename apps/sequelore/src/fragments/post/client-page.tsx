@@ -112,7 +112,7 @@ export function PostsClientPage(props: ClientPostProps) {
   ];
 
   const LINK_ITEMS = [
-    { label: "Systatum", path: "/" },
+    { label: "Sequelore", path: "/" },
     { label: tPost("post"), path: "/post" },
     categoryPost
       ? {

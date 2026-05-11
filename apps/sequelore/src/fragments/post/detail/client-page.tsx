@@ -47,7 +47,7 @@ export default function PostClientPage(props: ClientPostProps) {
         : event;
 
   const LINK_ITEMS = [
-    { label: "Systatum", path: "/" },
+    { label: "Sequelore", path: "/" },
     { label: tPost("post"), path: "/post" },
     { label: categoryTranslated, path: `/post?category=${categoryName}` },
     { label: post.title, path: "#" },
