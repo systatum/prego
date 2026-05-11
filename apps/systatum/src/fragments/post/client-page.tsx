@@ -54,6 +54,14 @@ export function PostsClientPage(props: ClientPostProps) {
     typeof window !== "undefined" ? window.location.pathname : "";
   const isPostPage = pathname.startsWith("/post");
 
+  const isActiveCategory = (path: string) => {
+    if (path === "/post") {
+      return !categoryPost;
+    }
+
+    return path === `/post?category=${categoryPost}`;
+  };
+
   const posts: PostItem[] = (props.data?.postConnection.edges ?? [])
     .filter((edge) => edge?.node?._sys?.relativePath?.startsWith(locale))
 
@@ -192,6 +200,11 @@ export function PostsClientPage(props: ClientPostProps) {
                         border-color: #045e95;
                         transition: all ease-in-out 0.2s;
                       }
+
+                      ${isActiveCategory(item.path) &&
+                      css`
+                        border-color: #045e95;
+                      `}
                     `,
                   }}
                   caption={item.label}

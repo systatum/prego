@@ -3,6 +3,7 @@ import type { GatsbyNode } from "gatsby";
 import client from "./tina/__generated__/client";
 import fs from "fs";
 import RSS from "rss";
+import { generateDescription } from "./src/seo/metadata";
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
@@ -48,7 +49,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
         relativePath,
         meta: {
           title: post?.title ?? "",
-          description: post?.excerpt ?? "",
+          description: generateDescription(post?.excerpt, post?._body),
           image: post?.heroImg ?? "",
         },
       },
@@ -85,7 +86,7 @@ export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
 
     feed.item({
       title: post?.title ?? "",
-      description: post?.excerpt ?? "",
+      description: generateDescription(post?.excerpt, post?._body),
       url: `https://systatum.com/post/${locale}/${slug}`,
       date: post?.date ?? new Date().toISOString(),
     });
