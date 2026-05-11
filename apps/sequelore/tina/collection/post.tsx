@@ -1,11 +1,7 @@
 import React from "react";
 import { videoBlockSchema } from "@/fragments/blocks/video";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../../../packages/components/ui/avatar";
 import type { Collection } from "tinacms";
+import { Avatar } from "@systatum/coneto/avatar";
 
 const Post: Collection = {
   label: "Posts",
@@ -77,16 +73,11 @@ const Post: Collection = {
 
           return (
             <p className="flex min-h-8 items-center gap-4">
-              <Avatar>
-                {avatar && <AvatarImage src={avatar} alt={`${name} Profile`} />}
-                <AvatarFallback>
-                  {name
-                    .split(" ")
-                    .map((part) => part[0]?.toUpperCase() || "")
-                    .join("")}
-                </AvatarFallback>
-              </Avatar>
-              {name}
+              {avatar && (
+                <img src={avatar} alt={name} className="rounded-full" />
+              )}
+
+              <span>{name}</span>
             </p>
           );
         },

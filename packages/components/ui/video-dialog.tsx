@@ -1,7 +1,5 @@
-"use client";
-
 import { AnimatePresence, motion } from "motion/react";
-import { XIcon } from "lucide-react";
+import { RiCloseLine } from "@remixicon/react";
 import { useVideoDialog } from "./video-dialog-context";
 
 const VideoDialog = () => {
@@ -28,7 +26,7 @@ const VideoDialog = () => {
               onClick={closeVideo}
               className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md "
             >
-              <XIcon className="size-5" />
+              <RiCloseLine className="size-5" />
             </motion.button>
             <div className="relative isolate z-[1] size-full overflow-hidden rounded-2xl border-2 border-white">
               <iframe
