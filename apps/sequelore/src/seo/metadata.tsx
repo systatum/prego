@@ -51,3 +51,41 @@ export function createMetadata({
     </>
   );
 }
+
+// Convert TinaCMS rich-text JSON into plain text
+export const richTextToPlainText = (node: any): string => {
+  if (!node) return "";
+
+  if (node.type === "text") {
+    return node.text || "";
+  }
+
+  if (Array.isArray(node.children)) {
+    return node.children.map(richTextToPlainText).join("");
+  }
+
+  return "";
+};
+
+// Generate RSS description from excerpt or content
+export const generateDescription = (
+  excerpt: any,
+  body: any,
+  maxParagraphs = 2,
+) => {
+  // Use excerpt first if available
+  const excerptText = richTextToPlainText(excerpt).trim();
+
+  if (excerptText) {
+    return excerptText;
+  }
+
+  const paragraphs =
+    body?.children
+      .filter((child: any) => child.type === "p")
+      .slice(0, maxParagraphs)
+      .map((paragraph: any) => richTextToPlainText(paragraph).trim())
+      .filter(Boolean) || [];
+
+  return paragraphs.join("\n\n");
+};
