@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img alt="Systatum" src="https://systatum.com/favicon.ico" width="72" />
+</p>
 
-## Getting Started
+<h1 align="center">
+  Systatum
+</h1>
 
-First, run the development server:
+<p align="center">
+  Systems that matter.
+</p>
+
+<p align="center">
+  Systatum empowers institutions, organizations, and builders with systems that matter.
+</p>
+
+---
+
+## ✨ Features
+
+- ⚡ Built with Gatsby + TypeScript
+- 🎨 Modern and scalable UI architecture
+- 📰 RSS feed support
+- 🔍 SEO and Open Graph metadata
+- 🌐 Internationalization ready
+- 📱 Fully responsive design
+- 🚀 Static-first performance
+- 🧩 Component-driven development
+- 🎛 Powered by `@systatum/coneto` for consistent and reusable UI components
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/systatum.git
+```
+
+### 2. Install dependencies
+
+```bash
+cd apps/systatum
+pnpm i
+```
+
+### 3. Start development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Your site will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```bash
+pages/*
+src/
+├── fragments/
+├── styles/
+├── utils/
+└── constants/
 
-To learn more about Next.js, take a look at the following resources:
+content/
+├── posts/
+├── authors/
+└── categories/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+.tina/
+├── config.ts
+└── __generated__/
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+static/* // for public app
+```
 
-## Deploy on Vercel
+## 🚀 Preview Build Guide
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. Push your latest changes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push your newest changes to the pull request branch.
+
+### 2. Verify your branch in Tina Cloud
+
+Open Tina Cloud:
+
+```txt
+https://app.tina.io/
+```
+
+Make sure your branch has been indexed successfully.
+
+### 3. Configure the Site URL
+
+Add your preview deployment URL as the `Site URL` inside Tina Cloud.
+
+This allows TinaCMS to access your preview environment correctly.
+
+### 4. Check environment variables
+
+Verify that the following environment variable matches your current preview branch:
+
+```env
+NEXT_PUBLIC_TINA_BRANCH
+```
+
+The branch name in Netlify must be the same as the branch indexed in Tina Cloud.
+
+This is required so Tina Cloud can properly sync and index schema changes.
+
+### 5. Re-deploy if needed
+
+If the preview deployment still fails after updating the environment variables, trigger a new deployment manually from `Netlify`.

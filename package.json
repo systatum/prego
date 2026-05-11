@@ -27,7 +27,7 @@
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@remixicon/react": "^4.6.0",
-    "@systatum/coneto": "2.1.0",
+    "@systatum/coneto": "3.0.0",
     "@tailwindcss/postcss": "^4",
     "@tinacms/cli": "^1.9.8",
     "@types/node": "^24.0.3",

@@ -2,9 +2,9 @@ import { defineConfig } from "tinacms";
 import Post from "./collection/post";
 import Global from "./collection/global";
 import Author from "./collection/author";
-import Page from "./collection/page";
 import Tag from "./collection/tag";
 import Category from "./collection/category";
+import Page from "./collection/page";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -16,17 +16,17 @@ const config = defineConfig({
   token: process.env.TINA_TOKEN!,
   media: {
     tina: {
-      publicFolder: "public",
+      publicFolder: "static",
       mediaRoot: "uploads",
     },
   },
   build: {
-    publicFolder: "public",
+    publicFolder: "static",
     outputFolder: "admin",
     basePath: "",
   },
   schema: {
-    collections: [Page, Post, Category, Author, Tag, Global],
+    collections: [Post, Page, Category, Author, Tag, Global],
   },
 });
 
