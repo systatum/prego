@@ -58,11 +58,11 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
 
 export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
   const feed = new RSS({
-    title: "Systatum",
+    title: "Sequelore",
     description:
-      "Systatum empowers institutions, organizations, and builders with systems that matter.",
-    site_url: "https://systatum.com",
-    feed_url: "https://systatum.com/rss.xml",
+      "Sequelore empowers institutions, organizations, and builders with systems that matter.",
+    site_url: "https://sequelore.com",
+    feed_url: "https://sequelore.com/rss.xml",
     language: "en",
   });
 
@@ -86,7 +86,7 @@ export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
     feed.item({
       title: post?.title ?? "",
       description: post?.excerpt ?? "",
-      url: `https://systatum.com/post/${locale}/${slug}`,
+      url: `https://sequelore.com/post/${locale}/${slug}`,
       date: post?.date ?? new Date().toISOString(),
     });
   }

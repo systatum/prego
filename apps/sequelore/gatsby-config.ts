@@ -3,10 +3,10 @@ import path from "path";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: `https://systatum.com`,
+    siteUrl: `https://sequelore.com`,
   },
   graphqlTypegen: true,
-  plugins: [`gatsby-plugin-postcss`],
+  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-styled-components"],
 };
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
