@@ -1,0 +1,14 @@
+[build]
+  base = "apps/sequelore"
+  command = "npm run build"
+  publish = "public"
+
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
+
+[dev]
+  base = "apps/sequelore"
+  command = "npm run dev"
+
+[functions]
+  node_bundler = "esbuild"

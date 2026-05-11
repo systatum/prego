@@ -1,0 +1,25 @@
+import type { GatsbyConfig, GatsbyNode } from "gatsby";
+import path from "path";
+
+const config: GatsbyConfig = {
+  siteMetadata: {
+    siteUrl: `https://sequelore.com`,
+  },
+  graphqlTypegen: true,
+  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-styled-components"],
+};
+
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
+  actions,
+}) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+        "@tina": path.resolve(__dirname, "tina"),
+      },
+    },
+  });
+};
+
+export default config;

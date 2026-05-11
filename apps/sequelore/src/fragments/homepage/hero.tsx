@@ -1,0 +1,338 @@
+import { Container } from "@/fragments/layout/container";
+import { BulletList, Text } from "@/fragments/layout/typography";
+import { Button } from "@systatum/coneto/button";
+import styled, { css, CSSProp } from "styled-components";
+import {
+  RiShieldCheckLine,
+  RiStackLine,
+  RiCodeSSlashLine,
+} from "@remixicon/react";
+import { Badge } from "@systatum/coneto/badge";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { scrollToId } from "../../../../../packages/components/tools/scroll-to-id";
+import { applyId } from "../../../../../packages/components/tools/apply-id";
+import React from "react";
+
+const DB_LABELS = [
+  { caption: "PostgreSQL", color: "#446F53" },
+  { caption: "MySQL", color: "#7B6A5C" },
+];
+
+const BULLET_ITEMS = [
+  {
+    icon: RiShieldCheckLine,
+    label: "Secure by design",
+  },
+  {
+    icon: RiStackLine,
+    label: "Built for scale",
+  },
+  {
+    icon: RiCodeSSlashLine,
+    label: "Developer friendly",
+  },
+];
+
+export function Hero() {
+  const [shown, setShown] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShown((prev) => (prev + 1) % DB_LABELS.length);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const current = DB_LABELS[shown];
+
+  return (
+    <Container.Section
+      id={applyId("hero")}
+      styles={{
+        self: css`
+          padding-top: 120px;
+          overflow: hidden;
+        `,
+      }}
+    >
+      <Container.Section.Inner
+        styles={{
+          self: css`
+            width: 100%;
+            justify-content: end;
+            align-items: end;
+            @media (max-width: 768px) {
+              gap: 3rem;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+          `,
+        }}
+      >
+        <HeroContent
+          $style={css`
+            width: 70%;
+            gap: 24px;
+            z-index: 20;
+            @media (max-width: 768px) {
+              width: 100%;
+              justify-content: center;
+              align-items: center;
+            }
+            @media (max-width: 640px) {
+              justify-content: center;
+              align-items: center;
+              padding-top: 80px;
+            }
+          `}
+        >
+          <NewBadge href="#">
+            <Badge
+              caption="✦ New"
+              backgroundColor="#627D68"
+              textColor="white"
+              styles={{
+                self: css`
+                  border-radius: 20px;
+                  height: 28px;
+                  cursor: pointer;
+                `,
+              }}
+            />
+            <Text
+              styles={{
+                self: css`
+                  display: flex;
+                  flex-direction: row;
+                  gap: 10px;
+                  padding-right: 14px;
+                  font-size: 13px;
+                  font-weight: 500;
+                  width: 100%;
+                  justify-content: space-between;
+                `,
+              }}
+            >
+              <span>Sequelore 2.0 is now in beta</span>
+              <span>→</span>
+            </Text>
+          </NewBadge>
+
+          <Text.H1
+            styles={{
+              self: css`
+                font-size: clamp(1.75rem, 3vw, 2.5rem);
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3em;
+                flex-direction: column;
+                font-size: 36px;
+                min-width: 315px;
+
+                @media (max-width: 768px) {
+                  justify-content: center;
+                  text-align: center;
+                }
+                @media (max-width: 640px) {
+                }
+              `,
+            }}
+          >
+            <span>You never used a</span>
+
+            <RotatingWrapper aria-live="polite" aria-atomic="true">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={current.caption}
+                  style={{
+                    color: current.color,
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                  {current.caption}
+                </motion.span>
+              </AnimatePresence>
+            </RotatingWrapper>
+
+            <span>database studio</span>
+            <span>
+              this <TextGood>good.</TextGood>
+            </span>
+          </Text.H1>
+
+          <Text
+            styles={{
+              self: css`
+                max-width: 300px;
+                @media (max-width: 800px) {
+                  max-width: 240px;
+                }
+                @media (max-width: 768px) {
+                  text-align: center;
+                  max-width: 400px;
+                }
+              `,
+            }}
+          >
+            Sequelore is the modern database platform for building, scaling, and
+            shipping products with confidence.
+          </Text>
+
+          <Button
+            variant="success"
+            styles={{
+              self: css`
+                background-color: #2c5f3f;
+                &:hover {
+                  background-color: #326c47;
+                }
+                &:active {
+                  background-color: #234c32;
+                }
+              `,
+            }}
+            onClick={() => scrollToId("download-sequelore")}
+          >
+            Download
+          </Button>
+        </HeroContent>
+
+        <BulletList
+          styles={{
+            self: css`
+              display: flex;
+              align-items: center;
+              gap: 1.5rem;
+              flex-direction: row;
+              flex-wrap: wrap;
+              width: 100%;
+              justify-content: center;
+
+              @media (max-width: 768px) {
+                justify-content: center;
+              }
+            `,
+          }}
+        >
+          {BULLET_ITEMS.map(({ icon: Icon, label }) => (
+            <BulletList.Item key={label} color="#6b6b5a">
+              <Icon size={16} />
+              {label}
+            </BulletList.Item>
+          ))}
+        </BulletList>
+
+        <HeroContent
+          $style={css`
+            position: absolute;
+            max-width: 800px;
+            right: 0px;
+            top: 50%;
+            transform: translateX(40px) translateY(-55%);
+            padding-top: 50px;
+            padding-right: 0;
+
+            @media (max-width: 1280px) {
+              max-width: 700px;
+              transform: translateX(70px) translateY(-55%);
+            }
+
+            @media (max-width: 1080px) {
+              transform: translateX(150px) translateY(-55%);
+            }
+
+            @media (max-width: 820px) {
+              transform: translateX(140px) translateY(-55%);
+
+              max-width: 570px;
+            }
+
+            @media (max-width: 768px) {
+              transform: translateX(0px) translateY(0px);
+              padding-top: 0px;
+              max-width: 600px;
+              position: relative;
+            }
+          `}
+        >
+          <img
+            src={"/assets/hero-background.png"}
+            style={{ width: "100%", height: "100%" }}
+            alt="image application for sequelore"
+          />
+        </HeroContent>
+      </Container.Section.Inner>
+    </Container.Section>
+  );
+}
+
+const RotatingWrapper = styled.span`
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 1.2em;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+`;
+
+const HeroContent = styled.div<{ $style?: CSSProp }>`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+
+  ${({ $style }) => $style}
+`;
+
+const NewBadge = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #e8f0ea;
+  border: 1px solid #d4ccba;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2c5f3f;
+  cursor: pointer;
+  width: fit-content;
+  min-width: 314px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #d4e8d8;
+  }
+
+  &:hover [aria-label="badge"] {
+    background-color: #4f6656;
+    transition: all 0.2s ease;
+  }
+`;
+
+const TextGood = styled.span`
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' height='20' viewBox='0 0 113 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath opacity='0.3' d='M6.02311 13.4983C14.6826 10.0015 50.7159 6.70745 106.181 7.00002' stroke='%23446f53' stroke-width='12' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+`;
