@@ -1,4 +1,3 @@
-import { Button } from "../../../../../packages/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
 import { motion } from "motion/react";
@@ -68,16 +67,7 @@ export function ScriptCopyBtn({
                     {index > 0 && (
                       <div className="h-4 w-px bg-border" aria-hidden="true" />
                     )}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className={`relative rounded-none bg-background px-2 py-1 hover:bg-background ${
-                        packageManager === pm
-                          ? "text-primary"
-                          : "text-muted-foreground"
-                      }`}
-                      onClick={() => setPackageManager(pm)}
-                    >
+                    <button onClick={() => setPackageManager(pm)}>
                       {pm}
                       {packageManager === pm && (
                         <motion.div
@@ -91,7 +81,7 @@ export function ScriptCopyBtn({
                           }}
                         />
                       )}
-                    </Button>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -111,10 +101,8 @@ export function ScriptCopyBtn({
               </pre>
             )}
           </div>
-          <Button
-            variant="outline"
-            size="icon"
-            className="relative ml-2 rounded-md"
+          <button
+            className="relative ml-2 rounded-md border border-border bg-white p-2 text-sm font-medium text-foreground hover:bg-muted"
             onClick={copyToClipboard}
             aria-label={copied ? "Copied" : "Copy to clipboard"}
           >
@@ -129,7 +117,7 @@ export function ScriptCopyBtn({
                 copied ? "scale-100" : "scale-0"
               }`}
             />
-          </Button>
+          </button>
         </div>
       </div>
     </div>

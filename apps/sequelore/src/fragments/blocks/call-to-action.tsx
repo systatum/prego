@@ -1,7 +1,6 @@
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
 import { iconSchema } from "@tina/fields/icon";
-import { Button } from "../../../../../packages/components/ui/button";
 import { PageBlocksCta } from "@tina/__generated__/types";
 import { Icon, IconOptions } from "../icon";
 import { Section } from "@/fragments/layout/section";
@@ -28,11 +27,7 @@ export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
                 data-tina-field={tinaField(action)}
                 className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5"
               >
-                <Button
-                  size="lg"
-                  variant={action!.type === "link" ? "ghost" : "default"}
-                  className="rounded-xl px-5 text-base"
-                >
+                <button className="rounded-xl px-5 text-base">
                   <a href={action!.link!}>
                     {action?.icon?.name && (
                       <Icon
@@ -48,7 +43,7 @@ export const CallToAction = ({ data }: { data: PageBlocksCta }) => {
                     )}
                     <span className="text-nowrap">{action!.label}</span>
                   </a>
-                </Button>
+                </button>
               </div>
             ))}
         </div>
