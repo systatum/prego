@@ -26,7 +26,14 @@ export interface DetailPostProps {
       description: string;
       image: string;
     };
+    postMeta?: PostMeta;
   };
+}
+
+export interface PostMeta {
+  categoryLabel: string;
+  categoryColor?: string;
+  crumbItems: { label: string; path: string }[];
 }
 
 type FetchState =
@@ -35,7 +42,7 @@ type FetchState =
   | { status: "error"; message: string };
 
 export default function DetailPost({ pageContext }: DetailPostProps) {
-  const { relativePath, tinaData: buildTimeTinaData } = pageContext;
+  const { relativePath, tinaData: buildTimeTinaData, postMeta } = pageContext;
   const isMounted = useRef(true);
 
   const [state, setState] = useState<FetchState>(
@@ -127,6 +134,7 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
           data={tinaData.data}
           query={tinaData.query}
           variables={tinaData.variables}
+          postMeta={postMeta!}
         />
       </Suspense>
     </Layout>
