@@ -220,7 +220,7 @@ export function PostsClientPage(props: ClientPostProps) {
           )}
 
           {POSTS_FILTERED.length > 0 ? (
-            <div className={cn("flex flex-col w-full", !isPostPage && "px-8")}>
+            <div className={cn("flex flex-col w-full", !isPostPage && "px-2")}>
               {POSTS_FILTERED.map((post, index) => {
                 const categoryTranslated =
                   post.category.name === "Info"
