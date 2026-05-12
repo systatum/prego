@@ -195,7 +195,6 @@ export function PostsClientPage(props: ClientPostProps) {
                       min-width: 90px;
                       height: fit-content;
                       cursor: pointer;
-
                       &:hover {
                         border-color: #045e95;
                         transition: all ease-in-out 0.2s;
@@ -205,6 +204,10 @@ export function PostsClientPage(props: ClientPostProps) {
                       css`
                         border-color: #045e95;
                       `}
+
+                      @media (max-width: 640px) {
+                        min-width: 75px;
+                      }
                     `,
                   }}
                   caption={item.label}

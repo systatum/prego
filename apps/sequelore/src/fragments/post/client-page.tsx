@@ -215,6 +215,10 @@ export function PostsClientPage(props: ClientPostProps) {
                       css`
                         border-color: #045e95;
                       `}
+
+                      @media (max-width: 640px) {
+                        min-width: 75px;
+                      }
                     `,
                   }}
                   caption={item.label}
