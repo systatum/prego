@@ -11,15 +11,7 @@ import { createMetadata } from "@/seo/metadata";
 import { fetchPosts } from "@/services/posts";
 import PostSection from "@/fragments/homepage/post-section";
 
-export async function getServerData() {
-  return await fetchPosts();
-}
-
-function IndexPage({
-  serverData,
-}: PageProps<object, object, unknown, { tinaData: any }>) {
-  const tinaData = serverData?.tinaData;
-
+function IndexPage() {
   return (
     <main className="mx-auto w-full items-center justify-center gap-10">
       <LocaleProvider locale={i18n.language} />
@@ -27,11 +19,7 @@ function IndexPage({
       <div className="md:ml-55 lg:ml-75">
         <Reason />
         <Product />
-        <PostSection
-          data={tinaData.data}
-          variables={tinaData.variables}
-          query={tinaData.query}
-        />
+        <PostSection />
         <Collaborator />
       </div>
       <CollaborateAndEmail />
