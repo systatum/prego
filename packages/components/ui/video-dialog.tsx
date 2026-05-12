@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, motion } from "motion/react";
 import { RiCloseLine } from "@remixicon/react";
 import { useVideoDialog } from "./video-dialog-context";

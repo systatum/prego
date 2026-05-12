@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { SwipeableHandlers } from "react-swipeable";
 import { useTranslations } from "next-intl";
-import { Button } from "./../../../../../packages/components/ui/button";
+import { Button } from "@systatum/coneto/button";
 
 interface HomePageMobileNavbarProps {
   isOpen: boolean | null;

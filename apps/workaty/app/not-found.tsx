@@ -1,4 +1,6 @@
-import { Button } from "./../../../packages/components/ui/button";
+"use client";
+
+import { Button } from "@systatum/coneto/button";
 import Link from "next/link";
 
 export default function NotFound() {
