@@ -22,7 +22,7 @@ export interface ClientPostProps {
 }
 
 export default function PostClientPage(props: ClientPostProps) {
-  const { t, ready } = useTranslation();
+  const { t } = useTranslation();
   const tPost = (key: string) => t(`postPage.${key}`);
 
   const information = tPost("info");
@@ -31,8 +31,6 @@ export default function PostClientPage(props: ClientPostProps) {
 
   const { data } = useTina({ ...props });
   const post = data.post;
-
-  if (!ready) return <PostSkeleton />;
 
   const date = new Date(post.date!);
 

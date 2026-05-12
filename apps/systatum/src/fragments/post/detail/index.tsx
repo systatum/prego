@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import client from "@tina/__generated__/client";
 import { Layout } from "./../../../../../../packages/components/layout/layout";
 import PostClientPage from "@/fragments/post/detail/client-page";
@@ -122,11 +122,13 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
 
   return (
     <Layout rawPageData={tinaData}>
-      <PostClientPage
-        data={tinaData.data}
-        query={tinaData.query}
-        variables={tinaData.variables}
-      />
+      <Suspense fallback={<PostSkeleton />}>
+        <PostClientPage
+          data={tinaData.data}
+          query={tinaData.query}
+          variables={tinaData.variables}
+        />
+      </Suspense>
     </Layout>
   );
 }
