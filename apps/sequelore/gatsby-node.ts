@@ -4,6 +4,7 @@ import client from "./tina/__generated__/client";
 import fs from "fs";
 import RSS from "rss";
 import { generateDescription } from "./src/seo/metadata";
+import { I18N_RESOURCES } from "./src/i18n/resources";
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
@@ -48,6 +49,25 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
 
     const post = postData?.data?.post;
 
+    const categoryName = post?.category?.name ?? "";
+
+    const CATEGORY_COLORS: Record<string, string> = {
+      Info: "#3B82F6",
+      Release: "#10B981",
+      Event: "#F97316",
+    };
+
+    const categoryKeyMap: Record<string, string> = {
+      Info: "postPage.info",
+      Release: "postPage.release",
+      Event: "postPage.event",
+    };
+
+    const categoryLabel = translatePost(
+      locale,
+      categoryKeyMap[categoryName] ?? categoryName,
+    );
+
     createPage({
       path: `/post/${locale}/${slug}`,
       component: path.resolve("./src/fragments/post/detail/index.tsx"),
@@ -65,10 +85,30 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
           description: generateDescription(post?.excerpt, post?._body),
           image: post?.heroImg ?? "",
         },
+        postMeta: {
+          categoryLabel,
+          categoryColor: CATEGORY_COLORS[categoryName],
+          crumbItems: [
+            { label: "Systatum", path: "/" },
+            { label: translatePost(locale, "postPage.post"), path: "/post" },
+            { label: categoryLabel, path: `/post?category=${categoryName}` },
+            { label: post?.title ?? "", path: "#" },
+          ],
+        },
       },
     });
   }
 };
+
+function translatePost(locale: string, key: string): string {
+  const resources = I18N_RESOURCES as Record<string, any>;
+  const translation =
+    resources[locale]?.translation ?? resources["en-US"]?.translation;
+
+  return (
+    key.split(".").reduce((obj: any, k: string) => obj?.[k], translation) ?? key
+  );
+}
 
 export const onPostBuild: GatsbyNode["onPostBuild"] = async () => {
   const feed = new RSS({
