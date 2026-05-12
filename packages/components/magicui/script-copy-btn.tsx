@@ -1,0 +1,165 @@
+import { cn } from "./../lib/utils";
+import { Check, Copy } from "lucide-react";
+import { motion } from "motion/react";
+import { HTMLAttributes, useEffect, useState } from "react";
+import type { Template } from "tinacms";
+
+interface ScriptCopyBtnProps extends HTMLAttributes<HTMLDivElement> {
+  showMultiplePackageOptions?: boolean;
+  codeLanguage: string;
+  lightTheme: string;
+  commandMap: string;
+  className?: string;
+}
+
+export function ScriptCopyBtn({
+  showMultiplePackageOptions = true,
+  codeLanguage,
+  lightTheme,
+  commandMap,
+  className,
+}: ScriptCopyBtnProps) {
+  const commands = commandMap.split("\n").map((line) => line.trim()) || [];
+  const packageManagers = commands.map((line) => line.split("|")[0]);
+  const [packageManager, setPackageManager] = useState(packageManagers[0]);
+  const [copied, setCopied] = useState(false);
+  const [highlightedCode, setHighlightedCode] = useState("");
+  const command =
+    commands.find((line) => line.startsWith(packageManager))?.split("|")[1] ||
+    "";
+
+  useEffect(() => {
+    async function loadHighlightedCode() {
+      try {
+        const { codeToHtml } = await import("shiki");
+        const highlighted = await codeToHtml(command, {
+          lang: codeLanguage,
+          themes: {
+            light: lightTheme,
+          },
+          defaultColor: "light",
+        });
+        setHighlightedCode(highlighted);
+      } catch (error) {
+        console.error("Error highlighting code:", error);
+        setHighlightedCode(`<pre>${command}</pre>`);
+      }
+    }
+
+    loadHighlightedCode();
+  }, [command, codeLanguage, lightTheme]);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(command);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className={cn("flex w-full no-prose", className)}>
+      <div className="w-full">
+        <div className="flex items-center justify-between">
+          {showMultiplePackageOptions && (
+            <div className="relative">
+              <div className="inline-flex overflow-hidden rounded-md border border-border text-xs">
+                {packageManagers.map((pm, index) => (
+                  <div key={pm} className="flex items-center">
+                    {index > 0 && (
+                      <div className="h-4 w-px bg-border" aria-hidden="true" />
+                    )}
+                    <button onClick={() => setPackageManager(pm)}>
+                      {pm}
+                      {packageManager === pm && (
+                        <motion.div
+                          className="absolute inset-x-0 bottom-px mx-auto h-0.5 w-[90%] bg-primary"
+                          layoutId="activeTab"
+                          initial={false}
+                          transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="relative flex items-center">
+          <div className="min-w-75 font-mono not-prose">
+            {highlightedCode ? (
+              <div
+                className={`[&>pre]:overflow-x-auto [&>pre]:rounded-md [&>pre]:p-2 [&>pre]:px-4 [&>pre]:font-mono ${"light"}`}
+                dangerouslySetInnerHTML={{ __html: highlightedCode }}
+              />
+            ) : (
+              <pre className="rounded-md border border-border bg-white p-2 px-4 font-mono">
+                {command}
+              </pre>
+            )}
+          </div>
+          <button
+            className="relative ml-2 rounded-md border border-border bg-white p-2 text-sm font-medium text-foreground hover:bg-muted"
+            onClick={copyToClipboard}
+            aria-label={copied ? "Copied" : "Copy to clipboard"}
+          >
+            <span className="sr-only">{copied ? "Copied" : "Copy"}</span>
+            <Copy
+              className={`h-4 w-4 transition-all duration-300 ${
+                copied ? "scale-0" : "scale-100"
+              }`}
+            />
+            <Check
+              className={`absolute inset-0 m-auto h-4 w-4 transition-all duration-300 ${
+                copied ? "scale-100" : "scale-0"
+              }`}
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const scriptCopyBlockSchema: Template = {
+  name: "scriptCopyBlock",
+  label: "Script Copy Block",
+  ui: {
+    defaultItem: {
+      codeLanguage: "bash",
+      lightTheme: "catppuccin-latte",
+      commandMap:
+        "npm|npm install\n" +
+        "pnpm|pnpm install\n" +
+        "yarn|yarn install\n" +
+        "bun|bun install",
+    },
+  },
+  fields: [
+    {
+      name: "codeLanguage",
+      label: "Code Language",
+      type: "string",
+      description: "The language used for syntax highlighting.",
+    },
+    {
+      name: "lightTheme",
+      label: "Light Theme",
+      type: "string",
+      description: "The light theme used for syntax highlighting.",
+    },
+    {
+      name: "commandMap",
+      label: "Command Map",
+      type: "string",
+      description:
+        'A list of package managers and their corresponding commands, separated by "|". Example:\n"npm|npm install\npnpm|pnpm install"',
+      ui: {
+        component: "textarea",
+      },
+    },
+  ],
+};

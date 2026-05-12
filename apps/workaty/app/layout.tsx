@@ -12,6 +12,7 @@ import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/footer";
 import { TinaUrlFixer } from "@/helper/tina-url-fixer";
 import { DEFAULT_METADATA } from "@/constants/GetMetaData";
+import StyledComponentsRegistry from "@/tools/styled-components-registry";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -52,15 +53,17 @@ export default async function RootLayout({
     >
       <body className="min-h-screen bg-background font-sans antialiased">
         <TinaUrlFixer />
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Navbar />
-          <VideoDialogProvider>
-            {children}
-            <VideoDialog />
-          </VideoDialogProvider>
-          <TailwindIndicator />
-          <Footer />
-        </NextIntlClientProvider>
+        <StyledComponentsRegistry>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Navbar />
+            <VideoDialogProvider>
+              {children}
+              <VideoDialog />
+            </VideoDialogProvider>
+            <TailwindIndicator />
+            <Footer />
+          </NextIntlClientProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

@@ -1,11 +1,11 @@
-import { Container } from "@/fragments/layout/container";
-import { Text } from "@/fragments/layout/typography";
 import { RiAppleFill, RiWindowsFill } from "@remixicon/react";
 import { Button } from "@systatum/coneto/button";
 import { navigate } from "gatsby";
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { applyId } from "../../../../../packages/components/tools/apply-id";
+import { Container } from "./../../../../../packages/components/layout/container";
+import { Text } from "./../../../../../packages/components/layout/typography";
 
 export function DownloadApps() {
   const DOWNLOAD_OPTIONS = [

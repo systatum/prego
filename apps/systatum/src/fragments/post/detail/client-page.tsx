@@ -3,14 +3,14 @@ import { format } from "date-fns";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { PostQuery } from "@tina/__generated__/types";
-import { components } from "@/fragments/mdx-components";
-import ErrorBoundary from "@/fragments/error-boundary";
 import { Badge } from "@systatum/coneto/badge";
 import { css } from "styled-components";
 import { Crumb } from "@systatum/coneto/crumb";
-import { Section } from "@/fragments/layout/section";
 import { navigate } from "gatsby";
-import { useTranslation } from "react-i18next";
+import { components } from "./../../../../../../packages/components/mdx-components";
+import ErrorBoundary from "./../../../../../../packages/components/error-boundary";
+import { Section } from "./../../../../../../packages/components/layout/section";
+import { PostMeta } from "./index";
 
 export interface ClientPostProps {
   data: PostQuery;
@@ -18,18 +18,13 @@ export interface ClientPostProps {
     relativePath: string;
   };
   query: string;
+  postMeta: PostMeta;
 }
 
 export default function PostClientPage(props: ClientPostProps) {
-  const { t } = useTranslation();
-  const tPost = (key: string) => t(`postPage.${key}`);
-
-  const information = tPost("info");
-  const release = tPost("release");
-  const event = tPost("event");
-
   const { data } = useTina({ ...props });
   const post = data.post;
+  const meta = props.postMeta;
 
   const date = new Date(post.date!);
 
@@ -39,33 +34,9 @@ export default function PostClientPage(props: ClientPostProps) {
 
   const categoryName = post.category?.name;
 
-  const categoryTranslated =
-    categoryName === "Info"
-      ? information
-      : categoryName === "Release"
-        ? release
-        : event;
-
-  const LINK_ITEMS = [
-    { label: "Systatum", path: "/" },
-    { label: tPost("post"), path: "/post" },
-    { label: categoryTranslated, path: `/post?category=${categoryName}` },
-    { label: post.title, path: "#" },
-  ];
-
-  const CATEGORY_ITEMS = {
-    Info: "#3B82F6",
-    Release: "#10B981",
-    Event: "#F97316",
-  };
-
-  const categoryColor = categoryName
-    ? CATEGORY_ITEMS[categoryName as keyof typeof CATEGORY_ITEMS]
-    : undefined;
-
   return (
     <ErrorBoundary>
-      <Section className="pt-2 pb-14">
+      <Section className="pt-2 pb-14 px-5 sm:px-8">
         <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto">
           <div className="flex flex-row w-fit mx-auto">
             <Crumb
@@ -73,11 +44,18 @@ export default function PostClientPage(props: ClientPostProps) {
                 self: css`
                   font-size: 14px;
                   cursor: pointer;
+
+                  @media (max-width: 640px) {
+                    max-width: 90px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                  }
                 `,
               }}
               maxShown={4}
             >
-              {LINK_ITEMS.map((item, index) => (
+              {meta.crumbItems.map((item, index) => (
                 <Crumb.Item key={index} onClick={() => navigate(item.path)}>
                   {item.label}
                 </Crumb.Item>
@@ -87,7 +65,7 @@ export default function PostClientPage(props: ClientPostProps) {
 
           <h1
             data-tina-field={tinaField(post, "title")}
-            className="w-full relative mt-7 text-5xl tracking-normal text-center"
+            className="w-full relative mt-7 text-4xl md:text-5xl tracking-normal text-center"
           >
             {post.title}
           </h1>
@@ -126,9 +104,9 @@ export default function PostClientPage(props: ClientPostProps) {
                   cursor: pointer;
                 `,
               }}
-              caption={categoryTranslated}
               withCircle
-              circleColor={categoryColor}
+              caption={meta.categoryLabel}
+              circleColor={meta.categoryColor}
               onClick={() => navigate(`/post?category=${categoryName}`)}
             />
           </div>

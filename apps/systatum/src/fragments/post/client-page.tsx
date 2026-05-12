@@ -5,13 +5,13 @@ import {
   PostConnectionQuery,
   PostConnectionQueryVariables,
 } from "@tina/__generated__/types";
-import ErrorBoundary from "@/fragments/error-boundary";
-import { Section } from "@/fragments/layout/section";
+import ErrorBoundary from "./../../../../../packages/components//error-boundary";
+import { Section } from "./../../../../../packages/components//layout/section";
 import { Badge } from "@systatum/coneto/badge";
 import { css } from "styled-components";
 import { Crumb } from "@systatum/coneto/crumb";
 import { cn } from "@/lib/utils";
-import TitleSection from "@/fragments/layout/title";
+import TitleSection from "./../../../../../packages/components/layout/title";
 import { useTranslation } from "react-i18next";
 
 export interface ClientPostProps {
@@ -195,7 +195,6 @@ export function PostsClientPage(props: ClientPostProps) {
                       min-width: 90px;
                       height: fit-content;
                       cursor: pointer;
-
                       &:hover {
                         border-color: #045e95;
                         transition: all ease-in-out 0.2s;
@@ -205,6 +204,10 @@ export function PostsClientPage(props: ClientPostProps) {
                       css`
                         border-color: #045e95;
                       `}
+
+                      @media (max-width: 640px) {
+                        min-width: 75px;
+                      }
                     `,
                   }}
                   caption={item.label}
@@ -220,7 +223,7 @@ export function PostsClientPage(props: ClientPostProps) {
           )}
 
           {POSTS_FILTERED.length > 0 ? (
-            <div className={cn("flex flex-col w-full", !isPostPage && "px-8")}>
+            <div className={cn("flex flex-col w-full", !isPostPage && "px-2")}>
               {POSTS_FILTERED.map((post, index) => {
                 const categoryTranslated =
                   post.category.name === "Info"
@@ -243,6 +246,11 @@ export function PostsClientPage(props: ClientPostProps) {
                             height: fit-content;
                             cursor: pointer;
                             font-size: 16px;
+
+                            @media (max-width: 640px) {
+                              font-size: 12px;
+                              min-width: 80px;
+                            }
                           `,
                         }}
                         circleColor={
@@ -262,7 +270,7 @@ export function PostsClientPage(props: ClientPostProps) {
                       />
                       <div
                         className={cn(
-                          "text-lg w-full flex flex-row",
+                          "text-base sm:text-lg w-full flex flex-row",
                           !isPostPage && "font-medium",
                         )}
                       >
@@ -271,7 +279,10 @@ export function PostsClientPage(props: ClientPostProps) {
                     </div>
 
                     <span
-                      className={cn("text-lg", !isPostPage && "font-medium")}
+                      className={cn(
+                        "text-base md:text-lg",
+                        !isPostPage && "font-medium",
+                      )}
                     >
                       {post.published}
                     </span>

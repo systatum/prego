@@ -10,8 +10,11 @@ import {
   RiDatabase2Line,
   RiUploadCloud2Line,
 } from "@remixicon/react";
-import { BulletList, Text } from "@/fragments/layout/typography";
-import { Container } from "@/fragments/layout/container";
+import {
+  BulletList,
+  Text,
+} from "./../../../../../packages/components/layout/typography";
+import { Container } from "./../../../../../packages/components/layout/container";
 import { applyId } from "../../../../../packages/components/tools/apply-id";
 
 export function Features() {

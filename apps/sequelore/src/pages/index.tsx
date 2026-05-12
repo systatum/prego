@@ -12,15 +12,7 @@ import { DownloadApps } from "@/fragments/homepage/download-apps";
 import { OurCompany } from "@/fragments/homepage/our-company";
 import { Navbar } from "@/fragments/homepage/navbar";
 
-export async function getServerData() {
-  return await fetchPosts();
-}
-
-function IndexPage({
-  serverData,
-}: PageProps<object, object, unknown, { tinaData: any }>) {
-  const tinaData = serverData?.tinaData;
-
+const IndexPage = (): React.JSX.Element => {
   return (
     <main className="mx-auto w-full items-center justify-center gap-10">
       <LocaleProvider locale={i18n.language} />
@@ -32,7 +24,7 @@ function IndexPage({
       <OurCompany />
     </main>
   );
-}
+};
 
 export default IndexPage;
 

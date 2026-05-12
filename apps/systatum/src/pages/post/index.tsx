@@ -1,20 +1,21 @@
 import * as React from "react";
 import { createMetadata } from "@/seo/metadata";
-import { HeadFC, PageProps } from "gatsby";
-import { Layout } from "@/fragments/layout/layout";
+import { HeadFC } from "gatsby";
+import { Layout } from "./../../../../../packages/components/layout/layout";
 import { PostsClientPage } from "@/fragments/post/client-page";
 import { fetchPosts } from "@/services/posts";
+import { PostsSkeleton } from "./../../../../../packages/components/loading-skeleton";
 
-export async function getServerData() {
-  return await fetchPosts();
-}
+export default function Post() {
+  const [tinaData, setTinaData] = React.useState<any>(null);
 
-export default function Post({
-  serverData,
-}: PageProps<object, object, unknown, { tinaData: any }>) {
-  const { tinaData } = serverData ?? {};
+  React.useEffect(() => {
+    fetchPosts().then((res) => {
+      setTinaData(res.props?.tinaData);
+    });
+  }, []);
 
-  if (!tinaData) return null;
+  if (!tinaData) return <PostsSkeleton />;
 
   return (
     <Layout rawPageData={tinaData.data}>

@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import React, { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
-import TitleSection from "./../layout/title";
+import TitleSection from "./../../../../../packages/components/layout/title";
 import { useTranslation } from "react-i18next";
 
 interface DataProductProps {

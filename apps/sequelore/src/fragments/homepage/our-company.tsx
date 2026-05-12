@@ -1,5 +1,5 @@
-import { Container } from "@/fragments/layout/container";
-import { Text } from "@/fragments/layout/typography";
+import { Text } from "./../../../../../packages/components/layout/typography";
+import { Container } from "./../../../../../packages/components/layout/container";
 import { navigate } from "gatsby";
 import React from "react";
 import { css } from "styled-components";

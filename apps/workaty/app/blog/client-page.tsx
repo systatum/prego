@@ -12,11 +12,6 @@ import ErrorBoundary from "@/components/error-boundary";
 import { ArrowRight, UserRound } from "lucide-react";
 import { Card } from "./../../../../packages/components/ui/card";
 import { Section } from "@/components/layout/section";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "./../../../../packages/components/ui/avatar";
 
 interface ClientPostProps {
   data: BlogConnectionQuery;
@@ -83,23 +78,14 @@ export default function BlogsClientPage(props: ClientPostProps) {
                         <TinaMarkdown content={post?.excerpt} />
                       </div>
                       <div className="mt-6 flex items-center space-x-4 text-sm md:mt-8">
-                        <Avatar>
-                          {post?.author.avatar && (
-                            <AvatarImage
-                              src={post?.author.avatar}
-                              alt={post?.author.name}
-                              className="h-8 w-8"
-                            />
-                          )}
-                          <AvatarFallback>
-                            <UserRound
-                              size={16}
-                              strokeWidth={2}
-                              className="opacity-60"
-                              aria-hidden="true"
-                            />
-                          </AvatarFallback>
-                        </Avatar>
+                        {post?.author.avatar && (
+                          <img
+                            src={post?.author.avatar}
+                            alt={post?.author.name}
+                            className="h-8 w-8"
+                          />
+                        )}
+
                         <span className="text-muted-foreground">
                           {post?.author.name}
                         </span>

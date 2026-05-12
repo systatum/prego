@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
@@ -9,7 +9,9 @@ interface VideoDialogContextProps {
   closeVideo: () => void;
 }
 
-const VideoDialogContext = createContext<VideoDialogContextProps | undefined>(undefined);
+const VideoDialogContext = createContext<VideoDialogContextProps | undefined>(
+  undefined,
+);
 
 export const VideoDialogProvider = ({ children }: { children: ReactNode }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -26,7 +28,9 @@ export const VideoDialogProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <VideoDialogContext.Provider value={{ isVideoOpen, videoUrl, openVideo, closeVideo }}>
+    <VideoDialogContext.Provider
+      value={{ isVideoOpen, videoUrl, openVideo, closeVideo }}
+    >
       {children}
     </VideoDialogContext.Provider>
   );

@@ -6,7 +6,7 @@ const config: GatsbyConfig = {
     siteUrl: `https://systatum.com`,
   },
   graphqlTypegen: true,
-  plugins: [`gatsby-plugin-postcss`],
+  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-styled-components"],
 };
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
