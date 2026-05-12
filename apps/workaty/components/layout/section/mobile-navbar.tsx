@@ -6,6 +6,7 @@ import React from "react";
 import { SwipeableHandlers } from "react-swipeable";
 import { useTranslations } from "next-intl";
 import { Button } from "@systatum/coneto/button";
+import { css } from "styled-components";
 
 interface HomePageMobileNavbarProps {
   isOpen: boolean | null;
@@ -104,7 +105,18 @@ export default function HomePageMobileNavbar({
                   onClick={() => setIsOpen(false)}
                   className="w-full"
                 >
-                  <Button variant={"default"} className="w-full">
+                  <Button
+                    styles={{
+                      containerStyle: css`
+                        width: 100%;
+                      `,
+                      self: css`
+                        width: 100%;
+                      `,
+                    }}
+                    variant={"default"}
+                    className="w-full"
+                  >
                     {t("goToDashboard")}
                   </Button>
                 </Link>
