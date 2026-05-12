@@ -37,8 +37,16 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
 
     if (!locale || !slug) continue;
 
-    const postData = await client.queries.post({ relativePath });
-    const post = postData.data?.post;
+    let postData: Awaited<ReturnType<typeof client.queries.post>> | null = null;
+
+    try {
+      postData = await client.queries.post({ relativePath });
+    } catch (err) {
+      console.warn(`[createPages] Failed to fetch post: ${relativePath}`, err);
+      continue; // skip broken posts instead of crashing the build
+    }
+
+    const post = postData?.data?.post;
 
     createPage({
       path: `/post/${locale}/${slug}`,
@@ -47,6 +55,11 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
         locale,
         slug,
         relativePath,
+        tinaData: {
+          data: postData.data,
+          query: postData.query,
+          variables: postData.variables,
+        },
         meta: {
           title: post?.title ?? "",
           description: generateDescription(post?.excerpt, post?._body),
