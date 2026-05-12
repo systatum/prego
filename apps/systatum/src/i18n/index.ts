@@ -1,11 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
-import enUS from "./messages/en-US.json";
-import idID from "./messages/id-ID.json";
-import jaJP from "./messages/ja-JP.json";
-
 import { LOCALE_MAP, LOCALES } from "@/constants/locale";
+import { I18N_RESOURCES } from "./resources";
 
 const getInitialLocale = (): string => {
   if (typeof window === "undefined") return LOCALES.EN_US.id;
@@ -22,23 +18,10 @@ const getInitialLocale = (): string => {
 i18n.use(initReactI18next).init({
   lng: getInitialLocale(),
   fallbackLng: LOCALES.EN_US.id,
-
-  resources: {
-    [LOCALES.EN_US.id]: {
-      translation: enUS,
-    },
-    [LOCALES.ID_ID.id]: {
-      translation: idID,
-    },
-    [LOCALES.JA_JP.id]: {
-      translation: jaJP,
-    },
-  },
-
+  resources: I18N_RESOURCES,
   interpolation: {
     escapeValue: false,
   },
-
   react: {
     useSuspense: true,
   },
