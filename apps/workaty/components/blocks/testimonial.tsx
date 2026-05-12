@@ -5,11 +5,6 @@ import {
   PageBlocksTestimonialTestimonials,
 } from "../../tina/__generated__/types";
 import { Section } from "../layout/section";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "./../../../../packages/components/ui/avatar";
 import { Card, CardContent } from "./../../../../packages/components/ui/card";
 import { tinaField } from "tinacms/dist/react";
 import { sectionBlockSchemaField } from "../layout/section";
@@ -48,26 +43,15 @@ const TestimonialCard = ({
   return (
     <Card className="mb-6 break-inside-avoid">
       <CardContent className="grid grid-cols-[auto_1fr] gap-3 pt-6">
-        <Avatar
-          className="size-9"
-          data-tina-field={tinaField(testimonial, "avatar")}
-        >
-          {testimonial.avatar && (
-            <AvatarImage
-              alt={testimonial.author!}
-              src={testimonial.avatar}
-              loading="lazy"
-              width="120"
-              height="120"
-            />
-          )}
-          <AvatarFallback>
-            {testimonial
-              .author!.split(" ")
-              .map((word) => word[0])
-              .join("")}
-          </AvatarFallback>
-        </Avatar>
+        {testimonial.avatar && (
+          <img
+            alt={testimonial.author!}
+            src={testimonial.avatar}
+            loading="lazy"
+            width="120"
+            height="120"
+          />
+        )}
 
         <div>
           <h3

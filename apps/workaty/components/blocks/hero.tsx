@@ -7,7 +7,6 @@ import {
   PageBlocksHero,
   PageBlocksHeroImage,
 } from "../../tina/__generated__/types";
-import { Button } from "../../../../packages/components/ui/button";
 import { iconSchema } from "@/tina/fields/icon";
 import { Icon } from "../icon";
 import { Section, sectionBlockSchemaField } from "../layout/section";
@@ -100,16 +99,12 @@ export const Hero = ({ data }: { data: PageBlocksHero }) => {
                 data-tina-field={tinaField(action)}
                 className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5"
               >
-                <Button
-                  size="lg"
-                  variant={action!.type === "link" ? "ghost" : "default"}
-                  className="rounded-xl px-5 text-base"
-                >
+                <button className="rounded-xl px-5 text-base">
                   <Link href={action!.link!}>
                     {action?.icon && <Icon data={action?.icon} />}
                     <span className="text-nowrap">{action!.label}</span>
                   </Link>
-                </Button>
+                </button>
               </div>
             ))}
         </AnimatedGroup>
