@@ -97,7 +97,7 @@ export default function PostClientPage(props: ClientPostProps) {
 
           <h1
             data-tina-field={tinaField(post, "title")}
-            className="w-full relative mt-7 text-5xl tracking-normal text-center"
+            className="w-full relative mt-7 text-3xl md:text-5xl tracking-normal text-center"
           >
             {post.title}
           </h1>

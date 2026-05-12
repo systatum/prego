@@ -246,6 +246,11 @@ export function PostsClientPage(props: ClientPostProps) {
                             height: fit-content;
                             cursor: pointer;
                             font-size: 16px;
+
+                            @media (max-width: 640px) {
+                              font-size: 12px;
+                              min-width: 80px;
+                            }
                           `,
                         }}
                         circleColor={
@@ -265,7 +270,7 @@ export function PostsClientPage(props: ClientPostProps) {
                       />
                       <div
                         className={cn(
-                          "text-lg w-full flex flex-row",
+                          "text-base md:text-lg w-full flex flex-row",
                           !isPostPage && "font-medium",
                         )}
                       >
@@ -274,7 +279,10 @@ export function PostsClientPage(props: ClientPostProps) {
                     </div>
 
                     <span
-                      className={cn("text-lg", !isPostPage && "font-medium")}
+                      className={cn(
+                        "text-base md:text-lg",
+                        !isPostPage && "font-medium",
+                      )}
                     >
                       {post.published}
                     </span>
