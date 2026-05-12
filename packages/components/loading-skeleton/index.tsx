@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 export function PostsSkeleton() {
   return (
-    <Section className="py-2">
+    <Section className="py-0">
       <LoadingSkeleton
         flashDirection="left-to-right"
         flashRate="normal"
@@ -14,7 +14,6 @@ export function PostsSkeleton() {
             display: flex;
             flex-direction: column;
             gap: 40px;
-            padding: 40px 0;
             max-width: 560px;
             margin: 0 auto;
 
