@@ -4,6 +4,7 @@ import { HeadFC } from "gatsby";
 import { Layout } from "./../../../../../packages/components/layout/layout";
 import { PostsClientPage } from "@/fragments/post/client-page";
 import { fetchPosts } from "@/services/posts";
+import { PostsSkeleton } from "./../../../../../packages/components/loading-skeleton";
 
 export default function Post() {
   const [tinaData, setTinaData] = React.useState<any>(null);
@@ -14,7 +15,7 @@ export default function Post() {
     });
   }, []);
 
-  if (!tinaData) return null;
+  if (!tinaData) return <PostsSkeleton />;
 
   return (
     <Layout rawPageData={tinaData.data}>

@@ -4,6 +4,10 @@ import { Layout } from "./../../../../../../packages/components/layout/layout";
 import PostClientPage from "@/fragments/post/detail/client-page";
 import { HeadFC } from "gatsby";
 import { createMetadata } from "@/seo/metadata";
+import {
+  PostSkeleton,
+  PostError,
+} from "./../../../../../../packages/components/loading-skeleton";
 
 export interface TinaData {
   data: any;
@@ -124,57 +128,6 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
         variables={tinaData.variables}
       />
     </Layout>
-  );
-}
-
-export function PostSkeleton() {
-  return (
-    <div className="pt-2 pb-14 px-8">
-      <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto animate-pulse">
-        <div className="flex gap-2 w-fit mx-auto">
-          {[80, 40, 60, 120].map((w, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className="h-3 bg-gray-200 rounded" style={{ width: w }} />
-              {i < 3 && <div className="h-3 w-3 bg-gray-100 rounded-full" />}
-            </div>
-          ))}
-        </div>
-        <div className="mt-7 flex flex-col gap-3 items-center">
-          <div className="h-10 bg-gray-200 rounded w-3/4" />
-          <div className="h-10 bg-gray-200 rounded w-1/2" />
-        </div>
-        <div className="flex items-center justify-between max-w-100 mx-auto w-full">
-          <div className="w-10 h-10 bg-gray-200 rounded-full" />
-          <div className="h-4 bg-gray-200 rounded w-24" />
-          <div className="h-4 bg-gray-100 rounded w-20" />
-          <div className="h-6 bg-gray-200 rounded-full w-16" />
-        </div>
-        <div className="w-32 h-32 bg-gray-200 rounded-lg mx-auto" />
-        <div className="flex flex-col gap-3 w-full">
-          {[100, 90, 95, 80, 100, 70, 85].map((w, i) => (
-            <div
-              key={i}
-              className="h-4 bg-gray-100 rounded"
-              style={{ width: `${w}%` }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PostError({ message }: { message: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-24 gap-4 text-center px-8">
-      <p className="text-gray-400 text-sm max-w-sm">{message}</p>
-      <button
-        onClick={() => window.location.reload()}
-        className="px-4 py-2 text-sm bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors"
-      >
-        Retry
-      </button>
-    </div>
   );
 }
 

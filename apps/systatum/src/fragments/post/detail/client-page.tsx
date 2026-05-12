@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { components } from "./../../../../../../packages/components/mdx-components";
 import ErrorBoundary from "./../../../../../../packages/components/error-boundary";
 import { Section } from "./../../../../../../packages/components/layout/section";
-import { PostSkeleton } from "./index";
+import { PostSkeleton } from "./../../../../../../packages/components/loading-skeleton";
 
 export interface ClientPostProps {
   data: PostQuery;
