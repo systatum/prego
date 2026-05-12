@@ -89,7 +89,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions }) => {
           categoryLabel,
           categoryColor: CATEGORY_COLORS[categoryName],
           crumbItems: [
-            { label: "Systatum", path: "/" },
+            { label: "Sequelore", path: "/" },
             { label: translatePost(locale, "postPage.post"), path: "/post" },
             { label: categoryLabel, path: `/post?category=${categoryName}` },
             { label: post?.title ?? "", path: "#" },
