@@ -270,7 +270,7 @@ export function PostsClientPage(props: ClientPostProps) {
                       />
                       <div
                         className={cn(
-                          "text-base md:text-lg w-full flex flex-row",
+                          "text-base sm:text-lg w-full flex flex-row",
                           !isPostPage && "font-medium",
                         )}
                       >
