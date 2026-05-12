@@ -65,7 +65,7 @@ export default function PostClientPage(props: ClientPostProps) {
 
   return (
     <ErrorBoundary>
-      <Section className="pt-2 pb-14">
+      <Section className="pt-2 pb-14 px-8">
         <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto">
           <div className="flex flex-row w-fit mx-auto">
             <Crumb
