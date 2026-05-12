@@ -6,7 +6,24 @@ const config: GatsbyConfig = {
     siteUrl: `https://systatum.com`,
   },
   graphqlTypegen: true,
-  plugins: ["gatsby-plugin-postcss", "gatsby-plugin-styled-components"],
+  plugins: [
+    "gatsby-plugin-postcss",
+    "gatsby-plugin-styled-components",
+    {
+      resolve: "gatsby-plugin-react-i18next",
+      options: {
+        localeJsonSourceName: "locale",
+        languages: ["en-US", "id-ID", "ja-JP"],
+        defaultLanguage: "en-US",
+        siteUrl: "https://systatum.com",
+        ns: ["common", "postPage"],
+        defaultNS: "common",
+        i18nextOptions: {
+          interpolation: { escapeValue: false },
+        },
+      },
+    },
+  ],
 };
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
