@@ -127,7 +127,7 @@ export default function DetailPost({ pageContext }: DetailPostProps) {
   );
 }
 
-function PostSkeleton() {
+export function PostSkeleton() {
   return (
     <div className="pt-2 pb-14 px-8">
       <div className="flex flex-col gap-10 md:max-w-4xl max-w-xl mx-auto animate-pulse">
