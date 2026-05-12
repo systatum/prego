@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { components } from "./../../../../../../packages/components/mdx-components";
 import ErrorBoundary from "./../../../../../../packages/components/error-boundary";
 import { Section } from "./../../../../../../packages/components/layout/section";
+import { PostSkeleton } from "./index";
 
 export interface ClientPostProps {
   data: PostQuery;
@@ -21,7 +22,7 @@ export interface ClientPostProps {
 }
 
 export default function PostClientPage(props: ClientPostProps) {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation();
   const tPost = (key: string) => t(`postPage.${key}`);
 
   const information = tPost("info");
@@ -30,6 +31,8 @@ export default function PostClientPage(props: ClientPostProps) {
 
   const { data } = useTina({ ...props });
   const post = data.post;
+
+  if (!ready) return <PostSkeleton />;
 
   const date = new Date(post.date!);
 
