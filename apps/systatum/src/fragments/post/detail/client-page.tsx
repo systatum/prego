@@ -7,11 +7,10 @@ import { Badge } from "@systatum/coneto/badge";
 import { css } from "styled-components";
 import { Crumb } from "@systatum/coneto/crumb";
 import { navigate } from "gatsby";
-import { useTranslation } from "react-i18next";
 import { components } from "./../../../../../../packages/components/mdx-components";
 import ErrorBoundary from "./../../../../../../packages/components/error-boundary";
 import { Section } from "./../../../../../../packages/components/layout/section";
-import { PostSkeleton } from "./../../../../../../packages/components/loading-skeleton";
+import { PostMeta } from "./index";
 
 export interface ClientPostProps {
   data: PostQuery;
@@ -19,18 +18,13 @@ export interface ClientPostProps {
     relativePath: string;
   };
   query: string;
+  postMeta: PostMeta;
 }
 
 export default function PostClientPage(props: ClientPostProps) {
-  const { t } = useTranslation();
-  const tPost = (key: string) => t(`postPage.${key}`);
-
-  const information = tPost("info");
-  const release = tPost("release");
-  const event = tPost("event");
-
   const { data } = useTina({ ...props });
   const post = data.post;
+  const meta = props.postMeta;
 
   const date = new Date(post.date!);
 
@@ -39,30 +33,6 @@ export default function PostClientPage(props: ClientPostProps) {
     : "";
 
   const categoryName = post.category?.name;
-
-  const categoryTranslated =
-    categoryName === "Info"
-      ? information
-      : categoryName === "Release"
-        ? release
-        : event;
-
-  const LINK_ITEMS = [
-    { label: "Systatum", path: "/" },
-    { label: tPost("post"), path: "/post" },
-    { label: categoryTranslated, path: `/post?category=${categoryName}` },
-    { label: post.title, path: "#" },
-  ];
-
-  const CATEGORY_ITEMS = {
-    Info: "#3B82F6",
-    Release: "#10B981",
-    Event: "#F97316",
-  };
-
-  const categoryColor = categoryName
-    ? CATEGORY_ITEMS[categoryName as keyof typeof CATEGORY_ITEMS]
-    : undefined;
 
   return (
     <ErrorBoundary>
@@ -85,7 +55,7 @@ export default function PostClientPage(props: ClientPostProps) {
               }}
               maxShown={4}
             >
-              {LINK_ITEMS.map((item, index) => (
+              {meta.crumbItems.map((item, index) => (
                 <Crumb.Item key={index} onClick={() => navigate(item.path)}>
                   {item.label}
                 </Crumb.Item>
@@ -134,9 +104,9 @@ export default function PostClientPage(props: ClientPostProps) {
                   cursor: pointer;
                 `,
               }}
-              caption={categoryTranslated}
               withCircle
-              circleColor={categoryColor}
+              caption={meta.categoryLabel}
+              circleColor={meta.categoryColor}
               onClick={() => navigate(`/post?category=${categoryName}`)}
             />
           </div>
