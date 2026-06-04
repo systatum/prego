@@ -47,8 +47,8 @@
       }
     },
     "collaborateAndEmailSection": {
-      "title": "Our work ethics and solutions can thrive in your organizations, too.",
-      "subtitle": "We are open to collaboration requests, such as to develop a software peculiar to your needs, or in other avenues we can pour our Systatum energy into.",
+      "title": "Work with us",
+      "subtitle": "We are open to collaboration opportunities, whether it involves developing software tailored to your specific needs or contributing across areas where our expertise can be of value — including React, Electron, Ruby, Crystal, Python, Go, mobile development, web design, and more. Through every collaboration, we strive to provide thoughtful solutions, dependable work ethics, and meaningful contributions to the organizations we work with.",
       "labelFormName": "Name",
       "validationErrorFormName": "Name must be at least 3 characters long",
       "labelFormEmail": "Email",

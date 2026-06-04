@@ -36,7 +36,7 @@ export function CollaborateAndEmail() {
           </div>
           <div
             aria-label="title-and-description"
-            className="relative flex flex-col gap-6 md:gap-10 md:max-w-125"
+            className="relative flex flex-col gap-4.25 md:max-w-125"
           >
             <h3 className="font-semibold text-3xl sm:text-4xl md:text-5xl">
               {tCollab("title")}

@@ -47,8 +47,8 @@
       }
     },
     "collaborateAndEmailSection": {
-      "title": "Etika kerja dan solusi kami juga bisa berkembang di organisasimu.",
-      "subtitle": "Kami terbuka untuk permintaan kolaborasi, seperti mengembangkan perangkat lunak sesuai kebutuhanmu, atau melalui cara lain di mana kami bisa menuangkan energi Systatum.",
+      "title": "Bekerja bersama kami",
+      "subtitle": "Kami senang terlibat dalam berbagai bentuk kolaborasi, mulai dari pengembangan software sesuai kebutuhan, hingga membantu mewujudkan ide dan produk digital di berbagai bidang. Keahlian kami mencakup React, Electron, Ruby, Crystal, Python, Go, mobile development, web design, dan banyak lagi. Dalam setiap kerja sama, kami mengutamakan komunikasi yang baik, proses kerja yang dapat diandalkan, dan hasil yang benar-benar membawa manfaat.",
       "labelFormName": "Nama",
       "validationErrorFormName": "Nama harus memiliki minimal 3 karakter",
       "labelFormEmail": "Email",
