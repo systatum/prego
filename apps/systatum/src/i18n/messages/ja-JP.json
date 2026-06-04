@@ -47,8 +47,8 @@
       }
     },
     "collaborateAndEmailSection": {
-      "title": "私たちの労働倫理とソリューションは、あなたの組織でも活かすことができます。",
-      "subtitle": "私たちはコラボレーションの依頼にオープンです。例えば、あなたのニーズに合わせたソフトウェアの開発や、Systatumのエネルギーを注ぎ込める他の領域でも。",
+      "title": "私たちと働きませんか",
+      "subtitle": "お客様のニーズに合わせたソフトウェア開発をはじめ、React、Electron、Ruby、Crystal、Python、Go、モバイル開発、Webデザインなど、幅広い分野で協力の機会を歓迎しています。あらゆるプロジェクトにおいて、誠実な姿勢と確かな技術力をもって、価値あるソリューションと貢献を提供できるよう努めています。",
       "labelFormName": "名前",
       "validationErrorFormName": "名前は3文字以上で入力してください",
       "labelFormEmail": "メールアドレス",
