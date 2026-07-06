@@ -1,0 +1,213 @@
+---
+title: 'Menjalankan Container Tanpa Docker: Cerita di Balik `keyai`, OCI Runtime Manager Buatan Kami'
+category: ''
+author: ''
+---
+
+Inilah cara kami membangun sistem untuk menjalankan "container Docker" tanpa Docker, dalam rangka agar end-user bisa menggunakan aplikasi kita tanpa perlu menginstall Docker. Dalam tulisan ini kami akan membahas tantangan yang kami hadapi, dan bagaimana kami menyelesaikannya satu per satu.
+
+Jadi begini: aplikasi kami menjalankan dua background service yang disediakan dari dalam container Docker. Masalahnya, pengguna kami adalah para peneliti, bukan sysadmin, sehingga kurang tepat rasanya kalau mereka harus menginstall Docker dulu sebelum bisa memakai aplikasi kami. Yang kami inginkan sederhana saja: pengguna menerima file tarball, menjalankan installer, selesai. Ternyata, pondasi yang paling pas untuk memungkinkan itu sudah ada: `runc`.
+
+## Container 101: Dasar-dasar ilmu per-container-an
+
+Sebelum membahas kenapa `runc` lah solusinya, mari kita fahami dulu bagaimana cara kerja container di Linux. Container bukanlah suatu virtual machine: tidak ada hypervisor, tidak ada perangkat keras emulasi, apalagi kernelnya sendiri. Container hanyalah proses-proses Linux biasa yang berjalan dengan berbagai "keterbatasan" yang terencana. Batasan itu berasal dari dua fitur kernel Linux itu sendiri: *namespace* dan *cgroup*.
+
+**Namespace** inilah yang mengatur apa saja yang bisa "dilihat" oleh sebuah proses. Linux sendiri punya beberapa jenis namespace. Namespace PID memberi sebuah proses *process tree*-nya sendiri, sehingga PID 1 di dalam container tidak ada hubungannya dengan PID 1 di host. Namespace mount memberinya pandangan filesystem tersendiri, sehingga perubahan pada path yang di-mount di dalam container tidak perlu memengaruhi host. Namespace UTS (singkatan dari UNIX Time-sharing System) memberinya hostname sendiri, sedangkan namespace IPC (inter-process communication) mengisolasi *shared memory* dan *message queue*. Terakhir, namespace network memberi suatu proses stack jaringannya sendiri. Jadi, saat kita bilang "menjalankan container", yang sebenarnya terjadi adalah: kita menjalankan satu proses di dalam sekumpulan namespace baru, yang diarahkan ke suatu root filesystem "alternative" yakni `rootfs`.
+
+**cgroup** (control group) mengatur apa yang boleh dipakai oleh sebuah proses: CPU time, memori, sampai I/O disk, semuanya bisa dibatasi lewat sini.
+
+**rootfs** sendiri adalah direktori flat datar yang berisi "userland" Linux, yang dihasilkan dari ekstraksi image Docker bersangkutan. Tidak ada yang istimewa atau "container-specific" dari direktori itu: isinya hanyalah file-file aja. Masuk akal, karena image Docker memang tumpukan layer filesystem yang read-only; begitu kita ekstrak, hasilnya ya direktori datar polosan.
+
+**Spesifikasi OCI** inilah standar yang menyatukan semuanya. Open Container Initiative menstandarkan format suatu container: sebuah direktori berisi subdirektori `rootfs/` dan file `config.json`. File `config.json` lah yang menjelaskan seluruh kondisi container yang diinginkan, seperti: namespace apa yang harus dibuat, direktori mana yang harus di-bind-mount ke dalam container, *capability* Linux apa saja yang diberikan, environment variable apa yang perlu diset, sampai proses mana yang harus dieksekusi saat boot up. Meski hanya file JSON, ianya kontrak lengkap antara image container dan runtime yang menjalankannya. Dan `config.json` inilah yang persis dibuat aplikasi kami secara on-the-fly, sehingga `runc` bisa menjalankan container tersebut tanpa Docker.
+
+**runc** sendiri adalah aplikasi statis sederhana berukuran sekitar 10 MB, yang bisa kita pakai untuk menjalankan proses container. Sesederhana itu. Di baliknya, ia memanggil `clone(2)` dengan flag namespace yang sesuai, menyiapkan hierarki cgroup, memasang mount, lalu memanggil `execve(2)` pada entrypoint container.
+
+**Docker** sendiri adalah sistem yang jauh lebih besar, dibangun di atas `runc` dan `containerd`. Ia menambahkan fitur *image pulling* dari registry, manajemen layer image, network bridge, manajemen volume, CLI klien, dan berbagai kemudahan lain yang kita semua sukai.
+
+## Pokok Solusi
+
+Sederhana saja: kalau kita punya `rootfs` yang setara dengan image Docker-nya, dan kita bisa membuat `config.json` yang tepat, kita bisa langsung memanggil `runc` untuk menjalankan container tersebut, sehingga Docker tidaklah diperlukan. Toh, setiap container yang dijalankan Docker pada akhirnya tetap melewati `runc` juga. Yang `runc` butuhkan hanyalah dua hal: `rootfs` dan `config.json`. `rootfs`-nya bisa kita dapatkan dengan mudah lewat `docker export`, sedangkan `config.json`-nya bisa dibuat on-the-fly, asalkan kita punya yang kita sebut `image-config.json`: hasil snapshot `docker inspect` yang berisi informasi seputar *entrypoint*, *environment variable*, dan *working directory* dari image tersebut.
+
+Dari situ, kami membangun daemon kecil bernama `keyai` ("Key AI", karena ia menjadi "kunci" bagi layanan-layanan container AI yang dinaunginya). Daemon ini ditulis dalam bahasa Crystal, dan dikompilasi menjadi satu binary statis berukuran \~2 MB tanpa *dependency runtime* sama sekali. Berkat sifatnya yang statis ini, udah deh, tidak perlu lagi memikirkan kemungkinan gagal eksekusi di target machine karena adanya library yang tidak ditemukan atau alasan-alasan yang tidak terpikirkan lainnya yang bukan menjadi bug dari aplikasi itu sendiri.
+
+Ok, jadi inti dari `keyai` itu sendiri sederhana: ia berkomunikasi dengan client melalui *UNIX socket*, untuk lalu menerima request seperti `start`, `stop`, `status`, dan `logs`, yang ditangkap melalui looping sederhana berikut:
+
+```ruby
+server = UNIXServer.new(SOCKET_PATH)
+while client = server.accept?
+  spawn handle_request(client)  # parse the JSON request, dispatch by action
+end
+```
+
+Setiap koneksi ditangani oleh masing-masing *fiber*, sehingga request `logs` yang lambat dari satu klien tidak akan pernah menahan request `start` dari client lain, ya meski cuma ada satu client juga.
+
+## Implementasi
+
+Saat instalasi, direktori aplikasinya akan memiliki struktur seperti ini:
+
+```
+/opt/app/
+  bin/
+    keyai              ← daemon Crystal kami
+  containers/
+    compilation/
+      rootfs/          ← filesystem image Docker hasil ekstraksi
+      image-config.json
+    inference/
+      rootfs/
+      image-config.json
+```
+
+`keyai` dijalankan lewat `systemd` sebagai suatu *service* milik root, supaya `runc` bisa mengatur namespace dan me-mount filesystem dengan bebas. Socket UNIX-nya ditempatkan di `/run/keyai/oci.sock`, dan file socket tersebut di-`chmod` menjadi `0o666`, sehingga GUI aplikasi desktoppun bisa menggunakannya seperti pengguna biasa, tanpa membutuhkan *privilege* tambahan. Sebenarnya, awalnya kami menempatkan socket ini di bawah `XDG_RUNTIME_DIR`, dengan asumsi bahwa itu kan folder milik pengguna sendiri, supaya tidak perlu sudo. Tetapi, ternyata itu keputusan yang keliru: kekeliruan itu bahkan sampai menimbulkan satu insiden yang akan kami ceritakan lebih detail di bawah.
+
+Saat GUI hendak menjalankan sebuah container, ia mengirim pesan JSON lewat socket tersebut:
+
+```json
+{
+  "action": "start",
+  "container": "which-service-to-start",
+  "config": {
+    "uid": 1000,
+    "gid": 1000,
+    "port": 8000,
+    "volumes": {
+      "datasets": "/home/user/my-data/datasets",
+      "models": "/home/user/my-data/models",
+      "compilations": "/home/user/my-data/compilations"
+    },
+    "devices": ["/dev/my_accelerator0", "/dev/my_accelerator1"]
+  }
+}
+```
+
+Daemon-nya kemudian menggabungkan `image-config.json` dengan sejenis request diatas, kemudian menulis `config.json` ke direktori container, lalu menjalankan `runc run --detach`. Log dari dalam container kemudian diarahkan agar ditulis ke `/var/log/keyai/<name>.log`, dan GUI memantau status lewat socket yang sama.
+
+## Tantangannya
+
+Di atas kertas, membangun semua ini terlihat mudah. Kenyataannya, ada beberapa bagian rumit dari model container Linux yang cukup menyulitkan kami.
+
+### PTY Crash
+
+Setiap kali kami menjalankan `keyai`, kami selalu berakhir tidak bisa mambuka tab terminal baru. Mesti error. Penyebabnya ternyata `ptmxmode` di opsi mount devpts. Begitu `runc` melihat `ptmxmode`, ia mencoba menyiapkan `/dev/ptmx`, padahal itu adalah device node bawaan kernel yang tidak bisa sembarangan di-unlink. Jadinya, `runc` pun crash dengan `EBUSY`. Solusinya sederhana: cukup menghapus `ptmxmode`-nya saja. Kita hanya perlu mount device PTS (*Pseudo-Terminal Slave*) dengan `newinstance`, yang otomatis memberi container-nya namespace PTS sendiri, lalu biarkan kernel yang mengurus `/dev/ptmx`, tanpa perlu `runc` ikut campur.
+
+```json
+{
+  "destination": "/dev/pts",
+  "type": "devpts",
+  "source": "devpts",
+  "options": ["nosuid", "noexec", "newinstance", "mode=0620", "gid=5"]
+}
+```
+
+### Device Passthrough: Bagian Paling Menantang
+
+Sebelum masuk ke masalahnya, mari kita pahami dulu bagaimana Linux merepresentasikan perangkat keras. Setiap file device di `/dev` kalau tidak tipe: `c` (character device), ya `b` (block device). Character device mengalirkan data per *byte*, contohnya terminal, serial port, pun hardware PCIe custom kami. Block device melayani baca-tulis acak berukuran tertentu, misal hard drive. Setiap device juga membawa major number yang mengidentifikasi driver kernel mana yang memilikinya, dan minor number yang mengidentifikasi *instance* spesifiknya. Ini bisa kita lihat lewat `ls -l /dev`:
+
+```
+crw-rw----  1 root  dialout  188, 0  /dev/ttyUSB0
+brw-rw----  1 root  disk       8, 0  /dev/sda
+```
+
+Angka `188, 0` dan `8, 0` itulah major dan minor number-nya. Saat sebuah proses membuka file device dan memanggil `ioctl`, kernel memakai angka-angka itu untuk merutekan panggilan ke driver mana yang paling tepat. Path filesystem sendiri sebenarnya sudah tidak relevan, yang penting hanya angkanya.
+
+Aplikasi kami sendiri memakai hardware akselerator sejenis PCIe yang muncul sebagai `/dev/my_accelerator0` misalnya. Pendekatan pertama kami saat itu adalah bind mount biasa:
+
+```json
+{
+  "destination": "/dev/my_accelerator0",
+  "type": "bind",
+  "source": "/dev/my_accelerator0",
+  "options": ["bind"]
+}
+```
+
+Container-nya berhasil berjalan, dan file device-nya pun muncul di path yang benar. Namun setiap panggilan `ioctl` ke device tersebut mengembalikan `EFAULT`, alias "Bad address." Ternyata device-nya hanya ter-overlay sebagai entri filesystem biasa, bukan sebagai character device node yang semestinya. Sehingga, driver kernel-nya sendiri menolak menggunakannya.
+
+`--device` milik Docker ternyata tidak sekedar melakukan bind-mount pada file device. Ia memanggil `mknod` untuk membuat device node baru di dalam container, dengan tipe, major, dan minor number yang sama persis seperti yang di sistem host. Dengan begitu, kernel tetap bisa langsung merutekan `ioctl` lewat angka-angka tersebut ke driver yang tepat.
+
+Kami pun perlu melakukan hal yang sama. Untungnya, spesifikasi OCI punya field `linux.devices` yang memang dibuat untuk keperluan ini: setiap entri menentukan path, tipe, dan major-minor number-nya, dan `runc` lah yang nantinya memanggil `mknod` dengan nilai-nilai tersebut di dalam container.
+
+Untuk membaca major dan minor number-nya, kami memanggil `stat(2)` pada path device host, lalu men-decode `st_rdev`-nya. Linux memakai encoding yang cukup unik: bit ke-8 sampai ke-19 membawa major number, sedangkan bit ke-0 sampai ke-7 ditambah bit ke-20 ke atas membawa minor number. Rentang minor yang diperluas ini didesain agar Linux dapat mendukung device lebih dari 256 jenis saja:
+
+```ruby
+def read_device_info(path : String) : {String, Int32, Int32}?
+  stat_buf = uninitialized LibC::Stat
+  return nil if LibC.stat(path, pointerof(stat_buf)) != 0
+  rdev = stat_buf.st_rdev.to_u64
+  dev_type = case stat_buf.st_mode.to_u32 & 0o170000_u32
+             when 0o020000_u32 then "c"  # S_IFCHR
+             when 0o060000_u32 then "b"  # S_IFBLK
+             else return nil
+             end
+  major = ((rdev >> 8) & 0xfff_u64).to_i32
+  minor = ((rdev & 0xff_u64) | ((rdev >> 12) & ~0xff_u64)).to_i32
+  {dev_type, major, minor}
+end
+```
+
+Fungsi ini dipanggil daemon-nya setiap kali container start, sehingga entri device di `config.json` selalu sesuai dengan kondisi sebenarnya di host.
+
+Namun ternyata, meskipun pembuatan device node-nya sudah benar, container-nya tetap saja tidak bisa mengakses perangkat keras tersebut. Tidak ada error, hanya gagal secara diam-diam. File device-nya ada, container-nya berjalan, tetapi driver-nya tidak merespons sama sekali.
+
+Penyebabnya kali ini adalah cgroup device controller yang sudah dibahas sebelumnya. Di cgroup v2, `runc` memasang program filter device berbasis eBPF berdasarkan field `linux.resources.devices` di `config.json`. Jika field itu tidak ada, `runc` tidak memasang filter apa pun, dan container-nya akan mewarisi kebijakan cgroup host begitu saja. Pada sistem yang dikelola `systemd`, cgroup induknya secara default menolak akses ke device apa pun yang bukan device standar yang dikenal. Device PCIe custom kami tentu saja tidak ada di allowlist itu. Sehingga, cgroup induknya "diam-diam" memblokir setiap panggilan ke device tersebut. Solusinya: tambahkan entri allow-all eksplisit di `linux.resources.devices`, khusus untuk container yang membutuhkan akses perangkat keras:
+
+```json
+"resources": {
+  "devices": [
+    { "allow": true, "access": "rwm" }
+  ]
+}
+```
+
+Dengan ini, `runc` akan memasang program eBPF yang mengizinkan semua akses device, menimpa kebijakan sang induk. Digabung dengan entri `linux.devices` yang membuat node dengan major-minor number yang benar, perangkat keras pun akhirnya bisa diakses sepenuhnya.
+
+Jadi, meskipun terlihat mirip, `linux.devices` dan `linux.resources.devices` pada dasarnya menangani dua hal yang berbeda, dan keduanya harus benar agar "passthrough-device" bisa berfungsi. Yakni, setelah membuat device node di dalam container lewat `mknod`, kita kemudian mengatur kebijakan device di cgroup untuk mengizinkan akses ke situ. Jika tanpa `linux.devices`, node-nya tidak ada sama sekali; jika tanpa `linux.resources.devices`, node-nya ada, tetapi setiap akses ke situ ditolak diam-diam.
+
+### Akses Internet
+
+Resolusi DNS di dalam container juga ternyata bermasalah, sehingga, kami tidak bisa mengakses internet dari dalam. Ternyata, Docker image sudah punya `/etc/resolv.conf`-nya sendiri, tapi file ini menunjuk ke DNS stub resolver internal milik Docker, sebuah alamat IP yang hanya ada selama Docker daemon-nya berjalan. Sehingga, alamat itu tidak bisa dijangkau ketika menggunakan `runc` dengan networking indukan. Solusinya: bind mount read-only dari resolver host yang menimpa salinan milik container.
+
+```json
+{
+  "destination": "/etc/resolv.conf",
+  "type": "bind",
+  "source": "/etc/resolv.conf",
+  "options": ["rbind", "ro"]
+}
+```
+
+Kami melakukan hal yang sama untuk `/etc/hosts`.
+
+### Remapping UID dan noNewPrivileges
+
+Container kami dijalankan sebagai root terlebih dahulu, baru kemudian entrypoint script-nya memanggil `gosu` supaya prosesnya beralih ke UID dan GID si user aktif, sebelum akhirnya meng-exec service tersebut. Ini pola yang umum dipakai, supaya kepemilikan file host tetap dihormati di dalam container. Caranya, kami tinggal mengeset `noNewPrivileges` ke `false`.
+
+### Socket yang Menghilang Setelah Reboot
+
+Semua berjalan mulus hanya saja saat mesin di-reboot, setelahnya, GUI tidak bisa lagi terhubung ke `keyai`. Padahal `systemctl status keyai` menunjukkan statusnya *enabled* dan *running*; log daemon-nya sendiri pun menunjukkan ia sudah berhasil bind socket dan sedang "listening." Namun dari sisi GUI, semuanya terlihat seolah `keyai` membisu.
+
+Penyebabnya ternyata ada pada penempatan `XDG_RUNTIME_DIR` yang tadi kami singgung. `keyai.service` hanya diurutkan setelah `local-fs.target`, yang dicapai sangat awal saat boot. Sementara `XDG_RUNTIME_DIR` (`/run/user/<uid>`) bukanlah konsep yang ada sejak boot: ia adalah `tmpfs` per sesi login, yang dibuat (dan bisa di-remount) oleh `systemd-logind` saat sesi user dimulai. Jadi, kalau `keyai` sudah menyala dan membuat `/run/user/<uid>/keyai` duluan sebelum `logind` sempat menyiapkan direktori runtime-nya, begitu mount dari `logind` terpasang, socket yang sudah terbuat langsung tertutup. Padahal, Daemon-nya sendiri tetap hidup dan mendengar file UNIX socket. Namun, siapa pun yang memeriksa `/run/user/<uid>/keyai` sesudahnya hanya akan menemukan direktori kosong. Pengecekan kesiapan `keyai` dar GUI hanyalah sesederhana `fs.existsSync(SOCKET_PATH)`, sehingga app GUI berasumsi `keyai` "tidak berjalan."
+
+Solusinya: berhenti menempatkan file socket pada direktori yang siklus hidupnya dimiliki oleh sesi login. Kami memindahkannya ke path tetap di bawah filesystem `/run`, suatu path special di UNIX, lebih tepatnya di `/run/keyai/oci.sock`, yang akan tetap ada selama mesin menyala, tidak peduli kapan pengguna login. `keyai` kemudian meng-`chmod` socket-nya menjadi `0o666`, sehingga user pun bisa terhubung tanpa perlu bergantung pada `XDG_RUNTIME_DIR` sama sekali, meski bukan root user. Hasilnya, tidak ada lagi race condition. Memang, daemon level sistem sebaiknya tidak tergantung pada mekanisme yang terlalu terikat dengan sesi pengguna aktif.
+
+### Proses Root tapi "Permission Denied"
+
+Tidak lama, kami menerima laporan seorang pengguna mendapati pesan error berikut:
+
+```
+Error opening file with mode 'w': '/var/log/our-app/inference.log': Permission denied
+```
+
+Cukup membingungkan pada awalnya, toh `keyai` selalu berjalan sebagai root di bawah `systemd`, dan root seharusnya bisa melewati begitu saja pengecekan izin file lewat `CAP_DAC_OVERRIDE`. Kami memeriksa semua kemungkinan: kepemilikan dan mode file (`root:root`, normal `644`/`755`), `lsattr` untuk memeriksa flag immutable (tidak masalah), apakah ada penolakan AppArmor (tidak ada!), mount NFS dengan root-squash (tidak juga!!). Tidak satu pun yang mengarah ke masalah perizinan akses.
+
+Penyebab sebenarnya ternyata ada di hulu daripada di hilir. Ingat socket yang bisa menghilang sesekali setelah reboot, yakni sebab dari masalah bug `XDG_RUNTIME_DIR` di atas? Pengguna tersebut kemungkinan menyiasati masalahnya dengan menjalankan `keyai` secara manual, bukan lewat systemd. Proses non-root itu tentu bebas membuat file UNIX socket-nya sendiri di bawah direktori sesinya, sehingga GUI menganggapnya tersedia, padahal `/var/log/keyai/*.log` sudah ada sejak sesi sebelumnya yang berjalan sebagai root, dan memang dimiliki `root:root` dengan mode `644`. Alhasil, proses non-root tentu saja tidak bisa membuka file bermode `644` milik root user. Jadi "permission denied" ini sebenarnya bukan bug pada izin direktori log, melainkan gejala dari daemon yang berjalan sebagai pengguna yang salah.
+
+Kami membetulkan penyebab utamanya dengan memperbaiki race condition diatas, namun kami juga mengubah alur logika logger-nya sendiri. Yakni, jika `keyai` gagal membuka file log karena alasan apa pun, kini ia akan fallback ke file dengan nama yang sama di bawah `/tmp/keyai-logs/`, dan akan terus memakai path fallback tersebut sepanjang umur proses tersebut, tidak lagi diam-diam mencoba ulang path aslinya setiap kali menulis.
+
+## Penutup
+
+OCI spec adalah dasar terdasar dari sistem perkontaineran ala Docker, yang juga suatu spesifikasi yang diadopsi oleh tools lain yang sejenis seperti `Podman`, `containerd`, pun `nerdctl`, yang pada dasarnya semuanya menghasilkan JSON untuk diinstruksikan kepada `runc` (atau `crun`?) di balik layar. Begitu kita memahami `config.json`, kita sebenarnya sudah menjadi salah satu dari mereka juga.
+
+Terus terang, secara pribadi saya justru lebih menyukai "keyai" dibandingkan Docker di production: aplikasi kami menjadi jauh lebih cepat. Waktu boot-nya kini hanya 1 detik, dibandingkan sebelumnya 8 detik. Barangkali ini karena surface area-nya yang lebih kecil, tidak ada daemon lain selain `runc` dan `keyai`, tidak ada registry yang perlu dijangkau, dan tidak ada image layer yang perlu di-garbage-collect. Container = direktori biasa.
+
+Bagi siapa pun yang sedang membangun aplikasi yang membutuhkan layanan container, namun tidak bisa mengharuskan Docker harus ada di sistem sang user, arsitektur seperti ini layak dipertimbangkan. Bagian tersulitnya hanyalah memahami "segelintir" field `config.json`. Teknologi alternatif menarik lainnya pun ada, semisal AWS Firecracker yang menjadi penopang inti AWS Fargate, yang memungkinkan kita menjalankan suatu microVM sesuai spesifikasi `config.json` ala OCI, hanya saja solusi sejensi ini rasanya terlalu extrim.
