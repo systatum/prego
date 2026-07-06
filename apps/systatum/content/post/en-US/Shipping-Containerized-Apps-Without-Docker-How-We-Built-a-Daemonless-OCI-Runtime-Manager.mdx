@@ -1,0 +1,222 @@
+---
+title: 'Shipping Containerized Apps Without Docker: How We Built a Daemonless OCI Runtime Manager'
+category: content/category/info.md
+excerpt: |
+  Our approach to shipping containerized applications using runc instead of Docker, providing a lightweight, daemonless runtime with a simple installation experience.
+author: content/authors/adam-hakarsa.md
+date: 2026-07-04T15:00:00.000Z
+---
+
+This is the story of how we built a small, self-contained runtime manager to deliver containerized services to end-user machines without requiring Docker. We'll explain the challenges we faced, and how we solved them.
+
+First of all, the application ships two long-running background services packaged as Docker images. Our users are researchers, and it's not ideal to ask them to install Docker before they can run the app. We wanted the experience to be: receive a tarball, run the installer, done. The right foundation turned out to be something simpler: `runc`.
+
+## Container 101: What Is Actually Happening
+
+To understand why `runc` is the right answer, it helps to understand how containers actually work in Linux. Containers are not virtual machines. There is no hypervisor, no emulated hardware, and no separate kernel. A container is just a regular Linux process, or a tree of processes, running with a restricted view of the system. That restriction comes from two kernel features: namespaces and cgroups.
+
+**Namespaces** control what a process can see. Linux has several kinds. A PID namespace gives a process its own isolated process tree, so the container's PID 1 is unrelated to the host's PID 1. A mount namespace gives it a separate filesystem view, so changes to mounted paths inside the container do not affect the host. A UTS (UNIX Time-sharing System) namespace gives it its own hostname. An IPC (inter-process communication) namespace isolates shared memory and message queues. A network namespace gives it its own network stack. When we "start a container", what we really do is launch a process inside a fresh set of those namespaces pointed at an alternative filesystem root: the `rootfs`.
+
+**cgroups** (control groups) control what a process can use. They set limits on CPU time, memory, and disk I/O.
+
+**rootfs** is a flat directory tree containing a complete Linux userland extracted out of a Docker image. Nothing about that directory is container-specific. It is just files. Indeed, a Docker image is a stack of read-only filesystem layers; when we extract it, we get this plain, flat directory.
+
+**The OCI spec** is the standard that ties this together. The Open Container Initiative defines the format of a container bundle: a directory containing a `rootfs/` subdirectory and a `config.json` file. The `config.json` describes the full desired container state: which namespaces to create, which directories to bind-mount into the container, which Linux capabilities to grant, what environment variables to set, and which process to exec at startup. It is just a JSON file, but it is the complete contract between a container image and the runtime that runs it. This `config.json` is exactly what our app creates on-the-fly to let `runc` run the container.
+
+**runc** is a simple static app around 10 MB we can use to start a container process, as simple as that. Under the hood it calls `clone(2)` with the right namespace flags, sets up the cgroup hierarchy, establishes the mounts, and finally calls `execve(2)` on the container's entrypoint.
+
+**Docker** is a much larger system built on top of `runc` and `containerd`. It adds image pulling from registries, image layer management, network bridges, volume management, a client CLI, and all other good things in life we all love.
+
+## Our Approach
+
+The idea is: if we can have a `rootfs` equivalent of the Docker image on disk, and we can generate the right `config.json`, we can essentially call `runc` directly and thus Docker is simply not needed. Every container that Docker has ever started went through runc, anyway. Notice that `runc` needs the `rootfs` and the `config.json`. We can get the `rootfs` by using `docker export`, and the `config.json` can be generated on the fly as long as we have what we call `image-config.json`. The `image-config.json` is simply captured from `docker inspect`, which records the image's entrypoint, environment variables, and working directory.
+
+We then built a small daemon called `keyai` ("Key AI" because it is the "key" to those AI container services). The service is written in Crystal and compiled into a single \~2 MB static binary with zero runtime dependencies. Being a static binary removes an entire class of deployment problems.
+
+Then, at heart, `keyai` listens on a UNIX socket, and it receives `start`, `stop`, `status`, and `logs` requests from connecting clients (our only desktop app). The core of the daemon is a simple accept loop:
+
+```ruby
+server = UNIXServer.new(SOCKET_PATH)
+while client = server.accept?
+  spawn handle_request(client)  # parse the JSON request, dispatch by action
+end
+```
+
+Each connection is handled in its own fiber, so a slow `logs` request from one client never blocks a `start` from another.
+
+## Implementation
+
+The app directory has a layout like this:
+
+```
+/opt/app/
+  bin/
+    keyai              ← our Crystal daemon
+  containers/
+    compilation/
+      rootfs/          ← extracted Docker image filesystem
+      image-config.json
+    inference/
+      rootfs/
+      image-config.json
+```
+
+`keyai` runs as a systemd system service, as root, so `runc` can manage namespaces and mount filesystems. It places its UNIX socket at a fixed path `/run/keyai/oci.sock` and `chmod`s the socket file `0o666` so that the desktop app GUI can connect to it as a regular, unprivileged user with no elevated permissions of its own. (We initially placed the socket under `XDG_RUNTIME_DIR` instead, on the theory that a user-owned directory was needed to avoid requiring sudo. That turned out to be wrong in a way that cost us an incident that we will talk about soon in detail.)
+
+When the GUI starts a container, it sends a JSON message over that socket:
+
+```json
+{
+  "action": "start",
+  "container": "which-service-to-start",
+  "config": {
+    "uid": 1000,
+    "gid": 1000,
+    "port": 8000,
+    "volumes": {
+      "datasets": "/home/user/my-data/datasets",
+      "models": "/home/user/my-data/models",
+      "compilations": "/home/user/my-data/compilations"
+    },
+    "devices": ["/dev/my_accelerator0", "/dev/my_accelerator1"]
+  }
+}
+```
+
+The daemon merges the image config with the runtime request, writes a full `config.json` to a bundle directory, and runs `runc run --detach`. Container logs then go to `/var/log/keyai/<name>.log`, and the GUI polls status via the same socket.
+
+## The Challenges
+
+Building this looked straightforward on paper. In practice, several subtle parts of the Linux container model bit us hard.
+
+### PTY Crash
+
+This was baffling. Every time we ran the service, we ended up being unable to create a new terminal session. The culprit was `ptmxmode` in the devpts mount options. When runc sees `ptmxmode`, it tries to set up `/dev/ptmx` yet it is a kernel-backed device node. We can't just unlink it, and so runc crashes with `EBUSY`. Turns out, removing `ptmxmode` saved the day. We just need to mount a Pseudo-Terminal Slave device with `newinstance`, effectively giving the container its own PTS namespace, and let the kernel manage `/dev/ptmx` without asking runc to touch it.
+
+```json
+{
+  "destination": "/dev/pts",
+  "type": "devpts",
+  "source": "devpts",
+  "options": ["nosuid", "noexec", "newinstance", "mode=0620", "gid=5"]
+}
+```
+
+### Passing Devices
+
+This was the hardest part, and where the gap between wrapping Docker and actually understanding containers became most visible.
+
+Before going into the problems, it helps to understand how Linux represents hardware devices. Every device file in `/dev` has a type, either `c` for character devices or `b` for block devices. Character devices stream data byte by byte, which covers things such as terminals, serial ports, and custom PCIe accelerators. Block devices serve random-access fixed-size reads and writes, covering things such as hard drives and USB storage. Each device also carries a major number that identifies which kernel driver owns it, and a minor number that identifies the specific instance. You can see them with `ls -l /dev`:
+
+```
+crw-rw----  1 root  dialout  188, 0  /dev/ttyUSB0
+brw-rw----  1 root  disk       8, 0  /dev/sda
+```
+
+The `188, 0` and `8, 0` are the major and minor numbers. When a process opens a device file and issues an `ioctl`, the kernel uses those numbers to route the call to the correct driver. The filesystem path is irrelevant at that point; only the numbers matter.
+
+Now, our app uses a custom PCIe accelerator that appears as `/dev/my_accelerator0` on the host. Our first approach was a bind mount:
+
+```json
+{
+  "destination": "/dev/my_accelerator0",
+  "type": "bind",
+  "source": "/dev/my_accelerator0",
+  "options": ["bind"]
+}
+```
+
+The container started and the device file appeared at the right path. But any `ioctl` call to the device returned `EFAULT`, which is "Bad address." The device was overlaid as a regular filesystem entry, not as a proper character device node. The kernel driver, which expects to receive ioctls on a real character device, saw a filesystem object and rejected it.
+
+Docker's `--device` does not bind-mount device files. It calls `mknod` to create a new device node inside the container with the same type, major, and minor numbers as the host device. The kernel then routes `ioctls` through those numbers directly to the driver, regardless of the path.
+
+We needed to do the same. The OCI spec has a `linux.devices` field for exactly this purpose. Each entry specifies a path, a type, and the major and minor numbers. `runc` calls `mknod` with those values inside the container.
+
+To read the major and minor numbers, we call `stat(2)` on the host device path and decode `st_rdev`. Linux uses a split encoding where bits 8 through 19 carry the major number and bits 0 through 7 plus bits 20 and above carry the minor number. The extended minor range exists because Linux supports far more than 256 device instances:
+
+```ruby
+def read_device_info(path : String) : {String, Int32, Int32}?
+  stat_buf = uninitialized LibC::Stat
+  return nil if LibC.stat(path, pointerof(stat_buf)) != 0
+  rdev = stat_buf.st_rdev.to_u64
+  dev_type = case stat_buf.st_mode.to_u32 & 0o170000_u32
+             when 0o020000_u32 then "c"  # S_IFCHR
+             when 0o060000_u32 then "b"  # S_IFBLK
+             else return nil
+             end
+  major = ((rdev >> 8) & 0xfff_u64).to_i32
+  minor = ((rdev & 0xff_u64) | ((rdev >> 12) & ~0xff_u64)).to_i32
+  {dev_type, major, minor}
+end
+```
+
+The daemon calls this at container start time so the device entries in `config.json` always reflect what is present on the host.
+
+However, even after fixing the device node creation, the container still could not access the hardware. No errors, just silent failure. The device file existed, the container was running, but the driver was not responding.
+
+The culprit was the cgroup device controller described earlier. On cgroup v2, `runc` installs an eBPF device filter program based on the `linux.resources.devices` field in `config.json`. If that field is absent, runc installs no filter at all and the container inherits the parent cgroup's policy. On a systemd-managed system the parent cgroup is typically a user slice, and those slices carry a default-deny policy for anything that is not a well-known standard device.
+
+Our custom PCIe device was not on that allowlist. The parent cgroup's policy silently blocked every open call to it, and nothing in the container logs said why. The fix is to add an explicit allow-all entry in `linux.resources.devices` for containers that need hardware access:
+
+```json
+"resources": {
+  "devices": [
+    { "allow": true, "access": "rwm" }
+  ]
+}
+```
+
+This causes `runc` to install an eBPF program that permits all device access, overriding the inherited parent policy. Combined with the `linux.devices` entries that create the nodes with the correct major and minor numbers, the hardware became fully accessible.
+
+That is, although they look similar, `linux.devices` and `linux.resources.devices` address two separate concerns, and both must be correct for hardware passthrough to work. The former creates the device node inside the container via `mknod`. The latter sets the cgroup device policy to permit access to it. Missing either one produces a different failure mode: without `linux.devices` the node does not exist, and without `linux.resources.devices` the node exists but every access is silently denied.
+
+### Internet access
+
+DNS resolution inside the container was broken! Read: we can't access the Internet. Uh-oh!
+
+It turns out, Docker images bake in a `/etc/resolv.conf` that points to Docker's internal DNS stub resolver, an IP address that only exists when the Docker daemon is running. Obviously, under `runc` with host networking, that address is unreachable. The fix is a read-only bind mount of the host resolver over the container's copy:
+
+```json
+{
+  "destination": "/etc/resolv.conf",
+  "type": "bind",
+  "source": "/etc/resolv.conf",
+  "options": ["rbind", "ro"]
+}
+```
+
+And we do the same for `/etc/hosts`.
+
+### UID remapping and noNewPrivileges
+
+Our containers start as root, then the entrypoint script calls `gosu` to drop to the configured user UID and GID before exec'ing the service. This is a common good pattern for respecting host file ownership inside a container. To do this, we set `noNewPrivileges` to `false`.
+
+### Vanished socket upon reboot
+
+Everything above shipped and worked — right up until a machine got rebooted. After that, the GUI could no longer reach `keyai` at all. `systemctl status keyai` showed it enabled and running; the daemon's own log showed it had bound its socket and was listening. Yet from the GUI's side, it simply looked like `keyai` had never started.
+
+The cause was the `XDG_RUNTIME_DIR` placement described above. `keyai.service` only orders after `local-fs.target`, which is reached very early in boot. `XDG_RUNTIME_DIR` (`/run/user/<uid>`) is not a boot-time concept at all — it's a per-login-session tmpfs that `systemd-logind` creates (and can remount) when a user session starts. If `keyai` starts and creates `/run/user/<uid>/keyai` before `logind` sets up the "real" runtime directory for that UID, the socket we already created gets shadowed the moment logind's mount lands on top of it. The daemon is still alive and still bound to its (now-hidden) socket file; anything that looks at the current `/run/user/<uid>/keyai` afterward just sees an empty directory. The GUI's availability check is a plain `fs.existsSync(SOCKET_PATH)`, so this read as "not running."
+
+The fix was to stop anchoring a system-level daemon's socket to a directory whose lifecycle is owned by a login session. We moved it to a fixed path under the RAM-backed `/run` filesystem, `/run/keyai/oci.sock`, which exists for the lifetime of the machine regardless of login timing. `keyai` then `chmod`s the socket to `0o666` after creating it, allowing any local user to connect without depending on `XDG_RUNTIME_DIR`. The result is simpler and avoids boot-order races entirely. Indeed, we learned that system-level daemons should not depend on user session resources.
+
+### A Root Process That Got "Permission Denied"
+
+Around the same time, a user reported that starting the inference container failed with:
+
+```
+Error opening file with mode 'w': '/var/log/our-app/inference.log': Permission denied
+```
+
+This was confusing on its face: `keyai` always runs as root under `systemd`, and root bypasses ordinary file-permission checks via `CAP_DAC_OVERRIDE`. We checked every alternative explanation we could think of — file ownership and mode (`root:root`, normal `644`/`755`), `lsattr` for an immutable flag (negative), the kernel log for an AppArmor denial (negative!), an NFS mount with root-squash (negative!!). Nothing pointed to a genuine permission conflict for a process actually running as root.
+
+The real cause was upstream of this error: because the socket could intermittently disappear after a reboot (the bug above), the user may have worked around it by launching `keyai` by hand as their own regular desktop account, not through systemd. That non-root process could freely create its own socket under its own session directory, so the GUI treated it as available — but `/var/log/keyai/*.log` already existed from the previous, correctly root-run session, owned `root:root` with mode `644`. A non-root process cannot open a `644` root-owned file for writing, right? So the "permission denied" was never a bug in the log directory's permissions, but it was a symptom of the daemon running as the wrong user.
+
+We fixed the underlying cause by fixing the socket race, but we also hardened the logger itself, independent of that fix: if `keyai` can't open a log file for any reason, it now falls back to a same-named file under `/tmp/keyai-logs/` and keeps using that fallback path for the rest of the process's life, rather than silently retrying over the original path for every write.
+
+## Conclusion
+
+The OCI spec is the real abstraction layer. Tools such as `Docker`, `Podman`, `containerd`, and `nerdctl` all essentially are generating JSON and calling `runc` (or `crun`?) underneath. Once we understand `config.json`, we are just one of them.
+
+Actually, I am happier with "keyai" than with Docker on production. It makes our app blazingly faster. Booting up took 1 second, compared to the previous 8 seconds! Perhaps, it's due to the small surface area: there are no daemons beyond `runc` and a precisely-engineered `keyai`, no registries to reach, and no image layers to garbage-collect. The containers are just directories on disk.
+
+For anyone building applications that need containerized services in environments where requiring Docker from the user is not acceptable, this architecture is worth serious consideration. The spec is stable, `runc` is reliable, and the only hard part is understanding the handful of `config.json` fields that matter. Once you do, the rest is just JSON. Alternative technology does exist, such as AWS Firecracker, which can load OCI `config.json` specification to boot up a microVM -- yes, it seems too much (if not too different) for our original intention of Docker-less container runner.
