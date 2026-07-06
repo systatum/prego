@@ -16,6 +16,12 @@
 [build.environment]
   GATSBY_PRESERVE_FILE_DOWNLOAD_CACHE = "true"
 
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+  Content-Security-Policy = "frame-ancestors 'self' https://app.tina.io;"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"  
