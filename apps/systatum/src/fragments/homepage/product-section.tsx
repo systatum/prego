@@ -57,6 +57,12 @@ export function Product() {
   const DATA_PRODUCTS: DataProductProps[] = useMemo(
     () => [
       {
+        title: "Bil-quran",
+        description: tProduct("bilquranDescription"),
+        image: "/product/bil-quran.png",
+        link: "https://bil-quran.com",
+      },
+      {
         title: "Workaty",
         description: tProduct("workatyDescription"),
         image: "/product/workaty.png",
