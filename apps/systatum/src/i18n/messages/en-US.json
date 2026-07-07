@@ -13,9 +13,10 @@
     },
     "productSection": {
       "title": "What we did",
+      "bilquranDescription": "Interlinear Qur'an with word-by-word translation and exegesis from Sunni & Shi'i traditions.",
       "workatyDescription": "Lorem ipsum...",
-      "conetoDescription": "Lorem ipsum...",
-      "garaDescription": "Lorem ipsum..."
+      "conetoDescription": "Free React component library for building polished web, desktop & mobile apps twice as fast",
+      "garaDescription": "Programming language blending procedural, functional & OOP for learning coding without the English barrier"
     },
     "collaboratorSection": {
       "title": "Members",
