@@ -50,6 +50,10 @@ const TEAMS = {
     short: "IMOTS",
     long: "Intern Member of Technical Staff, Programing Language Research Laboratory",
   },
+  imots_be: {
+    short: "IMOTS",
+    long: "Intern Member of Technical Staff, Backend Engineering",
+  },
   pop: { short: "People", long: "People Operations" },
 };
 
@@ -59,8 +63,8 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Adam",
     name_long: "Adam N. Hakarsa",
     teams: TEAMS["ceo"],
-    bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
-    profile_picture_url: "/profile/profile-adam.png",
+    bio: "His interest in software began at age 10 when he built a Windows application for his father's campus. He now leads Systatum across product and engineering, working primarily with Ruby, Crystal, TypeScript, and React. He enjoys tackling complex challenges through research and careful problem solving.",
+    profile_picture_url: "/profile/profile-adam.jpeg",
   },
   {
     id: 2,
@@ -75,7 +79,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Salwa",
     name_long: "Salwa Gusmy",
     teams: TEAMS["pop"],
-    bio: "Business Management and Digitalization are inseparable in today’s companies across all sectors. As a Bachelor in Business Management, I’m particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
+    bio: "Business Management and Digitalization are inseparable in today's companies across all sectors. Having Bachelor in Business Management, I'm particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
     profile_picture_url: "profile/profile-salwa.jpg",
   },
   {
@@ -92,14 +96,14 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Kade Satrya",
     teams: TEAMS["imots_pl"],
     bio: "Software engineer by day and by night. Loves tackling complex and unique problems that are 'behind the scenes'. Regularly consults refactoring guru like some sort of a holy scripture. If I could choose any superpower, I'd pick the one my father has - the ability to fall asleep in under two minutes.",
-    profile_picture_url: "profile/profile-kade.png",
+    profile_picture_url: "profile/profile-kade.jpeg",
   },
   {
     id: 6,
     name_short: "Kent",
     name_long: "Kent Alber Fredson",
     teams: TEAMS["imots_pl"],
-    bio: "I’m someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
+    bio: "I'm someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
     profile_picture_url: "profile/profile-kent.JPG",
   },
   {
@@ -108,15 +112,23 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Gilberdi Axel Nathaniel Sinaga",
     teams: TEAMS["imots_pl"],
     bio: "Computer science student who loves building things with code, especially on the backend. Curious about programming languages, philosophy, and books that bend your brain. Bilingual in Indonesian and English.",
-    profile_picture_url: "profile/profile-gilberdi.PNG",
+    profile_picture_url: "profile/profile-gilberdi.jpeg",
   },
   {
     id: 8,
     name_short: "Ceavin",
     name_long: "Ceavin Rufus De Prayer Purba",
     teams: TEAMS["imots_pl"],
-    bio: "I’ve been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
+    bio: "I've been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
     profile_picture_url: "profile/profile-ceavin.JPG",
+  },
+  {
+    id: 9,
+    name_short: "Alib",
+    name_long: "Ahmad Ghalib Athariq",
+    teams: TEAMS["imots_be"],
+    bio: "Alib enjoys building software, exploring new programming concepts, and spending his free time watching educational videos or reading about everything from technology to philosophy. His childhood dream of becoming a professor reflects the curiosity that continues to drive both his work and hobbies.",
+    profile_picture_url: "profile/profile-alib.jpeg",
   },
 ];
 
