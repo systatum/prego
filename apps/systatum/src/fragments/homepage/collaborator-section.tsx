@@ -96,7 +96,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Kade Satrya",
     teams: TEAMS["imots_pl"],
     bio: "Software engineer by day and by night. Loves tackling complex and unique problems that are 'behind the scenes'. Regularly consults refactoring guru like some sort of a holy scripture. If I could choose any superpower, I'd pick the one my father has - the ability to fall asleep in under two minutes.",
-    profile_picture_url: "profile/profile-kade.png",
+    profile_picture_url: "profile/profile-kade.jpeg",
   },
   {
     id: 6,
