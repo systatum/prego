@@ -63,8 +63,8 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Adam",
     name_long: "Adam N. Hakarsa",
     teams: TEAMS["ceo"],
-    bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems.",
-    profile_picture_url: "/profile/profile-adam.png",
+    bio: "His interest in software began at age 10 when he built a Windows application for his father's campus. He now leads Systatum across product and engineering, working primarily with Ruby, Crystal, TypeScript, and React. He enjoys tackling complex challenges through research and careful problem solving.",
+    profile_picture_url: "/profile/profile-adam.jpeg",
   },
   {
     id: 2,
@@ -129,7 +129,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     teams: TEAMS["imots_be"],
     bio: "Alib enjoys building software, exploring new programming concepts, and spending his free time watching educational videos or reading about everything from technology to philosophy. His childhood dream of becoming a professor reflects the curiosity that continues to drive both his work and hobbies.",
     profile_picture_url: "profile/profile-alib.jpeg",
-  }
+  },
 ];
 
 export function Collaborator() {
