@@ -112,7 +112,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_long: "Gilberdi Axel Nathaniel Sinaga",
     teams: TEAMS["imots_pl"],
     bio: "Computer science student who loves building things with code, especially on the backend. Curious about programming languages, philosophy, and books that bend your brain. Bilingual in Indonesian and English.",
-    profile_picture_url: "profile/profile-gilberdi.PNG",
+    profile_picture_url: "profile/profile-gilberdi.jpeg",
   },
   {
     id: 8,
