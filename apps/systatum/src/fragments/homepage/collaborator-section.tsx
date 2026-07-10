@@ -50,6 +50,10 @@ const TEAMS = {
     short: "IMOTS",
     long: "Intern Member of Technical Staff, Programing Language Research Laboratory",
   },
+  imots_be: {
+    short: "IMOTS",
+    long: "Intern Member of Technical Staff, Backend Engineering",
+  },
   pop: { short: "People", long: "People Operations" },
 };
 
@@ -59,7 +63,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Adam",
     name_long: "Adam N. Hakarsa",
     teams: TEAMS["ceo"],
-    bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems. I'd say: be human.",
+    bio: "I started software engineering early at 10 by building a Windows app for my dad’s campus. I was fascinated right-away with how people and technology inter-connect. At Harvard, I learned how to design a better, smarter systems.",
     profile_picture_url: "/profile/profile-adam.png",
   },
   {
@@ -75,7 +79,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Salwa",
     name_long: "Salwa Gusmy",
     teams: TEAMS["pop"],
-    bio: "Business Management and Digitalization are inseparable in today’s companies across all sectors. As a Bachelor in Business Management, I’m particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
+    bio: "Business Management and Digitalization are inseparable in today's companies across all sectors. Having Bachelor in Business Management, I'm particularly drawn to the Digital Marketing industry since it's fascinating to realize that marketing goes far beyond just creating products—it is how you understand the psychological factors of your consumer behavior.",
     profile_picture_url: "profile/profile-salwa.jpg",
   },
   {
@@ -99,7 +103,7 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Kent",
     name_long: "Kent Alber Fredson",
     teams: TEAMS["imots_pl"],
-    bio: "I’m someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
+    bio: "I'm someone who loves learning, working with data, and keeping traditions alive. Always exploring new ideas and growing step by step.",
     profile_picture_url: "profile/profile-kent.JPG",
   },
   {
@@ -115,9 +119,17 @@ const PROFILE_COLLABORATOR: ProfileCollaboratorProps[] = [
     name_short: "Ceavin",
     name_long: "Ceavin Rufus De Prayer Purba",
     teams: TEAMS["imots_pl"],
-    bio: "I’ve been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
+    bio: "I've been passionate about programming since junior high school, and over time it naturally led me to pursue both coding and entrepreneurship. I try to approach my work with purpose and responsibility, because as a Wise Man once said, serve others.",
     profile_picture_url: "profile/profile-ceavin.JPG",
   },
+  {
+    id: 9,
+    name_short: "Alib",
+    name_long: "Ahmad Ghalib Athariq",
+    teams: TEAMS["imots_be"],
+    bio: "Alib enjoys building software, exploring new programming concepts, and spending his free time watching educational videos or reading about everything from technology to philosophy. His childhood dream of becoming a professor reflects the curiosity that continues to drive both his work and hobbies.",
+    profile_picture_url: "profile/profile-alib.jpeg",
+  }
 ];
 
 export function Collaborator() {
