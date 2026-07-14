@@ -257,3 +257,30 @@ body {
     font-weight: 500;
   }
 }
+
+.blog-post pre {
+  background-color: #f8f8f8;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.blog-post pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #24292f;
+}
+
+.blog-post code:not(pre code) {
+  background-color: #f3f4f6;
+  color: rgb(227, 17, 108);
+  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
