@@ -236,25 +236,41 @@ body {
   }
 }
 
+.blog-post h1 {
+  font-size: 36px;
+  font-weight: 600;
+}
+
 .blog-post h2 {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.blog-post h3 {
   font-size: 24px;
   font-weight: 500;
 }
 
-.blog-post h3 {
+.blog-post h4 {
   font-size: 20px;
   font-weight: 500;
 }
 
 @media (max-width: 450px) {
+  .blog-post h1 {
+    font-size: 28px;
+  }
+
   .blog-post h2 {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 24px;
   }
 
   .blog-post h3 {
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .blog-post h4 {
+    font-size: 18px;
   }
 }
 
