@@ -235,3 +235,25 @@ body {
       20px 0 rgba(20, 99, 255, 0.6);
   }
 }
+
+.blog-post h2 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.blog-post h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@media (max-width: 450px) {
+  .blog-post h2 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .blog-post h3 {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
