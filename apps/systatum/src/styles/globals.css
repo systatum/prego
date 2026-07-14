@@ -236,45 +236,44 @@ body {
   }
 }
 
-.blog-post h1 {
-  font-size: 36px;
-  font-weight: 600;
+.blog-post .prose h1 {
+  font-size: 28px;
+  font-weight: 500;
 }
 
-.blog-post h2 {
-  font-size: 30px;
-  font-weight: 600;
-}
-
-.blog-post h3 {
+.blog-post .prose h2 {
   font-size: 24px;
   font-weight: 500;
 }
 
-.blog-post h4 {
+.blog-post .prose h3 {
   font-size: 20px;
   font-weight: 500;
 }
 
-@media (max-width: 450px) {
-  .blog-post h1 {
-    font-size: 28px;
-  }
+.blog-post .prose h4 {
+  font-size: 16px;
+  font-weight: 500;
+}
 
-  .blog-post h2 {
+@media (max-width: 450px) {
+  .blog-post .prose h1 {
     font-size: 24px;
   }
-
-  .blog-post h3 {
+  .blog-post .prose h2 {
     font-size: 20px;
   }
 
-  .blog-post h4 {
-    font-size: 18px;
+  .blog-post .prose h3 {
+    font-size: 16px;
+  }
+
+  .blog-post .prose h4 {
+    font-size: 12px;
   }
 }
 
-.blog-post pre {
+.blog-post .prose pre {
   background-color: #f8f8f8;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -285,14 +284,14 @@ body {
   line-height: 1.6;
 }
 
-.blog-post pre code {
+.blog-post .prose pre code {
   background: transparent;
   border: none;
   padding: 0;
   color: #24292f;
 }
 
-.blog-post code:not(pre code) {
+.blog-post .prose code:not(pre code) {
   background-color: #f3f4f6;
   color: rgb(227, 17, 108);
   border-radius: 4px;
