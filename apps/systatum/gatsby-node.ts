@@ -5,9 +5,12 @@ import fs from "fs";
 import RSS from "rss";
 import { generateDescription } from "./src/seo/metadata";
 import { I18N_RESOURCES } from "./src/i18n/resources";
+import TerserPlugin from "terser-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 
 export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
   actions,
+  stage,
 }) => {
   actions.setWebpackConfig({
     resolve: {
@@ -16,6 +19,12 @@ export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
         "@tina": path.resolve(__dirname, "tina"),
       },
     },
+    ...(stage === "build-javascript" && {
+      optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+      },
+    }),
   });
 };
 

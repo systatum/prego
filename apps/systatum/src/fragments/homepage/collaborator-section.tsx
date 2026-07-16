@@ -141,16 +141,19 @@ export function Collaborator() {
   const [isHovered, setIsHovered] = useState<number | null>(null);
   const [expandedProfile, setExpandedProfile] =
     useState<ProfileCollaboratorProps | null>(null);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+  const isTablet = typeof window !== "undefined" && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 430;
 
   const contentCollaborator = useMemo(() => {
-    if (!isMobile) {
+    if (!isMobile && !isTablet) {
       return PROFILE_COLLABORATOR.map((data) => [data]);
     }
 
     return PROFILE_COLLABORATOR.reduce<ProfileCollaboratorProps[][]>(
       (acc, profile, index) => {
-        const pairIndex = Math.floor(index / 2);
+        const indexPerContent = isMobile ? 1 : 2;
+        const pairIndex = Math.floor(index / indexPerContent);
 
         if (!acc[pairIndex]) {
           acc[pairIndex] = [];
@@ -162,7 +165,7 @@ export function Collaborator() {
       },
       [],
     );
-  }, [isMobile]);
+  }, [isMobile, isTablet]);
 
   return (
     <div className="pt-24 pb-32 bg-gray-50 flex justify-center flex-col gap-20">
