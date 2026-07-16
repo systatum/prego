@@ -23,6 +23,7 @@
     "@remixicon/react": "^4.6.0",
     "@systatum/coneto": "3.0.0",
     "@tinacms/cli": "^1.9.8",
+    "css-minimizer-webpack-plugin": "^8.0.0",
     "framer-motion": "^12.18.1",
     "gatsby": "^5.14.6",
     "gatsby-plugin-postcss": "^6.16.0",
