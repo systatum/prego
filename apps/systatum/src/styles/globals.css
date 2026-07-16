@@ -235,3 +235,67 @@ body {
       20px 0 rgba(20, 99, 255, 0.6);
   }
 }
+
+.blog-post .prose h1 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.blog-post .prose h2 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.blog-post .prose h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.blog-post .prose h4 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 450px) {
+  .blog-post .prose h1 {
+    font-size: 24px;
+  }
+  .blog-post .prose h2 {
+    font-size: 20px;
+  }
+
+  .blog-post .prose h3 {
+    font-size: 16px;
+  }
+
+  .blog-post .prose h4 {
+    font-size: 12px;
+  }
+}
+
+.blog-post .prose pre {
+  background-color: #f8f8f8;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.blog-post .prose pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #24292f;
+}
+
+.blog-post .prose code:not(pre code) {
+  background-color: #f3f4f6;
+  color: rgb(227, 17, 108);
+  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
+  font-family: ui-monospace, SFMono-Regular, "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
